@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TicTacToe</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Tic\-Tac\-Toe</string>
     <string name="action_settings">Settings</string>
+    <string name = "human_turn">It\'s your turn!</string>
+    <string name = "comp_turn">It\'s the computer\'s turn!</string>
+    <string name = "outcome_win">You Won!!</string>
+    <string name = "outcome_lose">You Lost!!</string>
+    <string name = "outcome_tie">It\'s a Tie!!</string>
+    <string name = "one">1</string>
+    <string name = "two">2</string>
+    <string name = "three">3</string>
+    <string name = "four">4</string>
+    <string name = "five">5</string>
+    <string name = "six">6</string>
+    <string name = "seven">7</string>
+    <string name = "eight">8</string>
+    <string name = "nine">9</string>
+    <string name = "human">Human:  </string>
+    <string name = "computer">Computer:  </string>
+    <string name = "ties">Ties:  </string>
 
 </resources>
