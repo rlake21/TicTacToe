@@ -1,4 +1,4 @@
-package com.example.tictactoe;
+package com.csmmobileapps.lakeborener.tictactoe;
 
 import java.util.Random;
 
@@ -15,7 +15,7 @@ public class Game {
         return SIZE;
     }
 
-    public MainGame(){
+    public Game(){
         daBoard = new char[SIZE];
 
         for (int i = 0; i < SIZE; i++){
@@ -26,7 +26,7 @@ public class Game {
     }
 
 
-    public void makeMove(int location, char player){
+    public void setMove(int location, char player){
         daBoard[location] = player;
     }
 
@@ -40,13 +40,18 @@ public class Game {
 
     public int computerMove(){
 
-        int decidedMove;
+        int decidedMove = 0;
 
         for (int i = 0; i < SIZE; i++){
+            if (daBoard[i] != HUMAN && daBoard[i] != COMPUTER){
+                char temp = daBoard[i];
+                daBoard[i] = COMPUTER;
+                //if (willWin()){
+
+                //}
+            }
 
         }
-
-
 
         return decidedMove;
     }
