@@ -6,7 +6,7 @@ package com.csmmobileapps.lakeborener.tictactoe;
 public class Board {
     private Cell[][] theBoard;
 
-    //constructor creates a new board full of empty cells TODO: draw board cells when initialised
+    //constructor creates a new board full of empty cells
     public Board() {
         theBoard = new Cell[3][3];
     }

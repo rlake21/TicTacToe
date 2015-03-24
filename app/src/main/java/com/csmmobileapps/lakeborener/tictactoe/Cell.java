@@ -1,6 +1,6 @@
 package com.csmmobileapps.lakeborener.tictactoe;
 
-/** Single Cell Class TODO: add drawing logic for each cell.
+/** Single Cell Class
  * Created by jess on 3/24/15.
  */
 public class Cell {

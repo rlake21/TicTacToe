@@ -5,6 +5,7 @@ import java.util.Random;
 public class Game {
 
     private Board daBoard;
+    private int cpuDifficulty;
     public final static char HUMAN = 'X';
     public final static char COMPUTER = 'O';
     public final static char EMPTY = ' ';
@@ -12,17 +13,27 @@ public class Game {
 
     public Game(){
         daBoard = new Board();
-
+        cpuDifficulty = 0;
     }
 
+    public boolean makeMove(int row, int col, char state) {
+        if( daBoard.getCell(row, col) == EMPTY ) { //valid move, change state of the cell
+            daBoard.setCell(row, col, state);
+            return true;
+        }
+
+        else { //invalid move,TODO: handle with an error message
+            return false;
+        }
+    }
 
     public int computerMove(){
 
-        int decidedMove = 0;
 
 
 
-        return decidedMove;
+
+        return 0;
     }
 
 
