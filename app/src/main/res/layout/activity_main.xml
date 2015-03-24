@@ -120,10 +120,9 @@
         android:layout_marginTop="150dp" />
 
     <TableLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentLeft="false">
+        android:layout_alignParentLeft="true">
 
         <TableRow
             android:layout_width="fill_parent"
@@ -133,17 +132,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/human"
-                android:id="@+id/textView"
+                android:id="@+id/humanLabel"
                 android:textColor="#ffffffff"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:layout_gravity="right" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
-                android:id="@+id/textView2"
+                android:id="@+id/humanCount"
                 android:textColor="#ffffffff"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:layout_marginLeft="8dp" />
         </TableRow>
 
         <TableRow
@@ -154,17 +155,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/computer"
-                android:id="@+id/textView3"
+                android:id="@+id/compLabel"
                 android:textColor="#ffffffff"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:layout_gravity="right" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
-                android:id="@+id/textView4"
+                android:id="@+id/compCount"
                 android:textColor="#ffffffff"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:layout_marginLeft="8dp" />
         </TableRow>
 
         <TableRow
@@ -175,17 +178,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ties"
-                android:id="@+id/textView5"
+                android:id="@+id/tieLabel"
                 android:textColor="#ffffffff"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:layout_gravity="right" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
-                android:id="@+id/textView6"
+                android:id="@+id/tieCount"
                 android:textColor="#ffffffff"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:layout_marginLeft="8dp" />
         </TableRow>
     </TableLayout>
 </RelativeLayout>

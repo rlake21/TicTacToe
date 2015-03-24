@@ -55,6 +55,10 @@ public class Game {
 
         return decidedMove;
     }
+
+    public int willWin(){
+        return 0;
+    }
 }
 
 
