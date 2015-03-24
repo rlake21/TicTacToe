@@ -22,18 +22,35 @@ public class Game {
             return true;
         }
 
-        else { //invalid move,TODO: handle with an error message
+        else { //invalid move,TODO: handle with an error message if human made bad move
             return false;
         }
     }
 
-    public int computerMove(){
+    public boolean computerMove(){
+        if( cpuDifficulty == 0 ) { //make a random valid move
+            int rowTry = rand.nextInt() % 3;
+            int colTry = rand.nextInt() % 3;
+            boolean firstTry = makeMove(rowTry, colTry, COMPUTER);
+            if (!firstTry) {
+                do {
+                    rowTry = rand.nextInt() % 3;
+                    colTry = rand.nextInt() % 3;
+                    firstTry = makeMove(rowTry, colTry, COMPUTER);
+                } while (!firstTry);
+            }
+            return true;
+        }
 
+        else if( cpuDifficulty == 1 ) {
 
+        }
 
+        else if( cpuDifficulty == 2 ) {
 
+        }
 
-        return 0;
+        return false;
     }
 
 
