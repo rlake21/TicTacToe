@@ -28,7 +28,7 @@ public class OnePlayer extends ActionBarActivity {
 
 
         //Initialize button array
-        mButtons = new Button[mGame.getSIZE()];
+        mButtons = new Button[9];
         mButtons[0] = (Button) findViewById(R.id.one);
         mButtons[1] = (Button) findViewById(R.id.two);
         mButtons[2] = (Button) findViewById(R.id.three);

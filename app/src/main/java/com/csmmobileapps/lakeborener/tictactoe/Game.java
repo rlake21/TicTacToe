@@ -4,37 +4,15 @@ import java.util.Random;
 
 public class Game {
 
-    private char daBoard[];
-    private final static int SIZE = 9;
+    private Board daBoard;
     public final static char HUMAN = 'X';
     public final static char COMPUTER = 'O';
     public final static char EMPTY = ' ';
     private Random rand;
 
-    public static int getSIZE(){
-        return SIZE;
-    }
-
     public Game(){
-        daBoard = new char[SIZE];
+        daBoard = new Board();
 
-        for (int i = 0; i < SIZE; i++){
-            daBoard[i] = EMPTY;
-        }
-
-        rand = new Random();
-    }
-
-
-    public void setMove(int location, char player){
-        daBoard[location] = player;
-    }
-
-
-    public void clearMoves(){
-        for (int i = 0; i < SIZE; i++){
-            daBoard[i] = EMPTY;
-        }
     }
 
 
@@ -42,23 +20,12 @@ public class Game {
 
         int decidedMove = 0;
 
-        for (int i = 0; i < SIZE; i++){
-            if (daBoard[i] != HUMAN && daBoard[i] != COMPUTER){
-                char temp = daBoard[i];
-                daBoard[i] = COMPUTER;
-                //if (willWin()){
 
-                //}
-            }
-
-        }
 
         return decidedMove;
     }
 
-    public int willWin(){
-        return 0;
-    }
+
 }
 
 
