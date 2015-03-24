@@ -4,10 +4,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class OnePlayer extends ActionBarActivity {
+public class NormalGame extends ActionBarActivity {
 
     private Game mGame;
     private Button mButtons[];
@@ -55,6 +56,31 @@ public class OnePlayer extends ActionBarActivity {
 
     }
 
+    private void startNewGame(){
+
+        for (int i = 0; i < mButtons.length; i++){
+            mButtons[i].setText(" ");
+            mButtons[i].setEnabled(true);
+            mButtons[i].setOnClickListener(new ButtonClickListener(i));
+        }
+    }
+
+    private class ButtonClickListener implements View.OnClickListener{
+
+        int location;
+
+        public ButtonClickListener(int loc){
+            this.location = loc;
+        }
+
+        public void onClick(View view){
+
+        }
+
+
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,3 +104,4 @@ public class OnePlayer extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
