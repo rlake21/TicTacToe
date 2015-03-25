@@ -80,9 +80,9 @@ public class Game {
             char checkDiag10 = daBoard.getCell(2, 2);
             char checkDiag11 = daBoard.getCell(0, 0);
             if ((checkMaster == checkVert0 && checkVert0 == checkVert1) ||
-                    (checkMaster == checkHor0 && checkHor0 == checkHor1) ||
-                    (checkMaster == checkDiag00 && checkDiag00 == checkDiag01) ||
-                    (checkMaster == checkDiag10 && checkDiag10 == checkDiag11)) {
+                (checkMaster == checkHor0 && checkHor0 == checkHor1) ||
+                (checkMaster == checkDiag00 && checkDiag00 == checkDiag01) ||
+                (checkMaster == checkDiag10 && checkDiag10 == checkDiag11)) {
                 winnerChar = checkMaster;
             }
         }
@@ -94,7 +94,7 @@ public class Game {
             char checkDown0 = daBoard.getCell(1, 0);
             char checkDown1 = daBoard.getCell(2, 0);
             if ((checkMaster == checkRight0 && checkRight0 == checkRight1) ||
-                    (checkMaster == checkDown0 && checkDown0 == checkDown1)) {
+                (checkMaster == checkDown0 && checkDown0 == checkDown1)) {
                 winnerChar = checkMaster;
             }
         }
@@ -106,7 +106,7 @@ public class Game {
             char checkLeft0 = daBoard.getCell(2, 1);
             char checkLeft1 = daBoard.getCell(2, 0);
             if ((checkMaster == checkUp0 && checkUp0 == checkUp1) ||
-                    (checkMaster == checkLeft0 && checkLeft0 == checkLeft1)) {
+                (checkMaster == checkLeft0 && checkLeft0 == checkLeft1)) {
                 winnerChar = checkMaster;
             }
 
