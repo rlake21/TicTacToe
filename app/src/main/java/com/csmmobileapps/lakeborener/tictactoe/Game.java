@@ -67,15 +67,73 @@ public class Game {
         return null;
     }
 
-    public int checkForWinner(){
+    public int checkForWinner(int turnNumber) {
+        char winnerChar = EMPTY;
+        if (daBoard.getCell(1, 1) != EMPTY) {
+            char checkMaster = daBoard.getCell(1, 1);
+            char checkVert0 = daBoard.getCell(0, 1);
+            char checkVert1 = daBoard.getCell(2, 1);
+            char checkHor0 = daBoard.getCell(1, 0);
+            char checkHor1 = daBoard.getCell(1, 2);
+            char checkDiag00 = daBoard.getCell(0, 2);
+            char checkDiag01 = daBoard.getCell(2, 0);
+            char checkDiag10 = daBoard.getCell(2, 2);
+            char checkDiag11 = daBoard.getCell(0, 0);
+            if ((checkMaster == checkVert0 && checkVert0 == checkVert1) ||
+                    (checkMaster == checkHor0 && checkHor0 == checkHor1) ||
+                    (checkMaster == checkDiag00 && checkDiag00 == checkDiag01) ||
+                    (checkMaster == checkDiag10 && checkDiag10 == checkDiag11)) {
+                winnerChar = checkMaster;
+            }
+        }
+
+        if (daBoard.getCell(0, 0) != EMPTY) {
+            char checkMaster = daBoard.getCell(0, 0);
+            char checkRight0 = daBoard.getCell(0, 1);
+            char checkRight1 = daBoard.getCell(0, 2);
+            char checkDown0 = daBoard.getCell(1, 0);
+            char checkDown1 = daBoard.getCell(2, 0);
+            if ((checkMaster == checkRight0 && checkRight0 == checkRight1) ||
+                    (checkMaster == checkDown0 && checkDown0 == checkDown1)) {
+                winnerChar = checkMaster;
+            }
+        }
+
+        if (daBoard.getCell(2, 2) != EMPTY) {
+            char checkMaster = daBoard.getCell(2, 2);
+            char checkUp0 = daBoard.getCell(1, 2);
+            char checkUp1 = daBoard.getCell(0, 2);
+            char checkLeft0 = daBoard.getCell(2, 1);
+            char checkLeft1 = daBoard.getCell(2, 0);
+            if ((checkMaster == checkUp0 && checkUp0 == checkUp1) ||
+                    (checkMaster == checkLeft0 && checkLeft0 == checkLeft1)) {
+                winnerChar = checkMaster;
+            }
+
+        }
+
         /*
         return 0 if no win and no tie (still empty space on un-won board)
         return 1 if tie
         return 2 if human win
         return 3 if computer win
+*/
+        if( winnerChar == HUMAN ) {
+            return 2;
+        }
 
-         */
-        return 0;
+        else if( winnerChar == COMPUTER ) {
+            return 3;
+        }
+
+        else if( winnerChar == EMPTY && turnNumber > 8 ) {
+            return 1;
+        }
+
+        else {
+            return 0;
+        }
+
     }
 
 
