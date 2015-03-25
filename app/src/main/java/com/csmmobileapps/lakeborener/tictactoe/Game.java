@@ -16,6 +16,16 @@ public class Game {
         cpuDifficulty = 0;
     }
 
+    public char getHumanChar(){
+        return HUMAN;
+    }
+    public char getCompChar(){
+        return COMPUTER;
+    }
+    public char getEmptyChar(){
+        return EMPTY;
+    }
+
     public boolean makeMove(int row, int col, char state) {
         if( daBoard.getCell(row, col) == EMPTY ) { //valid move, change state of the cell
             daBoard.setCell(row, col, state);
@@ -27,7 +37,8 @@ public class Game {
         }
     }
 
-    public boolean computerMove(){
+    public int[] computerMove(){
+        int decidedMove[] = new int[2];
         if( cpuDifficulty == 0 ) { //make a random valid move
             int rowTry = rand.nextInt() % 3;
             int colTry = rand.nextInt() % 3;
@@ -39,7 +50,10 @@ public class Game {
                     firstTry = makeMove(rowTry, colTry, COMPUTER);
                 } while (!firstTry);
             }
-            return true;
+            decidedMove[0] = rowTry;
+            decidedMove[1] = colTry;
+
+            return decidedMove;
         }
 
         else if( cpuDifficulty == 1 ) {
@@ -50,7 +64,18 @@ public class Game {
 
         }
 
-        return false;
+        return null;
+    }
+
+    public int checkForWinner(){
+        /*
+        return 0 if no win and no tie (still empty space on un-won board)
+        return 1 if tie
+        return 2 if human win
+        return 3 if computer win
+
+         */
+        return 0;
     }
 
 

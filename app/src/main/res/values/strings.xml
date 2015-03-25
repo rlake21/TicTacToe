@@ -7,8 +7,8 @@
     <string name = "player_two_turn">It\'s Player 2\'s Turn.:  </string>
     <string name = "human_turn">It\'s your turn!</string>
     <string name = "comp_turn">It\'s the computer\'s turn!</string>
-    <string name = "outcome_win">You Won!!</string>
-    <string name = "outcome_lose">You Lost!!</string>
+    <string name = "outcome_human">You Won!!</string>
+    <string name = "outcome_computer">You Lost!!</string>
     <string name = "outcome_tie">It\'s a Tie!!</string>
     <string name = "one">1</string>
     <string name = "two">2</string>
