@@ -111,72 +111,29 @@ public class Game {
             }
 
         }
-        return 1; // <-- I added this...not sure if right
-    }
-    public int checkForWinnerTwo(){
 
         /*
         return 0 if no win and no tie (still empty space on un-won board)
         return 1 if tie
         return 2 if human win
-        return 3 if computer win*/
-        for(int i = 0; i < 3; i++){
-            //check horizontals
-            if (daBoard.getCharAtLoc(i,0) == HUMAN &&
-                daBoard.getCharAtLoc(i,1) == HUMAN &&
-                daBoard.getCharAtLoc(i,2) == HUMAN){
-                return 2;
-            }
-            if (daBoard.getCharAtLoc(i,0) == COMPUTER &&
-                daBoard.getCharAtLoc(i,1) == COMPUTER &&
-                daBoard.getCharAtLoc(i,2) == COMPUTER){
-                return 3;
-            }
-            //check verticals
-            if (daBoard.getCharAtLoc(0,i) == HUMAN &&
-                daBoard.getCharAtLoc(1,i) == HUMAN &&
-                daBoard.getCharAtLoc(2,i) == HUMAN){
-                return 2;
-            }
-            if (daBoard.getCharAtLoc(0,i) == COMPUTER &&
-                daBoard.getCharAtLoc(1,i) == COMPUTER &&
-                daBoard.getCharAtLoc(2,i) == COMPUTER){
-                return 3;
-            }
-        }
-        //check diagonals
-        if (daBoard.getCharAtLoc(0,0) == HUMAN &&
-            daBoard.getCharAtLoc(1,1) == HUMAN &&
-            daBoard.getCharAtLoc(2,2) == HUMAN){
+        return 3 if computer win
+*/
+        if( winnerChar == HUMAN ) {
             return 2;
         }
-        if (daBoard.getCharAtLoc(0,0) == COMPUTER &&
-            daBoard.getCharAtLoc(1,1) == COMPUTER &&
-            daBoard.getCharAtLoc(2,2) == COMPUTER){
-            return 3;
-        }
-        if (daBoard.getCharAtLoc(2,0) == HUMAN &&
-                daBoard.getCharAtLoc(1,1) == HUMAN &&
-                daBoard.getCharAtLoc(2,0) == HUMAN){
-            return 2;
-        }
-        if (daBoard.getCharAtLoc(2,0) == COMPUTER &&
-            daBoard.getCharAtLoc(1,1) == COMPUTER &&
-            daBoard.getCharAtLoc(2,0) == COMPUTER){
+
+        else if( winnerChar == COMPUTER ) {
             return 3;
         }
 
-        //check for empty space
-        for (int i = 0; i < 3; i++){
-            for (int j = 0; j < 3; j++){
-                if (daBoard.getCharAtLoc(i,j) != HUMAN && daBoard.getCharAtLoc(i,j) != COMPUTER){
-                    return 0;
-                }
-            }
+        else if( winnerChar == EMPTY && turnNumber > 8 ) {
+            return 1;
         }
 
-        //result is tie
-        return 1;
+        else {
+            return 0;
+        }
+
     }
 
 
