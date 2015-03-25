@@ -25,4 +25,8 @@ public class Board {
     public void setCell(int row, int col, char state) {
         theBoard[row][col].setState(state);
     }
+
+    public char getCharAtLoc(int row, int col){
+        return theBoard[row][col].getState();
+    }
 }

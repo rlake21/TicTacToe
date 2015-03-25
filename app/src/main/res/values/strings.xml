@@ -26,5 +26,6 @@
     <string name = "ties">Ties:  </string>
     <string name = "hint">HINT</string>
     <string name = "undo">UNDO</string>
+    <string name = "noUndo">Can\'t undo!</string>
 
 </resources>
