@@ -24,5 +24,7 @@
     <string name = "human">Human:  </string>
     <string name = "computer">Computer:  </string>
     <string name = "ties">Ties:  </string>
+    <string name = "hint">HINT</string>
+    <string name = "undo">UNDO</string>
 
 </resources>
