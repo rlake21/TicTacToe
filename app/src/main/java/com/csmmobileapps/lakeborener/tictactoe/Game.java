@@ -37,6 +37,14 @@ public class Game {
         }
     }
 
+    public void clearBoard(){
+        for (int i =0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                daBoard.setCell(i,j,EMPTY);
+            }
+        }
+    }
+
     public int[] computerMove(){
         int decidedMove[] = new int[2];
         if( cpuDifficulty == 0 ) { //make a random valid move

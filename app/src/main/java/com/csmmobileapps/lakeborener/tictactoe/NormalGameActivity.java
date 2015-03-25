@@ -19,14 +19,16 @@ public class NormalGameActivity extends ActionBarActivity {
     private TextView mHumanCount;
     private TextView mCompCount;
     private TextView mTieCount;
+
+    private int mCompLastMove[];
+    private int mHumanLastMove[];
+    private int mMoveCounter = 0;
     private int mHumanIncrement = 0;
     private int mCompIncrement = 0;
     private int mTieIncrement = 0;
     private boolean mHumanGoesFirst = true;
     private boolean mGameOver = false;
     private boolean mUndoable = false;
-    private int mCompLastMove[];
-    private int mHumanLastMove[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class NormalGameActivity extends ActionBarActivity {
         mButtons[2][1] = (Button) findViewById(R.id.eight);
         mButtons[2][2] = (Button) findViewById(R.id.nine);
         mUndoButton = (Button) findViewById(R.id.undoButton);
-        mHintButton = (Button) findViewById(R.id.undoButton);
+        mHintButton = (Button) findViewById(R.id.hintButton);
 
         //Initialize text fields
         mTurnInfo = (TextView) findViewById(R.id.TurnInfo);
@@ -70,6 +72,7 @@ public class NormalGameActivity extends ActionBarActivity {
     }
 
     private void startNewGame(){
+        mGame.clearBoard();
 
         //Start button logic
         for (int i = 0; i < 3; i++){
@@ -98,6 +101,7 @@ public class NormalGameActivity extends ActionBarActivity {
     }
 
     private void setMove(int row, int col, char player){
+        mMoveCounter++;
         mGame.makeMove(row,col,player);
         mButtons[row][col].setEnabled(false);
         mButtons[row][col].setText(player);
@@ -131,14 +135,14 @@ public class NormalGameActivity extends ActionBarActivity {
                         setMove(row, col, mGame.getHumanChar());
                         mHumanLastMove[0] = row;
                         mHumanLastMove[1] = col;
-                        int win = mGame.checkForWinnerTwo();
+                        int win = mGame.checkForWinner(mMoveCounter);
 
                         if (win == 0) {
                             int move[] = mGame.computerMove();
                             mTurnInfo.setText(R.string.comp_turn);
                             setMove(move[0], move[1], mGame.getCompChar());
                             mCompLastMove = move;
-                            win = mGame.checkForWinnerTwo();
+                            win = mGame.checkForWinner(mMoveCounter);
                         }
 
                         if (win == 0) {
@@ -149,7 +153,7 @@ public class NormalGameActivity extends ActionBarActivity {
                             mTieCount.setText(Integer.toString(mTieIncrement));
                             mGameOver = true;
                         } else if (win == 2) {
-                            mTurnInfo.setText(R.string.outcome_win);
+                            mTurnInfo.setText(R.string.outcome_human);
                             mHumanIncrement++;
                             mHumanCount.setText(Integer.toString(mHumanIncrement));
                             mGameOver = true;
