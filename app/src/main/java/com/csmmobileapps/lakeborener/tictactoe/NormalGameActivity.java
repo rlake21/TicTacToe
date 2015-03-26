@@ -1,4 +1,10 @@
+
 package com.csmmobileapps.lakeborener.tictactoe;
+
+/** NormalGameActivity
+ * Created by Ryan on 3/24/15.
+ */
+
 
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
@@ -72,13 +78,13 @@ public class NormalGameActivity extends ActionBarActivity {
     }
 
     private void startNewGame(){
-        mGame.clearBoard();
+        //mGame.clearBoard();
 
         //Start button logic
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
-                mButtons[i][j].setText(mGame.getEmptyChar());
                 mButtons[i][j].setEnabled(true);
+                mButtons[i][j].setText(" ");
                 mButtons[i][j].setOnClickListener(new ButtonClickListener(i,j,mGame.getEmptyChar()));
             }
         }
