@@ -64,6 +64,30 @@ public class Game {
     }
 
     public int[] computerMove(){
+        char topLeft = daBoard.getCell(0,0);
+        char topCenter = daBoard.getCell(0,1);
+        char topRight = daBoard.getCell(0,2);
+        char midLeft = daBoard.getCell(1,0);
+        char midCenter = daBoard.getCell(1,1);
+        char midRight = daBoard.getCell(1,2);
+        char bottomLeft = daBoard.getCell(2,0);
+        char bottomCenter = daBoard.getCell(2,1);
+        char bottomRight = daBoard.getCell(2,2);
+
+        boolean markTop = false;
+        boolean markMid = false;
+        boolean markBottom = false;
+        boolean markLeft = false;
+        boolean markRight = false;
+        boolean markForward = false;
+        boolean markBackward = false;
+        boolean markCenter = false;
+        boolean markBook[] = new boolean[8];
+        for( boolean thing : markBook ) thing = false;
+
+        int markCount = 0;
+
+
         int decidedMove[] = new int[2];
         if( cpuDifficulty == 0 ) { //make a random valid move
             int rowTry = Math.abs(rand.nextInt() % 3);
@@ -84,6 +108,123 @@ public class Game {
 
         else if( cpuDifficulty == 1 ) { //cpu mid difficulty attempts to block anything it can but can be outsmarted by starting with a corner
 
+            //check horizontal risks
+            if( (topLeft == PLAYER_ONE && topRight == PLAYER_ONE && topCenter == EMPTY) ||
+                (topCenter == PLAYER_ONE && topRight == PLAYER_ONE && topLeft == EMPTY) ||
+                (topLeft == PLAYER_ONE && topCenter == PLAYER_ONE && topRight == EMPTY)   ) {
+                markTop = true;
+                markBook[0] = true;
+                markCount++;
+            }
+            if( (midLeft == PLAYER_ONE && midRight == PLAYER_ONE && midCenter == EMPTY) ||
+                (midCenter == PLAYER_ONE && midRight == PLAYER_ONE && midLeft == EMPTY) ||
+                (midLeft == PLAYER_ONE && midCenter == PLAYER_ONE && midRight == EMPTY)   ) {
+                markMid = true;
+                markBook[1] = true;
+                markCount++;
+            }
+            if( (bottomLeft == PLAYER_ONE && bottomRight == PLAYER_ONE && bottomCenter == EMPTY) ||
+                (bottomCenter == PLAYER_ONE && bottomRight == PLAYER_ONE && bottomLeft == EMPTY) ||
+                (bottomLeft == PLAYER_ONE && bottomCenter == PLAYER_ONE && bottomRight == EMPTY)   ) {
+                markBottom = true;
+                markBook[2] = true;
+                markCount++;
+            }
+            //check vertical risks
+            if( (topLeft == PLAYER_ONE && bottomLeft == PLAYER_ONE && midLeft == EMPTY) ||
+                (topLeft == PLAYER_ONE && midLeft == PLAYER_ONE && bottomLeft == EMPTY) ||
+                (bottomLeft == PLAYER_ONE && midLeft == PLAYER_ONE && topLeft == EMPTY)   ) {
+                markLeft = true;
+                markBook[3] = true;
+                markCount++;
+            }
+            if( (topCenter == PLAYER_ONE && bottomCenter == PLAYER_ONE && midCenter == EMPTY) ||
+                (topCenter == PLAYER_ONE && midCenter == PLAYER_ONE && bottomCenter == EMPTY) ||
+                (bottomCenter == PLAYER_ONE && midCenter == PLAYER_ONE && topCenter == EMPTY)   ) {
+                markCenter = true;
+                markBook[4] = true;
+                markCount++;
+            }
+            if( (topRight == PLAYER_ONE && bottomRight == PLAYER_ONE && midRight == EMPTY) ||
+                (topRight == PLAYER_ONE && midRight == PLAYER_ONE && bottomRight == EMPTY) ||
+                (bottomRight == PLAYER_ONE && midRight == PLAYER_ONE && topRight == EMPTY)   ) {
+                markRight = true;
+                markBook[5] = true;
+                markCount++;
+            }
+            //check diagonal risks
+            if( (topLeft == PLAYER_ONE && bottomRight == PLAYER_ONE && midCenter == EMPTY) ||
+                (topLeft == PLAYER_ONE && midCenter == PLAYER_ONE && bottomRight == EMPTY) ||
+                (bottomRight == PLAYER_ONE && midCenter == PLAYER_ONE && topLeft == EMPTY)   ) {
+                markBackward = true;
+                markBook[6] = true;
+                markCount++;
+            }
+            if( (topRight == PLAYER_ONE && bottomLeft == PLAYER_ONE && midCenter == EMPTY) ||
+                (topRight == PLAYER_ONE && midCenter == PLAYER_ONE && bottomLeft == EMPTY) ||
+                (bottomLeft == PLAYER_ONE && midCenter == PLAYER_ONE && topRight == EMPTY)   ) {
+                markForward = true;
+                markBook[7] = true;
+                markCount++;
+            }
+
+            //process information gained
+            if( markCount > 1 ) { //pick one randomly
+
+            }
+
+            else if( markCount == 1 ) { //find the one
+                int count = 0;
+                for( boolean theAnswer : markBook ) {
+                    if( theAnswer ) {
+                        switch (count) {
+                            case 0:
+                                makeMove(0, 0, PLAYER_TWO);
+                                makeMove(0, 1, PLAYER_TWO);
+                                makeMove(0, 2, PLAYER_TWO);
+                            case 1:
+                                makeMove(1, 0, PLAYER_TWO);
+                                makeMove(1, 1, PLAYER_TWO);
+                                makeMove(1, 2, PLAYER_TWO);
+                            case 2:
+                                makeMove(2, 0, PLAYER_TWO);
+                                makeMove(2, 1, PLAYER_TWO);
+                                makeMove(2, 2, PLAYER_TWO);
+                            case 3:
+                                makeMove(0, 0, PLAYER_TWO);
+                                makeMove(1, 0, PLAYER_TWO);
+                                makeMove(2, 0, PLAYER_TWO);
+                            case 4:
+                                makeMove(0, 1, PLAYER_TWO);
+                                makeMove(1, 1, PLAYER_TWO);
+                                makeMove(2, 1, PLAYER_TWO);
+                            case 5:
+                                makeMove(0, 2, PLAYER_TWO);
+                                makeMove(1, 2, PLAYER_TWO);
+                                makeMove(2, 2, PLAYER_TWO);
+                            case 6:
+                                makeMove(0, 0, PLAYER_TWO);
+                                makeMove(1, 1, PLAYER_TWO);
+                                makeMove(2, 2, PLAYER_TWO);
+                            case 7:
+                                makeMove(0, 2, PLAYER_TWO);
+                                makeMove(1, 1, PLAYER_TWO);
+                                makeMove(2, 0, PLAYER_TWO);
+                        }
+                    }
+                    count++;
+                }
+
+            }
+
+            else if( markCount == 0 ) { //pick random
+
+            }
+
+
+
+
+
             ///wrong code, change!
             if(makeMove(0,0,PLAYER_TWO)){
                 decidedMove[0] = 0;
@@ -94,8 +235,7 @@ public class Game {
 
         }
 
-        else if( cpuDifficulty == 2 ) { //
-
+        else if( cpuDifficulty == 2 ) {
         }
 
         return null;
