@@ -195,7 +195,7 @@ public class NormalGameActivity extends ActionBarActivity {
                                     if (mButtons[i][j].getText() == "H"){
                                         mButtons[i][j].setText(" ");
                                         setMove(i,j,mGame.getEmptyChar());
-                                        mMoveCounter--;
+                                        mMoveCounter = mMoveCounter - 2;
                                     }
                                 }
                             }
