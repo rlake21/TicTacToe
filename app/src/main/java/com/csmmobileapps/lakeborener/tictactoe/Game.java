@@ -167,10 +167,30 @@ public class Game {
                 markBook[7] = true;
                 markCount++;
             }
-
+ //TODO: change logic of this function to return the CELL object so that its position can be found easily
             //process information gained
+            Cell decidedCell;
+            boolean valid = false;
             if( markCount > 1 ) { //pick one randomly
+            while( !valid ) {
+                int firstRand = Math.abs(rand.nextInt() % 8);
+                if (markBook[firstRand]) {
+                    int rowTry = Math.abs(rand.nextInt() % 3);
+                    int colTry = Math.abs(rand.nextInt() % 3);
+                    boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
+                    if (!firstTry) {
+                        do {
+                            rowTry = Math.abs(rand.nextInt() % 3);
+                            colTry = Math.abs(rand.nextInt() % 3);
+                            firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
+                        } while (!firstTry);
+                    }
+                    valid = true;
+                }
+            }
 
+
+                //return daBoard.getActualCell(rowTry, colTry);
             }
 
             else if( markCount == 1 ) { //find the one
@@ -179,42 +199,41 @@ public class Game {
                     if( theAnswer ) {
                         switch (count) {
                             case 0:
-                                makeMove(0, 0, PLAYER_TWO);
-                                makeMove(0, 1, PLAYER_TWO);
-                                makeMove(0, 2, PLAYER_TWO);
+                                if( makeMove(0, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 0);
+                                if( makeMove(0, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 1);
+                                if( makeMove(0, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 2);
                             case 1:
-                                makeMove(1, 0, PLAYER_TWO);
-                                makeMove(1, 1, PLAYER_TWO);
-                                makeMove(1, 2, PLAYER_TWO);
+                                if( makeMove(1, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 0);
+                                if( makeMove(1, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 1);
+                                if( makeMove(1, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 2);
                             case 2:
-                                makeMove(2, 0, PLAYER_TWO);
-                                makeMove(2, 1, PLAYER_TWO);
-                                makeMove(2, 2, PLAYER_TWO);
+                                if( makeMove(2, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 0);
+                                if( makeMove(2, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 1);
+                                if( makeMove(2, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 2);
                             case 3:
-                                makeMove(0, 0, PLAYER_TWO);
-                                makeMove(1, 0, PLAYER_TWO);
-                                makeMove(2, 0, PLAYER_TWO);
+                                if( makeMove(0, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 0);
+                                if( makeMove(1, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 0);
+                                if( makeMove(2, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 0);
                             case 4:
-                                makeMove(0, 1, PLAYER_TWO);
-                                makeMove(1, 1, PLAYER_TWO);
-                                makeMove(2, 1, PLAYER_TWO);
+                                if( makeMove(0, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 1);
+                                if( makeMove(1, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 1);
+                                if( makeMove(2, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 1);
                             case 5:
-                                makeMove(0, 2, PLAYER_TWO);
-                                makeMove(1, 2, PLAYER_TWO);
-                                makeMove(2, 2, PLAYER_TWO);
+                                if( makeMove(0, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 2);
+                                if( makeMove(1, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 2);
+                                if( makeMove(2, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 2);
                             case 6:
-                                makeMove(0, 0, PLAYER_TWO);
-                                makeMove(1, 1, PLAYER_TWO);
-                                makeMove(2, 2, PLAYER_TWO);
+                                if( makeMove(0, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 0);
+                                if( makeMove(1, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 1);
+                                if( makeMove(2, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 2);
                             case 7:
-                                makeMove(0, 2, PLAYER_TWO);
-                                makeMove(1, 1, PLAYER_TWO);
-                                makeMove(2, 0, PLAYER_TWO);
+                                if( makeMove(0, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 2);
+                                if( makeMove(1, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 1);
+                                if( makeMove(2, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 0);
                         }
                     }
                     count++;
                 }
-
             }
 
             else if( markCount == 0 ) { //pick random

@@ -21,6 +21,8 @@ public class Board {
         return theBoard;
     }
 
+    public Cell getActualCell(int row, int col) { return theBoard[row][col]; }
+
     //or just get a cell
     public char getCell(int row, int col) {
         return theBoard[row][col].getState();
