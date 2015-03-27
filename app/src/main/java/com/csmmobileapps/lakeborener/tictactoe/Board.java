@@ -26,7 +26,7 @@ public class Board {
         return theBoard[row][col].getState();
     }
 
-    //set a cell TODO: update draw when a cell is set
+    //set a cell
     public void setCell(int row, int col, char state) {
         theBoard[row][col].setState(state);
     }

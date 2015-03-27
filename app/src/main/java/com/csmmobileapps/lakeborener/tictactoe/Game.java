@@ -42,12 +42,14 @@ public class Game {
             daBoard.setCell(row, col, state);
             return true;
         }
-        //for undo purposes
+        /**
+        for undo purposes.............   BAD... Make your own function for undo!
+                                        Never make a function do more than it is supposed to
         if (state == EMPTY){
             daBoard.setCell(row,col,EMPTY);
             return true;
         }
-
+        **/
         else { //invalid move,TODO: handle with an error message if human made bad move
             return false;
         }
@@ -69,7 +71,6 @@ public class Game {
             boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
             if (!firstTry) {
                 do {
-                    makeMove(rowTry, colTry, EMPTY);
                     rowTry = Math.abs(rand.nextInt() % 3);
                     colTry = Math.abs(rand.nextInt() % 3);
                     firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
@@ -81,7 +82,7 @@ public class Game {
             return decidedMove;
         }
 
-        else if( cpuDifficulty == 1 ) {
+        else if( cpuDifficulty == 1 ) { //cpu mid difficulty attempts to block anything it can but can be outsmarted by starting with a corner
 
             ///wrong code, change!
             if(makeMove(0,0,PLAYER_TWO)){
@@ -93,7 +94,7 @@ public class Game {
 
         }
 
-        else if( cpuDifficulty == 2 ) {
+        else if( cpuDifficulty == 2 ) { //
 
         }
 
