@@ -10,6 +10,8 @@
     <string name = "outcome_human">You Won!!</string>
     <string name = "outcome_computer">You Lost!!</string>
     <string name = "outcome_tie">It\'s a Tie!!</string>
+    <string name = "outcome_player_one">Player 1 wins!</string>
+    <string name = "outcome_player_two">Player 2 wins!</string>
     <string name = "one">1</string>
     <string name = "two">2</string>
     <string name = "three">3</string>
@@ -27,5 +29,7 @@
     <string name = "hint">HINT</string>
     <string name = "undo">UNDO</string>
     <string name = "noUndo">Can\'t undo!</string>
+    <string name = "newGame">New Game</string>
+    <string name = "exitGame">Exit Game</string>
 
 </resources>

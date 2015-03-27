@@ -78,7 +78,9 @@ public class NormalGameActivity extends ActionBarActivity {
     }
 
     private void startNewGame(){
-        //mGame.clearBoard();
+        mGame.clearBoard();
+        mMoveCounter = 0;
+        mGameOver = false;
 
         //Start button logic
         for (int i = 0; i < 3; i++){
@@ -201,10 +203,21 @@ public class NormalGameActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        switch(id){
+            case R.id.newGame:
+                startNewGame();
+                break;
+            case R.id.exitGame:
+                NormalGameActivity.this.finish();
+                break;
+
+        }
+
         //noinspection SimplifiableIfStatement
+        /*
         if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

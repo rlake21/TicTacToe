@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff000000">
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal"
+        android:id="@+id/headingRow"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Tic-Tac-Toe"
+            android:id="@+id/heading"
+            android:layout_column="15"
+            android:textColor="#ffffffff"
+            android:textSize="55dp"
+            android:textStyle="bold" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:text="One Player"
+            android:id="@+id/onePlayerButton"
+            android:layout_column="15"
+            android:layout_marginTop="75dp"
+            android:textSize="25dp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:text="Two Player"
+            android:id="@+id/twoPlayerButton"
+            android:layout_column="15"
+            android:layout_marginTop="25dp"
+            android:textSize="25dp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:text="Exit Game"
+            android:id="@+id/exitGameButton"
+            android:layout_column="15"
+            android:layout_marginTop="25dp"
+            android:textSize="25dp" />
+    </TableRow>
+
+</TableLayout>
