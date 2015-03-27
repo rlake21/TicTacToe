@@ -33,10 +33,16 @@ public class Game {
     public char getEmptyChar(){
         return EMPTY;
     }
+    public Board getBoard(){return daBoard;}
 
     public boolean makeMove(int row, int col, char state) {
         if( daBoard.getCell(row, col) == EMPTY ) { //valid move, change state of the cell
             daBoard.setCell(row, col, state);
+            return true;
+        }
+        //for undo puropses
+        if (state == EMPTY){
+            daBoard.setCell(row,col,EMPTY);
             return true;
         }
 
@@ -61,6 +67,7 @@ public class Game {
             boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
             if (!firstTry) {
                 do {
+                    makeMove(rowTry,colTry,EMPTY);
                     rowTry = Math.abs(rand.nextInt() % 3);
                     colTry = Math.abs(rand.nextInt() % 3);
                     firstTry = makeMove(rowTry, colTry, PLAYER_TWO);

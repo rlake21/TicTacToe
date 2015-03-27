@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.view.Window;
 import android.widget.TextView;
 
+import java.util.concurrent.TimeUnit;
+
 public class NormalGameActivity extends ActionBarActivity {
 
     private Game mGame;
@@ -38,14 +40,15 @@ public class NormalGameActivity extends ActionBarActivity {
     private boolean mPlayerOneGoesFirst = true;
     private boolean mGameOver = false;
     private boolean mUndoable = false;
+    private boolean mHintable = true;
     private boolean mSinglePlayer = false;
     private boolean mPlayerOneTurn = true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        //this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
 
@@ -105,9 +108,9 @@ public class NormalGameActivity extends ActionBarActivity {
             }
         }
         mHintButton.setEnabled(true);
-        mHintButton.setOnClickListener(new ButtonClickListener('H'));
+        mHintButton.setOnClickListener(new ButtonClickListener('H', mHintButton.isEnabled()));
         mUndoButton.setEnabled(true);
-        mUndoButton.setOnClickListener(new ButtonClickListener('U'));
+        mUndoButton.setOnClickListener(new ButtonClickListener('U', mUndoButton.isEnabled()));
 
 
         //Start turn logic
@@ -149,12 +152,15 @@ public class NormalGameActivity extends ActionBarActivity {
     private void setMove(int row, int col, char player){
         mMoveCounter++;
         mGame.makeMove(row,col,player);
-        mButtons[row][col].setEnabled(false);
+        if (player == mGame.getEmptyChar()){
+            mButtons[row][col].setEnabled(true);
+        } else{ mButtons[row][col].setEnabled(false);}
+
         mButtons[row][col].setText(String.valueOf(player));
         if (player == mGame.getCompChar()){
             mButtons[row][col].setTextColor(Color.BLUE);
-            mUndoable = mSinglePlayer;
-        } else{
+            mUndoable = true;
+        } else if (player == mGame.getHumanChar()){
             mButtons[row][col].setTextColor(Color.RED);
             mUndoable = true;
         }
@@ -164,21 +170,37 @@ public class NormalGameActivity extends ActionBarActivity {
 
         int row, col;
         char buttonText;
+        boolean enabled;
 
         public ButtonClickListener(int r, int c, char text){
             this.row = r;
             this.col = c;
             this.buttonText = text;
+            this.enabled = false;
         }
-        public ButtonClickListener(char text){
+        public ButtonClickListener(char text, boolean checkEnabled){
             this.buttonText = text;
+            this.enabled = checkEnabled;
+
         }
 
         public void onClick(View view){
             if (!mGameOver){
-                if (mButtons[row][col].isEnabled()) {
+                if (mButtons[row][col].isEnabled() || enabled) {
                     if (buttonText == mGame.getCompChar() || buttonText == mGame.getEmptyChar()
                             || buttonText == mGame.getHumanChar()) {
+                        if (!mHintable){
+                            for (int i = 0; i < 3; i++){
+                                for (int j = 0; j < 3; j++){
+                                    if (mButtons[i][j].getText() == "H"){
+                                        mButtons[i][j].setText(" ");
+                                        setMove(i,j,mGame.getEmptyChar());
+                                        mMoveCounter--;
+                                    }
+                                }
+                            }
+                            mHintable = true;
+                        }
                         if (mSinglePlayer) {
                             setMove(row, col, mGame.getHumanChar());
                             mPlayerOneLastMove[0] = row;
@@ -252,9 +274,47 @@ public class NormalGameActivity extends ActionBarActivity {
                     }
                 }else if (buttonText == 'H') {
                         //hint logic
+                        if (mHintable) {
+                            int hintMove[] = mGame.computerMove();
+                            mButtons[hintMove[0]][hintMove[1]].setText("H");
+                            mButtons[hintMove[0]][hintMove[1]].setTextColor(Color.GREEN);
+                            mHintable = false;
+                        } else { mTurnInfo.setText(R.string.noHint);
+                        }
+
+
                     } else if (buttonText == 'U') {
                         if (mUndoable) {
-                            //undo logic
+                            int rowUndo, colUndo;
+                            if(mSinglePlayer){
+                                rowUndo = mPlayerTwoLastMove[0];
+                                colUndo = mPlayerTwoLastMove[1];
+                                setMove(rowUndo, colUndo, mGame.getEmptyChar());
+                                rowUndo = mPlayerOneLastMove[0];
+                                colUndo = mPlayerOneLastMove[1];
+                                setMove(rowUndo, colUndo, mGame.getEmptyChar());
+
+                                mMoveCounter = mMoveCounter - 4;
+                                mUndoable = false;
+
+                            } else {
+                                if (mPlayerOneTurn) {
+                                    rowUndo = mPlayerTwoLastMove[0];
+                                    colUndo = mPlayerTwoLastMove[1];
+                                    setMove(rowUndo, colUndo, mGame.getEmptyChar());
+                                    mPlayerOneTurn = false;
+                                    mUndoable = false;
+                                    mTurnInfo.setText(R.string.player_two_turn);
+                                } else {
+                                    rowUndo = mPlayerOneLastMove[0];
+                                    colUndo = mPlayerOneLastMove[1];
+                                    setMove(rowUndo, colUndo, mGame.getEmptyChar());
+                                    mPlayerOneTurn = true;
+                                    mUndoable = false;
+                                    mTurnInfo.setText(R.string.player_one_turn);
+                                }
+                                mMoveCounter = mMoveCounter - 2;
+                            }
                         } else mTurnInfo.setText(R.string.noUndo);
                     }
                 }
@@ -281,7 +341,7 @@ public class NormalGameActivity extends ActionBarActivity {
 
         switch(id){
             case R.id.newGame:
-                startNewGame(mSinglePlayer); //
+                startNewGame(mSinglePlayer);
                 break;
             case R.id.exitGame:
                 NormalGameActivity.this.finish();

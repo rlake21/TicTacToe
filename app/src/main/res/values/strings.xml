@@ -29,6 +29,7 @@
     <string name = "hint">HINT</string>
     <string name = "undo">UNDO</string>
     <string name = "noUndo">Can\'t undo!</string>
+    <string name = "noHint">Hint not allowed!</string>
     <string name = "newGame">New Game</string>
     <string name = "exitGame">Exit Game</string>
 

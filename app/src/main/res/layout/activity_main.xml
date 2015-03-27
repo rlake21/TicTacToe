@@ -225,9 +225,10 @@
             <Button
                 android:layout_width="150dp"
                 android:layout_height="65dp"
-                android:text="Undo"
+                android:text="@string/undo"
                 android:id="@+id/undoButton"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:textColor="#ff000000" />
         </TableRow>
 
         <TableRow
@@ -239,9 +240,10 @@
             <Button
                 android:layout_width="150dp"
                 android:layout_height="65dp"
-                android:text="HINT"
+                android:text="@string/hint"
                 android:id="@+id/hintButton"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:textColor="#ff000000" />
         </TableRow>
     </TableLayout>
 </RelativeLayout>

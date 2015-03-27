@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.util.Log;
 
 /**
  * Created by ryanlake21 on 3/26/15.
@@ -26,7 +25,6 @@ public class HomeMenuScreen  extends Activity{
         ((Button) findViewById(R.id.onePlayerButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DEBUG","Player one button pressed");
                 Intent intent = new Intent(HomeMenuScreen.this,NormalGameActivity.class);
                 intent.putExtra("singlePlayer",true);
                 startActivityForResult(intent, 0);
@@ -36,7 +34,6 @@ public class HomeMenuScreen  extends Activity{
         ((Button) findViewById(R.id.twoPlayerButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DEBUG","Player two button pressed");
                 Intent intent = new Intent(HomeMenuScreen.this,NormalGameActivity.class);
                 intent.putExtra("singlePlayer",false);
                 startActivityForResult(intent, 0);
@@ -46,7 +43,6 @@ public class HomeMenuScreen  extends Activity{
         ((Button) findViewById(R.id.exitGameButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("debug","Exit button pressed");
                 HomeMenuScreen.this.finish();
             }
         });
