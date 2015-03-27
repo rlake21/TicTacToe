@@ -7,8 +7,8 @@ public class Game {
 
     private Board daBoard;
     private int cpuDifficulty;
-    public final static char HUMAN = 'X';
-    public final static char COMPUTER = 'O';
+    public final static char PLAYER_ONE = 'X';
+    public final static char PLAYER_TWO = 'O';
     public final static char EMPTY = ' ';
     private Random rand;
 
@@ -19,10 +19,16 @@ public class Game {
     }
 
     public char getHumanChar(){
-        return HUMAN;
+        return PLAYER_ONE;
+    }
+    public char getPlayerOneChar(){
+        return PLAYER_ONE;
+    }
+    public char getPlayerTwoChar(){
+        return PLAYER_ONE;
     }
     public char getCompChar(){
-        return COMPUTER;
+        return PLAYER_TWO;
     }
     public char getEmptyChar(){
         return EMPTY;
@@ -50,14 +56,14 @@ public class Game {
     public int[] computerMove(){
         int decidedMove[] = new int[2];
         if( cpuDifficulty == 0 ) { //make a random valid move
-            int rowTry = Math.abs(rand.nextInt()% 3);
+            int rowTry = Math.abs(rand.nextInt() % 3);
             int colTry = Math.abs(rand.nextInt() % 3);
-            boolean firstTry = makeMove(rowTry, colTry, COMPUTER);
+            boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
             if (!firstTry) {
                 do {
                     rowTry = Math.abs(rand.nextInt() % 3);
                     colTry = Math.abs(rand.nextInt() % 3);
-                    firstTry = makeMove(rowTry, colTry, COMPUTER);
+                    firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
                 } while (!firstTry);
             }
             decidedMove[0] = rowTry;
@@ -128,11 +134,11 @@ public class Game {
         return 2 if human win
         return 3 if computer win
 */
-        if( winnerChar == HUMAN ) {
+        if( winnerChar == PLAYER_ONE) {
             return 2;
         }
 
-        else if( winnerChar == COMPUTER ) {
+        else if( winnerChar == PLAYER_TWO) {
             return 3;
         }
 
