@@ -56,7 +56,7 @@ public class NormalGameActivity extends ActionBarActivity {
         //Get gametype and/or difficulty
         boolean mGametype = getIntent().getExtras().getBoolean("singlePlayer");
         mSinglePlayer = mGametype;
-        //mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");///////////////uncomment this to impliment difficulty
+        //mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");///////////////uncomment this to implement difficulty
         mDifficulty = 0;
 
 

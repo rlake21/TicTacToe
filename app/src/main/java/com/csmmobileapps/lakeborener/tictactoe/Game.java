@@ -1,6 +1,8 @@
 
 package com.csmmobileapps.lakeborener.tictactoe;
 
+import android.util.Log;
+
 import java.util.Random;
 
 public class Game {
@@ -40,7 +42,7 @@ public class Game {
             daBoard.setCell(row, col, state);
             return true;
         }
-        //for undo puropses
+        //for undo purposes
         if (state == EMPTY){
             daBoard.setCell(row,col,EMPTY);
             return true;
@@ -67,7 +69,7 @@ public class Game {
             boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
             if (!firstTry) {
                 do {
-                    makeMove(rowTry,colTry,EMPTY);
+                    makeMove(rowTry, colTry, EMPTY);
                     rowTry = Math.abs(rand.nextInt() % 3);
                     colTry = Math.abs(rand.nextInt() % 3);
                     firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
@@ -80,6 +82,14 @@ public class Game {
         }
 
         else if( cpuDifficulty == 1 ) {
+
+            ///wrong code, change!
+            if(makeMove(0,0,PLAYER_TWO)){
+                decidedMove[0] = 0;
+                decidedMove[1] = 0;
+            }
+
+            return decidedMove;
 
         }
 

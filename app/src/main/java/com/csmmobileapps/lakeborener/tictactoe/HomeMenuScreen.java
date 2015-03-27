@@ -36,7 +36,7 @@ public class HomeMenuScreen  extends Activity{
             public void onClick(View v) {
                 Intent intent = new Intent(HomeMenuScreen.this,NormalGameActivity.class);
                 intent.putExtra("singlePlayer",false);
-                intent.putExtra("chosenDifficulty",2);
+                intent.putExtra("chosenDifficulty",0);//--------------change to 2 later
                 startActivityForResult(intent, 0);
             }
         });
