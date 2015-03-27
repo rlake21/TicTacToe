@@ -15,6 +15,7 @@ public class Game {
     public Game(){
         daBoard = new Board();
         cpuDifficulty = 0;
+        rand = new Random();
     }
 
     public char getHumanChar(){
@@ -49,13 +50,13 @@ public class Game {
     public int[] computerMove(){
         int decidedMove[] = new int[2];
         if( cpuDifficulty == 0 ) { //make a random valid move
-            int rowTry = rand.nextInt() % 3;
-            int colTry = rand.nextInt() % 3;
+            int rowTry = Math.abs(rand.nextInt()% 3);
+            int colTry = Math.abs(rand.nextInt() % 3);
             boolean firstTry = makeMove(rowTry, colTry, COMPUTER);
             if (!firstTry) {
                 do {
-                    rowTry = rand.nextInt() % 3;
-                    colTry = rand.nextInt() % 3;
+                    rowTry = Math.abs(rand.nextInt() % 3);
+                    colTry = Math.abs(rand.nextInt() % 3);
                     firstTry = makeMove(rowTry, colTry, COMPUTER);
                 } while (!firstTry);
             }

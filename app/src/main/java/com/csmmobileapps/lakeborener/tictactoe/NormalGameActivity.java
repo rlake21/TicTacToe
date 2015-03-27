@@ -110,7 +110,7 @@ public class NormalGameActivity extends ActionBarActivity {
         mMoveCounter++;
         mGame.makeMove(row,col,player);
         mButtons[row][col].setEnabled(false);
-        mButtons[row][col].setText(player);
+        mButtons[row][col].setText(String.valueOf(player));
         if (player == mGame.getCompChar()){
             mButtons[row][col].setTextColor(Color.BLUE);
         } else{
