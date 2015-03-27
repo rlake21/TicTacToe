@@ -27,7 +27,7 @@
                 android:text="@string/one"
                 android:id="@+id/one"
                 android:layout_margin="8dp"
-                android:textSize="80dp"
+                android:textSize="70dp"
                 android:gravity="center_horizontal|top" />
 
             <Button
@@ -36,7 +36,7 @@
                 android:text="@string/two"
                 android:id="@+id/two"
                 android:layout_margin="8dp"
-                android:textSize="80dp"
+                android:textSize="70dp"
                 android:gravity="center_horizontal|top" />
 
             <Button
@@ -45,7 +45,7 @@
                 android:text="@string/three"
                 android:id="@+id/three"
                 android:layout_margin="8dp"
-                android:textSize="80dp"
+                android:textSize="70dp"
                 android:gravity="center_horizontal|top"
                 android:layout_gravity="top" />
         </TableRow>
@@ -62,7 +62,7 @@
                 android:text="@string/four"
                 android:id="@+id/four"
                 android:layout_margin="8dp"
-                android:textSize="80dp"
+                android:textSize="70dp"
                 android:gravity="center_horizontal|top" />
 
             <Button
@@ -71,7 +71,7 @@
                 android:text="@string/five"
                 android:id="@+id/five"
                 android:layout_margin="8dp"
-                android:textSize="80dp"
+                android:textSize="70dp"
                 android:gravity="center_horizontal|top" />
 
             <Button
@@ -80,7 +80,7 @@
                 android:text="@string/six"
                 android:id="@+id/six"
                 android:layout_margin="8dp"
-                android:textSize="80dp"
+                android:textSize="70dp"
                 android:gravity="center_horizontal|top" />
         </TableRow>
 
@@ -96,7 +96,7 @@
                 android:text="@string/seven"
                 android:id="@+id/seven"
                 android:layout_margin="8dp"
-                android:textSize="80dp"
+                android:textSize="70dp"
                 android:gravity="center_horizontal|top" />
 
             <Button
@@ -105,7 +105,7 @@
                 android:text="@string/eight"
                 android:id="@+id/eight"
                 android:layout_margin="8dp"
-                android:textSize="80dp"
+                android:textSize="70dp"
                 android:gravity="center_horizontal|top" />
 
             <Button
@@ -114,7 +114,7 @@
                 android:text="@string/nine"
                 android:id="@+id/nine"
                 android:layout_margin="8dp"
-                android:textSize="80dp"
+                android:textSize="70dp"
                 android:gravity="center_horizontal|top" />
         </TableRow>
     </TableLayout>

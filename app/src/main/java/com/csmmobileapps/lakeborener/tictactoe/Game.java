@@ -25,7 +25,7 @@ public class Game {
         return PLAYER_ONE;
     }
     public char getPlayerTwoChar(){
-        return PLAYER_ONE;
+        return PLAYER_TWO;
     }
     public char getCompChar(){
         return PLAYER_TWO;

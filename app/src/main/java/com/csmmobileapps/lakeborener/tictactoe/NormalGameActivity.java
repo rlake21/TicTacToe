@@ -29,7 +29,6 @@ public class NormalGameActivity extends ActionBarActivity {
     private TextView mPlayerOneText;
     private TextView mPlayerTwoText;
 
-
     private int mPlayerTwoLastMove[];
     private int mPlayerOneLastMove[];
     private int mMoveCounter = 0;
@@ -46,12 +45,13 @@ public class NormalGameActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
 
-        //Get gametype
+        //Get gametype and/or difficulty
         boolean mGametype = getIntent().getExtras().getBoolean("singlePlayer");
+        mSinglePlayer = mGametype;
 
 
         //Initialize button array and hint/undo buttons
@@ -95,7 +95,6 @@ public class NormalGameActivity extends ActionBarActivity {
         mGame.clearBoard();
         mMoveCounter = 0;
         mGameOver = false;
-        mSinglePlayer = isOnePlayerGame;
 
         //Start button logic
         for (int i = 0; i < 3; i++){
@@ -126,6 +125,7 @@ public class NormalGameActivity extends ActionBarActivity {
                 setMove(move[0], move[1], mGame.getCompChar());
                 mPlayerTwoLastMove = move;
                 mPlayerOneGoesFirst = true;
+                mTurnInfo.setText(R.string.human_turn);
             }
 
         } else {
@@ -211,7 +211,7 @@ public class NormalGameActivity extends ActionBarActivity {
                                 mPlayerTwoCount.setText(Integer.toString(mPlayerTwoIncrement));
                                 mGameOver = true;
                             }
-                        } else {
+                        } else { //Multiplayer game
                         if (mPlayerOneTurn){
                             setMove(row, col, mGame.getPlayerOneChar());
                             mPlayerOneLastMove[0] = row;
@@ -281,7 +281,7 @@ public class NormalGameActivity extends ActionBarActivity {
 
         switch(id){
             case R.id.newGame:
-                startNewGame(mSinglePlayer); //   <--------------------------
+                startNewGame(mSinglePlayer); //
                 break;
             case R.id.exitGame:
                 NormalGameActivity.this.finish();
