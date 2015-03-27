@@ -12,9 +12,9 @@ public class Game {
     public final static char EMPTY = ' ';
     private Random rand;
 
-    public Game(){
+    public Game(int difficulty){
         daBoard = new Board();
-        cpuDifficulty = 0;
+        cpuDifficulty = difficulty;
         rand = new Random();
     }
 

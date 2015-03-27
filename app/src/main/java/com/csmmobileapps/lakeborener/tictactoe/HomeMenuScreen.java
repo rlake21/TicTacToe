@@ -25,7 +25,7 @@ public class HomeMenuScreen  extends Activity{
         ((Button) findViewById(R.id.onePlayerButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeMenuScreen.this,NormalGameActivity.class);
+                Intent intent = new Intent(HomeMenuScreen.this,DifficultyChoiceScreen.class);
                 intent.putExtra("singlePlayer",true);
                 startActivityForResult(intent, 0);
             }
@@ -36,6 +36,7 @@ public class HomeMenuScreen  extends Activity{
             public void onClick(View v) {
                 Intent intent = new Intent(HomeMenuScreen.this,NormalGameActivity.class);
                 intent.putExtra("singlePlayer",false);
+                intent.putExtra("chosenDifficulty",2);
                 startActivityForResult(intent, 0);
             }
         });

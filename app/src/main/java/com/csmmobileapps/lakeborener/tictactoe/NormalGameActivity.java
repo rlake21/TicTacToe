@@ -2,7 +2,7 @@
 package com.csmmobileapps.lakeborener.tictactoe;
 
 /** NormalGameActivity
- * Created by Ryan on 3/24/15.
+ * Created by ryanlake21 on 3/24/15.
  */
 
 
@@ -33,6 +33,7 @@ public class NormalGameActivity extends ActionBarActivity {
 
     private int mPlayerTwoLastMove[];
     private int mPlayerOneLastMove[];
+    private int mDifficulty;
     private int mMoveCounter = 0;
     private int mPlayerOneIncrement = 0;
     private int mPlayerTwoIncrement = 0;
@@ -55,6 +56,8 @@ public class NormalGameActivity extends ActionBarActivity {
         //Get gametype and/or difficulty
         boolean mGametype = getIntent().getExtras().getBoolean("singlePlayer");
         mSinglePlayer = mGametype;
+        //mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");///////////////uncomment this to impliment difficulty
+        mDifficulty = 0;
 
 
         //Initialize button array and hint/undo buttons
@@ -89,7 +92,7 @@ public class NormalGameActivity extends ActionBarActivity {
         mPlayerTwoLastMove = new int[2];
 
         //Initialize game
-        mGame = new Game();
+        mGame = new Game(mDifficulty);
         startNewGame(mGametype);
 
     }
@@ -194,9 +197,9 @@ public class NormalGameActivity extends ActionBarActivity {
                         } else { multiPlayerMove(row,col);}
 
                     }else if (buttonText == 'H') {
-                            if (mHintable) {
-                                getHint();
-                            } else { mTurnInfo.setText(R.string.noHint);}
+                        if (mHintable) {
+                            getHint();
+                        } else { mTurnInfo.setText(R.string.noHint);}
                     } else if (buttonText == 'U') {
                         if (mUndoable) {
                             undoMove();
@@ -233,6 +236,7 @@ public class NormalGameActivity extends ActionBarActivity {
         mPlayerOneLastMove[1] = col;
         int win = mGame.checkForWinner(mMoveCounter);
 
+        //no outcome yet
         if (win == 0) {
             int move[] = mGame.computerMove();
             mTurnInfo.setText(R.string.comp_turn);
@@ -241,19 +245,20 @@ public class NormalGameActivity extends ActionBarActivity {
             win = mGame.checkForWinner(mMoveCounter);
         }
 
+        //still no outcome
         if (win == 0) {
             mTurnInfo.setText(R.string.human_turn);
-        } else if (win == 1) {
+        } else if (win == 1) { // tie outcome
             mTurnInfo.setText(R.string.outcome_tie);
             mTieIncrement++;
             mTieCount.setText(Integer.toString(mTieIncrement));
             mGameOver = true;
-        } else if (win == 2) {
+        } else if (win == 2) { // human win outcome
             mTurnInfo.setText(R.string.outcome_human);
             mPlayerOneIncrement++;
             mPlayerOneCount.setText(Integer.toString(mPlayerOneIncrement));
             mGameOver = true;
-        } else if (win == 3) {
+        } else if (win == 3) { // computer win outcome
             mTurnInfo.setText(R.string.outcome_computer);
             mPlayerTwoIncrement++;
             mPlayerTwoCount.setText(Integer.toString(mPlayerTwoIncrement));
@@ -360,12 +365,6 @@ public class NormalGameActivity extends ActionBarActivity {
                 break;
 
         }
-
-        //noinspection SimplifiableIfStatement
-        /*
-        if (id == R.id.action_settings) {
-            return true;
-        }*/
 
         return super.onOptionsItemSelected(item);
     }

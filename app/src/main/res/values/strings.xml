@@ -3,8 +3,8 @@
 
     <string name="app_name">Tic\-Tac\-Toe</string>
     <string name="action_settings">Settings</string>
-    <string name = "player_one_turn">It\'s Player 1\'s Turn.:  </string>
-    <string name = "player_two_turn">It\'s Player 2\'s Turn.:  </string>
+    <string name = "player_one_turn">It\'s Player 1\'s Turn:  </string>
+    <string name = "player_two_turn">It\'s Player 2\'s Turn:  </string>
     <string name = "human_turn">It\'s your turn!</string>
     <string name = "comp_turn">It\'s the computer\'s turn!</string>
     <string name = "outcome_human">You Won!!</string>
@@ -32,5 +32,6 @@
     <string name = "noHint">Hint not allowed!</string>
     <string name = "newGame">New Game</string>
     <string name = "exitGame">Exit Game</string>
+    <string name = "chooseDifficulty">Choose Difficulty</string>
 
 </resources>
