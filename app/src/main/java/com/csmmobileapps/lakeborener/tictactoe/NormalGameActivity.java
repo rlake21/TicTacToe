@@ -55,8 +55,8 @@ public class NormalGameActivity extends ActionBarActivity {
         boolean mGametype = getIntent().getExtras().getBoolean("singlePlayer");
         mSinglePlayer = mGametype;
         //if (mSinglePlayer){mDifficulty = 2;
-        //mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");///////////////uncomment this to implement difficulty
-        mDifficulty = 0;
+        mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");///////////////uncomment this to implement difficulty
+        //mDifficulty = 0;
 
 
         //Initialize button array and hint/undo buttons
@@ -93,7 +93,6 @@ public class NormalGameActivity extends ActionBarActivity {
         //Initialize game
         mGame = new Game(mDifficulty);
         startNewGame(mGametype);
-
     }
 
     private void startNewGame(boolean isOnePlayerGame){
