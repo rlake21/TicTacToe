@@ -46,6 +46,7 @@ public class DifficultyChoiceScreen extends Activity {
         ((Button) findViewById(R.id.twoDifficultyButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                findViewById(R.id.twoDifficultyButton).setEnabled(false);//////remove this line to reenable the 2 difficulty setting
                 Intent intent = new Intent(DifficultyChoiceScreen.this,NormalGameActivity.class);
                 intent.putExtra("chosenDifficulty",2);
                 intent.putExtra("singlePlayer",true);
