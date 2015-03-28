@@ -41,7 +41,7 @@ public class Game {
         if( daBoard.getCell(row, col) == EMPTY ) { //valid move, change state of the cell
             daBoard.setCell(row, col, state);
             return true;
-        } else { //invalid move,TODO: handle with an error message if human made bad move
+        } else { //invalid move
             return false;
         }
     }
@@ -65,6 +65,7 @@ public class Game {
         char bottomCenter = daBoard.getCell(2,1);
         char bottomRight = daBoard.getCell(2,2);
 
+        /*
         boolean markTop = false;
         boolean markMid = false;
         boolean markBottom = false;
@@ -72,14 +73,14 @@ public class Game {
         boolean markRight = false;
         boolean markForward = false;
         boolean markBackward = false;
-        boolean markCenter = false;
+        boolean markCenter = false;*/
         boolean markBook[] = new boolean[8];
         for( boolean thing : markBook ) thing = false;
 
         int markCount = 0;
 
 
-        int decidedMove[] = new int[2];
+        int[] decidedCell;
         if( cpuDifficulty == 0 ) { //make a random valid move
             int rowTry = Math.abs(rand.nextInt() % 3);
             int colTry = Math.abs(rand.nextInt() % 3);
@@ -91,10 +92,9 @@ public class Game {
                     firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
                 } while (!firstTry);
             }
-            decidedMove[0] = rowTry;
-            decidedMove[1] = colTry;
+            decidedCell = daBoard.getCellTuple(rowTry, colTry);
 
-            return decidedMove;
+            return decidedCell;
         }
 
         else if( cpuDifficulty == 1 ) { //cpu mid difficulty attempts to block anything it can but can be outsmarted by starting with a corner
@@ -103,21 +103,21 @@ public class Game {
             if( (topLeft == PLAYER_ONE && topRight == PLAYER_ONE && topCenter == EMPTY) ||
                 (topCenter == PLAYER_ONE && topRight == PLAYER_ONE && topLeft == EMPTY) ||
                 (topLeft == PLAYER_ONE && topCenter == PLAYER_ONE && topRight == EMPTY)   ) {
-                markTop = true;
+                //markTop = true;
                 markBook[0] = true;
                 markCount++;
             }
             if( (midLeft == PLAYER_ONE && midRight == PLAYER_ONE && midCenter == EMPTY) ||
                 (midCenter == PLAYER_ONE && midRight == PLAYER_ONE && midLeft == EMPTY) ||
                 (midLeft == PLAYER_ONE && midCenter == PLAYER_ONE && midRight == EMPTY)   ) {
-                markMid = true;
+                //markMid = true;
                 markBook[1] = true;
                 markCount++;
             }
             if( (bottomLeft == PLAYER_ONE && bottomRight == PLAYER_ONE && bottomCenter == EMPTY) ||
                 (bottomCenter == PLAYER_ONE && bottomRight == PLAYER_ONE && bottomLeft == EMPTY) ||
                 (bottomLeft == PLAYER_ONE && bottomCenter == PLAYER_ONE && bottomRight == EMPTY)   ) {
-                markBottom = true;
+                //markBottom = true;
                 markBook[2] = true;
                 markCount++;
             }
@@ -125,21 +125,21 @@ public class Game {
             if( (topLeft == PLAYER_ONE && bottomLeft == PLAYER_ONE && midLeft == EMPTY) ||
                 (topLeft == PLAYER_ONE && midLeft == PLAYER_ONE && bottomLeft == EMPTY) ||
                 (bottomLeft == PLAYER_ONE && midLeft == PLAYER_ONE && topLeft == EMPTY)   ) {
-                markLeft = true;
+                //markLeft = true;
                 markBook[3] = true;
                 markCount++;
             }
             if( (topCenter == PLAYER_ONE && bottomCenter == PLAYER_ONE && midCenter == EMPTY) ||
                 (topCenter == PLAYER_ONE && midCenter == PLAYER_ONE && bottomCenter == EMPTY) ||
                 (bottomCenter == PLAYER_ONE && midCenter == PLAYER_ONE && topCenter == EMPTY)   ) {
-                markCenter = true;
+                //markCenter = true;
                 markBook[4] = true;
                 markCount++;
             }
             if( (topRight == PLAYER_ONE && bottomRight == PLAYER_ONE && midRight == EMPTY) ||
                 (topRight == PLAYER_ONE && midRight == PLAYER_ONE && bottomRight == EMPTY) ||
                 (bottomRight == PLAYER_ONE && midRight == PLAYER_ONE && topRight == EMPTY)   ) {
-                markRight = true;
+                //markRight = true;
                 markBook[5] = true;
                 markCount++;
             }
@@ -147,80 +147,79 @@ public class Game {
             if( (topLeft == PLAYER_ONE && bottomRight == PLAYER_ONE && midCenter == EMPTY) ||
                 (topLeft == PLAYER_ONE && midCenter == PLAYER_ONE && bottomRight == EMPTY) ||
                 (bottomRight == PLAYER_ONE && midCenter == PLAYER_ONE && topLeft == EMPTY)   ) {
-                markBackward = true;
+                //markBackward = true;
                 markBook[6] = true;
                 markCount++;
             }
             if( (topRight == PLAYER_ONE && bottomLeft == PLAYER_ONE && midCenter == EMPTY) ||
                 (topRight == PLAYER_ONE && midCenter == PLAYER_ONE && bottomLeft == EMPTY) ||
                 (bottomLeft == PLAYER_ONE && midCenter == PLAYER_ONE && topRight == EMPTY)   ) {
-                markForward = true;
+                //markForward = true;
                 markBook[7] = true;
                 markCount++;
             }
  //TODO: change logic of this function to return the CELL object so that its position can be found easily
             //process information gained
-            Cell decidedCell;
             boolean valid = false;
+            int rowTry = Math.abs(rand.nextInt() % 3);
+            int colTry = Math.abs(rand.nextInt() % 3);;
             if( markCount > 1 ) { //pick one randomly
-            while( !valid ) {
-                int firstRand = Math.abs(rand.nextInt() % 8);
-                if (markBook[firstRand]) {
-                    int rowTry = Math.abs(rand.nextInt() % 3);
-                    int colTry = Math.abs(rand.nextInt() % 3);
-                    boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
-                    if (!firstTry) {
-                        do {
-                            rowTry = Math.abs(rand.nextInt() % 3);
-                            colTry = Math.abs(rand.nextInt() % 3);
-                            firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
-                        } while (!firstTry);
+                while( !valid ) {
+                    int firstRand = Math.abs(rand.nextInt() % 8);
+                    if (markBook[firstRand]) {
+                        rowTry = Math.abs(rand.nextInt() % 3);
+                        colTry = Math.abs(rand.nextInt() % 3);
+                        boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
+                        if (!firstTry) {
+                            do {
+                                rowTry = Math.abs(rand.nextInt() % 3);
+                                colTry = Math.abs(rand.nextInt() % 3);
+                                firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
+                            } while (!firstTry);
+                        }
+                        valid = true;
                     }
-                    valid = true;
                 }
+                return daBoard.getCellTuple(rowTry, colTry);
             }
 
-
-                //return daBoard.getActualCell(rowTry, colTry);
-            }
-
-            else if( markCount == 1 ) { //find the one
+            else if( markCount == 1 ) { //find the one best move
                 int count = 0;
                 for( boolean theAnswer : markBook ) {
                     if( theAnswer ) {
                         switch (count) {
                             case 0:
-                                if( makeMove(0, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 0);
-                                if( makeMove(0, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 1);
-                                if( makeMove(0, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 2);
+                                if( makeMove(0, 0, PLAYER_TWO) ) return daBoard.getCellTuple(0, 0);
+                                if( makeMove(0, 1, PLAYER_TWO) ) return daBoard.getCellTuple(0, 1);
+                                if( makeMove(0, 2, PLAYER_TWO) ) return daBoard.getCellTuple(0, 2);
                             case 1:
-                                if( makeMove(1, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 0);
-                                if( makeMove(1, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 1);
-                                if( makeMove(1, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 2);
+                                if( makeMove(1, 0, PLAYER_TWO) ) return daBoard.getCellTuple(1, 0);
+                                if( makeMove(1, 1, PLAYER_TWO) ) return daBoard.getCellTuple(1, 1);
+                                if( makeMove(1, 2, PLAYER_TWO) ) return daBoard.getCellTuple(1, 2);
                             case 2:
-                                if( makeMove(2, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 0);
-                                if( makeMove(2, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 1);
-                                if( makeMove(2, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 2);
+                                if( makeMove(2, 0, PLAYER_TWO) ) return daBoard.getCellTuple(2, 0);
+                                if( makeMove(2, 1, PLAYER_TWO) ) return daBoard.getCellTuple(2, 1);
+                                if( makeMove(2, 2, PLAYER_TWO) ) return daBoard.getCellTuple(2, 2);
                             case 3:
-                                if( makeMove(0, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 0);
-                                if( makeMove(1, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 0);
-                                if( makeMove(2, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 0);
+                                if( makeMove(0, 0, PLAYER_TWO) ) return daBoard.getCellTuple(0, 0);
+                                if( makeMove(1, 0, PLAYER_TWO) ) return daBoard.getCellTuple(1, 0);
+                                if( makeMove(2, 0, PLAYER_TWO) ) return daBoard.getCellTuple(2, 0);
                             case 4:
-                                if( makeMove(0, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 1);
-                                if( makeMove(1, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 1);
-                                if( makeMove(2, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 1);
+                                if( makeMove(0, 1, PLAYER_TWO) ) return daBoard.getCellTuple(0, 1);
+                                if( makeMove(1, 1, PLAYER_TWO) ) return daBoard.getCellTuple(1, 1);
+                                if( makeMove(2, 1, PLAYER_TWO) ) return daBoard.getCellTuple(2, 1);
                             case 5:
-                                if( makeMove(0, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 2);
-                                if( makeMove(1, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 2);
-                                if( makeMove(2, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 2);
+                                if( makeMove(0, 2, PLAYER_TWO) ) return daBoard.getCellTuple(0, 2);
+                                if( makeMove(1, 2, PLAYER_TWO) ) return daBoard.getCellTuple(1, 2);
+                                if( makeMove(2, 2, PLAYER_TWO) ) return daBoard.getCellTuple(2, 2);
                             case 6:
-                                if( makeMove(0, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 0);
-                                if( makeMove(1, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 1);
-                                if( makeMove(2, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 2);
+                                if( makeMove(0, 0, PLAYER_TWO) ) return daBoard.getCellTuple(0, 0);
+                                if( makeMove(1, 1, PLAYER_TWO) ) return daBoard.getCellTuple(1, 1);
+                                if( makeMove(2, 2, PLAYER_TWO) ) return daBoard.getCellTuple(2, 2);
                             case 7:
-                                if( makeMove(0, 2, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(0, 2);
-                                if( makeMove(1, 1, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(1, 1);
-                                if( makeMove(2, 0, PLAYER_TWO) ) decidedCell = daBoard.getActualCell(2, 0);
+                                if( makeMove(0, 2, PLAYER_TWO) ) return daBoard.getCellTuple(0, 2);
+                                if( makeMove(1, 1, PLAYER_TWO) ) return daBoard.getCellTuple(1, 1);
+                                if( makeMove(2, 0, PLAYER_TWO) ) return daBoard.getCellTuple(2, 0);
                         }
                     }
                     count++;
@@ -228,7 +227,19 @@ public class Game {
             }
 
             else if( markCount == 0 ) { //pick random
+                rowTry = Math.abs(rand.nextInt() % 3);
+                colTry = Math.abs(rand.nextInt() % 3);
+                boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
+                if (!firstTry) {
+                    do {
+                        rowTry = Math.abs(rand.nextInt() % 3);
+                        colTry = Math.abs(rand.nextInt() % 3);
+                        firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
+                    } while (!firstTry);
+                }
+                decidedCell = daBoard.getCellTuple(rowTry, colTry);
 
+                return decidedCell;
             }
         }
 
