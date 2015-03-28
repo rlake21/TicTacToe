@@ -133,8 +133,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:id="@+id/scoreArea"
-        android:layout_marginTop="15dp">
+        android:id="@+id/scoreArea">
 
         <TableRow
             android:layout_width="fill_parent"
@@ -163,7 +162,8 @@
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/Computer">
+            android:id="@+id/Computer"
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -187,7 +187,8 @@
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/Tie">
+            android:id="@+id/Tie"
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -214,36 +215,24 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/scoreArea"
         android:layout_toEndOf="@+id/scoreArea"
-        android:id="@+id/undoHintButtons">
+        android:id="@+id/undoHintButtons"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp">
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center_horizontal"
-            android:id="@+id/undoRow">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="67dp"
+            android:text="@string/hint"
+            android:id="@+id/hintButton"
+            android:textSize="35dp"
+            android:textStyle="bold" />
 
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="65dp"
-                android:text="@string/undo"
-                android:id="@+id/undoButton"
-                android:textSize="25dp"
-                android:textColor="#ff000000" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center_horizontal"
-            android:id="@+id/hintRow">
-
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="65dp"
-                android:text="@string/hint"
-                android:id="@+id/hintButton"
-                android:textSize="25dp"
-                android:textColor="#ff000000" />
-        </TableRow>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="67dp"
+            android:text="@string/undo"
+            android:id="@+id/undoButton"
+            android:textSize="35dp"
+            android:textStyle="bold" />
     </TableLayout>
 </RelativeLayout>

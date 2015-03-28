@@ -6,7 +6,6 @@
     <string name ="xString">X</string>
     <string name ="oString">O</string>
     <string name ="emptyString"> </string>
-    <string name= "hintString">H</string>
     <string name = "player_one_turn">It\'s Player 1\'s Turn:  </string>
     <string name = "player_two_turn">It\'s Player 2\'s Turn:  </string>
     <string name = "human_turn">It\'s your turn!</string>

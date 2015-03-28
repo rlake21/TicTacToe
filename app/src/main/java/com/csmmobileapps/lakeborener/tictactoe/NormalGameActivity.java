@@ -16,8 +16,6 @@ import android.widget.Button;
 import android.view.Window;
 import android.widget.TextView;
 
-import java.util.concurrent.TimeUnit;
-
 public class NormalGameActivity extends ActionBarActivity {
 
     private Game mGame;
@@ -50,15 +48,15 @@ public class NormalGameActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.normal_game_layout);
 
 
         //Get gametype and/or difficulty
         boolean mGametype = getIntent().getExtras().getBoolean("singlePlayer");
         mSinglePlayer = mGametype;
         //if (mSinglePlayer){mDifficulty = 2;
-        mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");///////////////uncomment this to implement difficulty
-        //mDifficulty = 0;
+        //mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");///////////////uncomment this to implement difficulty
+        mDifficulty = 0;
 
 
         //Initialize button array and hint/undo buttons
@@ -211,13 +209,13 @@ public class NormalGameActivity extends ActionBarActivity {
         }
     }
 
-
     public void getHint(){
         int hintMove[] = mGame.computerMove();
         mButtons[hintMove[0]][hintMove[1]].setText("H");
         mButtons[hintMove[0]][hintMove[1]].setTextColor(Color.GREEN);
         mHintable = false;
     }
+
     public void undoHint(){
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
@@ -343,9 +341,6 @@ public class NormalGameActivity extends ActionBarActivity {
             mMoveCounter--;
         }
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
