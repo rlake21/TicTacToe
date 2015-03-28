@@ -52,14 +52,13 @@ public class NormalGameActivity extends ActionBarActivity {
 
 
         //Get gametype and/or difficulty
-        boolean mGametype = getIntent().getExtras().getBoolean("singlePlayer");
-        mSinglePlayer = mGametype;
-        //if (mSinglePlayer){mDifficulty = 2;
-        mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");///////////////uncomment this to implement difficulty
-        //mDifficulty = 0;
+        mSinglePlayer = getIntent().getExtras().getBoolean("singlePlayer");
+        if (!mSinglePlayer){mDifficulty = 1;} //hint difficulty for multiplayer (change to 2 when completed)
+        else{ mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");}
 
 
-        //Initialize button array and hint/undo buttons
+
+        //Initialize button matrix and hint/undo buttons
         mButtons = new Button[3][3];
         mButtons[0][0] = (Button) findViewById(R.id.one);
         mButtons[0][1] = (Button) findViewById(R.id.two);
@@ -92,7 +91,7 @@ public class NormalGameActivity extends ActionBarActivity {
 
         //Initialize game
         mGame = new Game(mDifficulty);
-        startNewGame(mGametype);
+        startNewGame(mSinglePlayer);
     }
 
     private void startNewGame(boolean isOnePlayerGame){
@@ -114,7 +113,7 @@ public class NormalGameActivity extends ActionBarActivity {
         mUndoButton.setOnClickListener(new ButtonClickListener('U', mUndoButton.isEnabled()));
 
 
-        //Start turn logic
+        //Start turn and score logic
         if (mSinglePlayer){
 
             mPlayerOneText.setText(R.string.human);
@@ -153,10 +152,12 @@ public class NormalGameActivity extends ActionBarActivity {
     private void setMove(int row, int col, char player){
         mMoveCounter++;
         mGame.makeMove(row, col, player);
+        // check to see if reset
         if (player == mGame.getEmptyChar()){
             mButtons[row][col].setEnabled(true);
         } else{ mButtons[row][col].setEnabled(false);}
 
+        // set move and color
         mButtons[row][col].setText(String.valueOf(player));
         if (player == mGame.getCompChar()){
             mButtons[row][col].setTextColor(Color.BLUE);
@@ -173,23 +174,28 @@ public class NormalGameActivity extends ActionBarActivity {
         char buttonText;
         boolean enabled;
 
+        //initialization for move buttons
         public ButtonClickListener(int r, int c, char text){
             this.row = r;
             this.col = c;
             this.buttonText = text;
             this.enabled = false;
         }
+
+        //initialization for hint and undo buttons
         public ButtonClickListener(char text, boolean checkEnabled){
             this.buttonText = text;
             this.enabled = checkEnabled;
 
         }
 
+        // when clicked, check if: game over, enabled button (for valid move), which button
         public void onClick(View view){
             if (!mGameOver){
                 if (mButtons[row][col].isEnabled() || enabled) {
                     if (buttonText == mGame.getCompChar() || buttonText == mGame.getEmptyChar()
                             || buttonText == mGame.getHumanChar()) {
+                        // make sure no hints are present upon next move
                         if (!mHintable){ undoHint();}
                         if (mSinglePlayer) { singlePlayerMove(row, col);
                         } else { multiPlayerMove(row,col);}
@@ -209,6 +215,9 @@ public class NormalGameActivity extends ActionBarActivity {
     }
 
     public void getHint(){
+        //only one hint per player per turn!
+
+        // show what the computer would do with a green H
         int hintMove[] = mGame.computerMove();
         mButtons[hintMove[0]][hintMove[1]].setText("H");
         mButtons[hintMove[0]][hintMove[1]].setTextColor(Color.GREEN);
@@ -216,6 +225,7 @@ public class NormalGameActivity extends ActionBarActivity {
     }
 
     public void undoHint(){
+        // reset any button that displays a hint
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
                 if (mButtons[i][j].getText() == "H"){
@@ -228,12 +238,13 @@ public class NormalGameActivity extends ActionBarActivity {
     }
 
     public void singlePlayerMove(int row, int col){
+        //set player move, record move, and check for winner
         setMove(row, col, mGame.getHumanChar());
         mPlayerOneLastMove[0] = row;
         mPlayerOneLastMove[1] = col;
         int win = mGame.checkForWinner(mMoveCounter);
 
-        //no outcome yet
+        //no outcome yet (no win nor tie) so make computer move, record move and check win again
         if (win == 0) {
             int move[] = mGame.computerMove();
             mTurnInfo.setText(R.string.comp_turn);
@@ -242,7 +253,8 @@ public class NormalGameActivity extends ActionBarActivity {
             win = mGame.checkForWinner(mMoveCounter);
         }
 
-        //still no outcome
+        //if still no outcome, set turn text to human turn
+        //else display the outcome and increment counters
         if (win == 0) {
             mTurnInfo.setText(R.string.human_turn);
         } else if (win == 1) { // tie outcome
@@ -264,6 +276,7 @@ public class NormalGameActivity extends ActionBarActivity {
     }
 
     public void multiPlayerMove(int row, int col){
+        //check for whose turn, make and record move and check for win
         if (mPlayerOneTurn){
             setMove(row, col, mGame.getPlayerOneChar());
             mPlayerOneLastMove[0] = row;
@@ -276,6 +289,7 @@ public class NormalGameActivity extends ActionBarActivity {
         }
         int win = mGame.checkForWinner(mMoveCounter);
 
+        //outcome logic, similar to singlePlayerMove logic
         if (win == 0) {
             if (mPlayerOneTurn){
                 mTurnInfo.setText(R.string.player_two_turn);
@@ -304,14 +318,19 @@ public class NormalGameActivity extends ActionBarActivity {
     }
 
     public void undoSingleMove(int row, int col){
+        //reset a selected move button
         mGame.getBoard().getBoard()[row][col].setState(mGame.getEmptyChar());
         mButtons[row][col].setEnabled(true);
         mButtons[row][col].setText(R.string.emptyString);
     }
 
     public void undoMove(){
+        //only one undo per player per turn!
+
+        //make sure no hint is displayed
         undoHint();
         int rowUndo, colUndo;
+        //single player undo resets the last player and computer moves
         if(mSinglePlayer){
             rowUndo = mPlayerTwoLastMove[0];
             colUndo = mPlayerTwoLastMove[1];
@@ -322,6 +341,7 @@ public class NormalGameActivity extends ActionBarActivity {
             mMoveCounter = mMoveCounter - 2;
             mUndoable = false;
 
+        //two player undo resets only last player move
         } else {
             if (mPlayerOneTurn) {
                 rowUndo = mPlayerTwoLastMove[0];
@@ -355,6 +375,7 @@ public class NormalGameActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //set newGame and exitGame option buttons
         switch(id){
             case R.id.newGame:
                 startNewGame(mSinglePlayer);
