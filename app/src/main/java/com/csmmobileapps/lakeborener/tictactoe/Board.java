@@ -21,7 +21,12 @@ public class Board {
         return theBoard;
     }
 
-    public Cell getActualCell(int row, int col) { return theBoard[row][col]; }
+    public int[] getCellTuple(int row, int col) {
+        int[] returnTuple = new int[2];
+        returnTuple[0] = row;
+        returnTuple[1] = col;
+        return returnTuple;
+    }
 
     //or just get a cell
     public char getCell(int row, int col) {

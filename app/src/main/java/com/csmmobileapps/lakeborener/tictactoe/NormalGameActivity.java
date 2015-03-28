@@ -125,7 +125,7 @@ public class NormalGameActivity extends ActionBarActivity {
                 mTurnInfo.setText(R.string.human_turn);
                 mPlayerOneGoesFirst = false;
             } else{
-                int move[] = mGame.computerMove();
+                int[] move = mGame.computerMove();
                 mTurnInfo.setText(R.string.comp_turn);
                 setMove(move[0], move[1], mGame.getCompChar());
                 mPlayerTwoLastMove = move;
