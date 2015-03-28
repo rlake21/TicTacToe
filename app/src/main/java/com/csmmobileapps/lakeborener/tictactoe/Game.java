@@ -65,15 +65,6 @@ public class Game {
         char bottomCenter = daBoard.getCell(2,1);
         char bottomRight = daBoard.getCell(2,2);
 
-        /*
-        boolean markTop = false;
-        boolean markMid = false;
-        boolean markBottom = false;
-        boolean markLeft = false;
-        boolean markRight = false;
-        boolean markForward = false;
-        boolean markBackward = false;
-        boolean markCenter = false;*/
         boolean markBook[] = new boolean[8];
         for( boolean thing : markBook ) thing = false;
 
@@ -103,21 +94,18 @@ public class Game {
             if( (topLeft == PLAYER_ONE && topRight == PLAYER_ONE && topCenter == EMPTY) ||
                 (topCenter == PLAYER_ONE && topRight == PLAYER_ONE && topLeft == EMPTY) ||
                 (topLeft == PLAYER_ONE && topCenter == PLAYER_ONE && topRight == EMPTY)   ) {
-                //markTop = true;
                 markBook[0] = true;
                 markCount++;
             }
             if( (midLeft == PLAYER_ONE && midRight == PLAYER_ONE && midCenter == EMPTY) ||
                 (midCenter == PLAYER_ONE && midRight == PLAYER_ONE && midLeft == EMPTY) ||
                 (midLeft == PLAYER_ONE && midCenter == PLAYER_ONE && midRight == EMPTY)   ) {
-                //markMid = true;
                 markBook[1] = true;
                 markCount++;
             }
             if( (bottomLeft == PLAYER_ONE && bottomRight == PLAYER_ONE && bottomCenter == EMPTY) ||
                 (bottomCenter == PLAYER_ONE && bottomRight == PLAYER_ONE && bottomLeft == EMPTY) ||
                 (bottomLeft == PLAYER_ONE && bottomCenter == PLAYER_ONE && bottomRight == EMPTY)   ) {
-                //markBottom = true;
                 markBook[2] = true;
                 markCount++;
             }
@@ -125,21 +113,18 @@ public class Game {
             if( (topLeft == PLAYER_ONE && bottomLeft == PLAYER_ONE && midLeft == EMPTY) ||
                 (topLeft == PLAYER_ONE && midLeft == PLAYER_ONE && bottomLeft == EMPTY) ||
                 (bottomLeft == PLAYER_ONE && midLeft == PLAYER_ONE && topLeft == EMPTY)   ) {
-                //markLeft = true;
                 markBook[3] = true;
                 markCount++;
             }
             if( (topCenter == PLAYER_ONE && bottomCenter == PLAYER_ONE && midCenter == EMPTY) ||
                 (topCenter == PLAYER_ONE && midCenter == PLAYER_ONE && bottomCenter == EMPTY) ||
                 (bottomCenter == PLAYER_ONE && midCenter == PLAYER_ONE && topCenter == EMPTY)   ) {
-                //markCenter = true;
                 markBook[4] = true;
                 markCount++;
             }
             if( (topRight == PLAYER_ONE && bottomRight == PLAYER_ONE && midRight == EMPTY) ||
                 (topRight == PLAYER_ONE && midRight == PLAYER_ONE && bottomRight == EMPTY) ||
                 (bottomRight == PLAYER_ONE && midRight == PLAYER_ONE && topRight == EMPTY)   ) {
-                //markRight = true;
                 markBook[5] = true;
                 markCount++;
             }
@@ -147,18 +132,15 @@ public class Game {
             if( (topLeft == PLAYER_ONE && bottomRight == PLAYER_ONE && midCenter == EMPTY) ||
                 (topLeft == PLAYER_ONE && midCenter == PLAYER_ONE && bottomRight == EMPTY) ||
                 (bottomRight == PLAYER_ONE && midCenter == PLAYER_ONE && topLeft == EMPTY)   ) {
-                //markBackward = true;
                 markBook[6] = true;
                 markCount++;
             }
             if( (topRight == PLAYER_ONE && bottomLeft == PLAYER_ONE && midCenter == EMPTY) ||
                 (topRight == PLAYER_ONE && midCenter == PLAYER_ONE && bottomLeft == EMPTY) ||
                 (bottomLeft == PLAYER_ONE && midCenter == PLAYER_ONE && topRight == EMPTY)   ) {
-                //markForward = true;
                 markBook[7] = true;
                 markCount++;
             }
- //TODO: change logic of this function to return the CELL object so that its position can be found easily
             //process information gained
             boolean valid = false;
             int rowTry = Math.abs(rand.nextInt() % 3);
@@ -241,9 +223,6 @@ public class Game {
 
                 return decidedCell;
             }
-        }
-
-        else if( cpuDifficulty == 2 ) {
         }
 
         return null;

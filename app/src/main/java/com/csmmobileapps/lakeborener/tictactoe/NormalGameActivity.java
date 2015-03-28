@@ -53,7 +53,7 @@ public class NormalGameActivity extends ActionBarActivity {
 
         //Get gametype and/or difficulty
         mSinglePlayer = getIntent().getExtras().getBoolean("singlePlayer");
-        if (!mSinglePlayer){mDifficulty = 1;} //hint difficulty for multiplayer (change to 2 when completed)
+        if (!mSinglePlayer){mDifficulty = 1;} //hint difficulty for multiplayer
         else{ mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");}
 
 
