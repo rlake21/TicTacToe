@@ -56,8 +56,9 @@ public class NormalGameActivity extends ActionBarActivity {
         //Get gametype and/or difficulty
         boolean mGametype = getIntent().getExtras().getBoolean("singlePlayer");
         mSinglePlayer = mGametype;
-        //mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");///////////////uncomment this to implement difficulty
-        mDifficulty = 0;
+        //if (mSinglePlayer){mDifficulty = 2;
+        mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");///////////////uncomment this to implement difficulty
+        //mDifficulty = 0;
 
 
         //Initialize button array and hint/undo buttons
@@ -106,7 +107,7 @@ public class NormalGameActivity extends ActionBarActivity {
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
                 mButtons[i][j].setEnabled(true);
-                mButtons[i][j].setText(" ");
+                mButtons[i][j].setText(R.string.emptyString);
                 mButtons[i][j].setOnClickListener(new ButtonClickListener(i,j,mGame.getEmptyChar()));
             }
         }
@@ -221,9 +222,8 @@ public class NormalGameActivity extends ActionBarActivity {
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
                 if (mButtons[i][j].getText() == "H"){
-                    mButtons[i][j].setText(" ");
-                    setMove(i,j,mGame.getEmptyChar());
-                    mMoveCounter = mMoveCounter - 2;
+                    mButtons[i][j].setText(R.string.emptyString);
+                    mGame.getBoard().getBoard()[i][j].setState(mGame.getEmptyChar());
                 }
             }
         }
@@ -306,36 +306,41 @@ public class NormalGameActivity extends ActionBarActivity {
         }
     }
 
+    public void undoSingleMove(int row, int col){
+        mGame.getBoard().getBoard()[row][col].setState(mGame.getEmptyChar());
+        mButtons[row][col].setEnabled(true);
+        mButtons[row][col].setText(R.string.emptyString);
+    }
+
     public void undoMove(){
+        undoHint();
         int rowUndo, colUndo;
         if(mSinglePlayer){
             rowUndo = mPlayerTwoLastMove[0];
             colUndo = mPlayerTwoLastMove[1];
-            setMove(rowUndo, colUndo, mGame.getEmptyChar());
+            undoSingleMove(rowUndo, colUndo);
             rowUndo = mPlayerOneLastMove[0];
             colUndo = mPlayerOneLastMove[1];
-            setMove(rowUndo, colUndo, mGame.getEmptyChar());
-
-            mMoveCounter = mMoveCounter - 4;
+            undoSingleMove(rowUndo, colUndo);
+            mMoveCounter = mMoveCounter - 2;
             mUndoable = false;
 
         } else {
             if (mPlayerOneTurn) {
                 rowUndo = mPlayerTwoLastMove[0];
                 colUndo = mPlayerTwoLastMove[1];
-                setMove(rowUndo, colUndo, mGame.getEmptyChar());
+                undoSingleMove(rowUndo, colUndo);
                 mPlayerOneTurn = false;
-                mUndoable = false;
                 mTurnInfo.setText(R.string.player_two_turn);
             } else {
                 rowUndo = mPlayerOneLastMove[0];
                 colUndo = mPlayerOneLastMove[1];
-                setMove(rowUndo, colUndo, mGame.getEmptyChar());
+                undoSingleMove(rowUndo, colUndo);
                 mPlayerOneTurn = true;
-                mUndoable = false;
                 mTurnInfo.setText(R.string.player_one_turn);
             }
-            mMoveCounter = mMoveCounter - 2;
+            mUndoable = false;
+            mMoveCounter--;
         }
     }
 

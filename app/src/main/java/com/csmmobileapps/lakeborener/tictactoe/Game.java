@@ -41,16 +41,7 @@ public class Game {
         if( daBoard.getCell(row, col) == EMPTY ) { //valid move, change state of the cell
             daBoard.setCell(row, col, state);
             return true;
-        }
-        /**
-        for undo purposes.............   BAD... Make your own function for undo!
-                                        Never make a function do more than it is supposed to
-        if (state == EMPTY){
-            daBoard.setCell(row,col,EMPTY);
-            return true;
-        }
-        **/
-        else { //invalid move,TODO: handle with an error message if human made bad move
+        } else { //invalid move,TODO: handle with an error message if human made bad move
             return false;
         }
     }
@@ -239,19 +230,6 @@ public class Game {
             else if( markCount == 0 ) { //pick random
 
             }
-
-
-
-
-
-            ///wrong code, change!
-            if(makeMove(0,0,PLAYER_TWO)){
-                decidedMove[0] = 0;
-                decidedMove[1] = 0;
-            }
-
-            return decidedMove;
-
         }
 
         else if( cpuDifficulty == 2 ) {
