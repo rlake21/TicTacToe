@@ -8,8 +8,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".HomeMenuScreen"
-            android:label="@string/app_name" >
+            android:name=".GameChoiceScreen"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,13 +18,24 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".HomeMenuScreen"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
             android:name=".DifficultyChoiceScreen"
-            android:label="@string/chooseDifficulty">
+            android:label="@string/chooseDifficulty"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name=".NormalGameActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
         </activity>
+        <activity
+        android:name=".InceptionGameActivity"
+        android:label="@string/app_name" >
+    </activity>
+
     </application>
 
 </manifest>

@@ -36,5 +36,7 @@
     <string name = "newGame">New Game</string>
     <string name = "exitGame">Exit Game</string>
     <string name = "chooseDifficulty">Choose Difficulty</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>
