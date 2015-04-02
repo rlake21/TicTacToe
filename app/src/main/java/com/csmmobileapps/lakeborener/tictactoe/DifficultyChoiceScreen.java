@@ -26,20 +26,34 @@ public class DifficultyChoiceScreen extends Activity {
         ((Button) findViewById(R.id.zeroDifficultyButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DifficultyChoiceScreen.this,NormalGameActivity.class);
-                intent.putExtra("chosenDifficulty",0);
-                intent.putExtra("singlePlayer",true);
-                startActivityForResult(intent, 0);
+                if (getIntent().getExtras().getBoolean("inceptionGame")) {
+                    Intent intent = new Intent(DifficultyChoiceScreen.this, InceptionGameActivity.class);
+                    intent.putExtra("chosenDifficulty",0);
+                    intent.putExtra("singlePlayer",true);
+                    startActivityForResult(intent, 0);
+                } else {
+                    Intent intent = new Intent(DifficultyChoiceScreen.this, NormalGameActivity.class);
+                    intent.putExtra("chosenDifficulty",0);
+                    intent.putExtra("singlePlayer",true);
+                    startActivityForResult(intent, 0);
+                }
             }
         });
 
         ((Button) findViewById(R.id.oneDifficultyButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DifficultyChoiceScreen.this,NormalGameActivity.class);
-                intent.putExtra("chosenDifficulty",1);
-                intent.putExtra("singlePlayer",true);
-                startActivityForResult(intent, 0);
+                if (getIntent().getExtras().getBoolean("inceptionGame")) {
+                    Intent intent = new Intent(DifficultyChoiceScreen.this, InceptionGameActivity.class);
+                    intent.putExtra("chosenDifficulty",1);
+                    intent.putExtra("singlePlayer",true);
+                    startActivityForResult(intent, 0);
+                } else {
+                    Intent intent = new Intent(DifficultyChoiceScreen.this, NormalGameActivity.class);
+                    intent.putExtra("chosenDifficulty",1);
+                    intent.putExtra("singlePlayer",true);
+                    startActivityForResult(intent, 0);
+                }
             }
         });
 
@@ -47,10 +61,18 @@ public class DifficultyChoiceScreen extends Activity {
             @Override
             public void onClick(View v) {
                 findViewById(R.id.twoDifficultyButton).setEnabled(false);//////remove this line to reenable the 2 difficulty setting
-                Intent intent = new Intent(DifficultyChoiceScreen.this,NormalGameActivity.class);
-                intent.putExtra("chosenDifficulty",2);
-                intent.putExtra("singlePlayer",true);
-                startActivityForResult(intent, 0);
+
+                if (getIntent().getExtras().getBoolean("inceptionGame")) {
+                    Intent intent = new Intent(DifficultyChoiceScreen.this, InceptionGameActivity.class);
+                    intent.putExtra("chosenDifficulty", 2);
+                    intent.putExtra("singlePlayer", true);
+                    startActivityForResult(intent, 0);
+                } else {
+                    Intent intent = new Intent(DifficultyChoiceScreen.this, NormalGameActivity.class);
+                    intent.putExtra("chosenDifficulty", 2);
+                    intent.putExtra("singlePlayer", true);
+                    startActivityForResult(intent, 0);
+                }
             }
         });
 

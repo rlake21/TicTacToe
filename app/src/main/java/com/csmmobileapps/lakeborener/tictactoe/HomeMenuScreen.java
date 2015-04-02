@@ -26,7 +26,7 @@ public class HomeMenuScreen  extends Activity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeMenuScreen.this,DifficultyChoiceScreen.class);
-                intent.putExtra("singlePlayer",true);
+                intent.putExtra("singlePlayer", true);
                 startActivityForResult(intent, 0);
             }
         });
@@ -34,14 +34,21 @@ public class HomeMenuScreen  extends Activity{
         ((Button) findViewById(R.id.twoPlayerButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeMenuScreen.this,NormalGameActivity.class);
-                intent.putExtra("singlePlayer",false);
-                intent.putExtra("chosenDifficulty",0);// <--------------change to 2 later
-                startActivityForResult(intent, 0);
+                if (getIntent().getExtras().getBoolean("inceptionGame")){
+                    Intent intent = new Intent(HomeMenuScreen.this, InceptionGameActivity.class);
+                    intent.putExtra("singlePlayer", false);
+                    intent.putExtra("chosenDifficulty", 1);// <--------------change to 2 later
+                    startActivityForResult(intent, 0);
+                } else {
+                    Intent intent = new Intent(HomeMenuScreen.this, NormalGameActivity.class);
+                    intent.putExtra("singlePlayer", false);
+                    intent.putExtra("chosenDifficulty", 1);// <--------------change to 2 later
+                    startActivityForResult(intent, 0);
+                }
             }
         });
 
-        ((Button) findViewById(R.id.exitGameButton)).setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.backToChoiceButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HomeMenuScreen.this.finish();
@@ -54,7 +61,7 @@ public class HomeMenuScreen  extends Activity{
 
         mOnePlayerButton = (Button) findViewById(R.id.onePlayerButton);
         mTwoPlayerButton = (Button) findViewById(R.id.twoPlayerButton);
-        mExitButton = (Button) findViewById(R.id.exitGameButton);
+        mExitButton = (Button) findViewById(R.id.backToChoiceButton);
 
         mOnePlayerButton.setEnabled(true);
         mTwoPlayerButton.setEnabled(true);

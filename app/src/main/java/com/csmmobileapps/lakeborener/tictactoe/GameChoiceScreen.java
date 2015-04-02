@@ -25,9 +25,8 @@ public class GameChoiceScreen extends Activity{
         ((Button) findViewById(R.id.inceptionGameButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GameChoiceScreen.this,InceptionGameActivity.class);
-                intent.putExtra("chosenDifficulty",0);
-                intent.putExtra("singlePlayer",true);
+                Intent intent = new Intent(GameChoiceScreen.this,HomeMenuScreen.class);
+                intent.putExtra("inceptionGame",true);
                 startActivityForResult(intent, 0);
             }
         });
@@ -35,9 +34,8 @@ public class GameChoiceScreen extends Activity{
         ((Button) findViewById(R.id.normalGameButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GameChoiceScreen.this,NormalGameActivity.class);
-                intent.putExtra("chosenDifficulty",1);
-                intent.putExtra("singlePlayer",true);
+                Intent intent = new Intent(GameChoiceScreen.this,HomeMenuScreen.class);
+                intent.putExtra("inceptionGame",false);
                 startActivityForResult(intent, 0);
             }
         });

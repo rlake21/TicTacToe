@@ -64,8 +64,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:text="Exit Game"
-            android:id="@+id/exitGameButton"
+            android:text="BACK"
+            android:id="@+id/backToChoiceButton"
             android:layout_column="15"
             android:layout_marginTop="25dp"
             android:textSize="35dp"
