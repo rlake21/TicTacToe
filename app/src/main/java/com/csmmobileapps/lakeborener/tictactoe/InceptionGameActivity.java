@@ -4,6 +4,7 @@ package com.csmmobileapps.lakeborener.tictactoe;
  * Created by ryanlake21 on 4/2/15.
  */
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.FrameLayout;
 
 
 public class InceptionGameActivity extends ActionBarActivity{
@@ -26,6 +28,7 @@ public class InceptionGameActivity extends ActionBarActivity{
     private TextView mTieCount;
     private TextView mPlayerOneText;
     private TextView mPlayerTwoText;
+    private FrameLayout[] mFrames;
 
     private int mPlayerTwoLastMove[];
     private int mPlayerOneLastMove[];
@@ -56,8 +59,10 @@ public class InceptionGameActivity extends ActionBarActivity{
         if (!mSinglePlayer){mDifficulty = 1;} //hint difficulty for multiplayer
         else{ mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");}
 
+        //Initialize Buttons, Text Fields and Frames
         initializeButtons();
         initializeTextFields();
+        initializeFrames();
 
         //Initialize last move arrays
         mPlayerOneLastMove = new int[2];
@@ -70,7 +75,7 @@ public class InceptionGameActivity extends ActionBarActivity{
     }
 
     private void startNewInceptionGame(boolean isOnePlayerGame){
-        //mGame.clearBoard();
+        mGame.clearBoard();
         mMoveCounter = 0;
         mGameOver = false;
 
@@ -220,6 +225,7 @@ public class InceptionGameActivity extends ActionBarActivity{
         mButtons[8][7] = (Button) findViewById(R.id.nineEight);
         mButtons[8][8] = (Button) findViewById(R.id.nineNine);
     }
+
     private void initializeTextFields(){
 
         //Initialize text fields
@@ -236,12 +242,195 @@ public class InceptionGameActivity extends ActionBarActivity{
         mTieCount.setText(Integer.toString(mTieIncrement));
     }
 
-    private void getHint(){}
-    private void undoHint(){}
-    private void undoMove(){}
-    private void singlePlayerMove(int frame, int tile){}
-    private void multiPlayerMove(int frame, int tile){}
-    private void setMove(int frame, int tile, char player){}
+    private void initializeFrames(){
+        mFrames = new FrameLayout[9];
+        mFrames[0] = (FrameLayout) findViewById(R.id.frameOne);
+        mFrames[1] = (FrameLayout) findViewById(R.id.frameTwo);
+        mFrames[2] = (FrameLayout) findViewById(R.id.frameThree);
+        mFrames[3] = (FrameLayout) findViewById(R.id.frameFour);
+        mFrames[4] = (FrameLayout) findViewById(R.id.frameFive);
+        mFrames[5] = (FrameLayout) findViewById(R.id.frameSix);
+        mFrames[6] = (FrameLayout) findViewById(R.id.frameSeven);
+        mFrames[7] = (FrameLayout) findViewById(R.id.frameEight);
+        mFrames[8] = (FrameLayout) findViewById(R.id.frameNine);
+    }
+
+    private void setFrameColor(int frame, int color){
+        // 0 for yellow (next move), 1 for blue (comp win), 2 for red (human win)
+        switch(color){
+            case 0:
+                mFrames[frame].setBackgroundColor(Color.YELLOW);
+                break;
+            case 1:
+                mFrames[frame].setBackgroundColor(Color.BLUE);
+                break;
+            case 2:
+                mFrames[frame].setBackgroundColor(Color.RED);
+                break;
+        }
+    }
+
+
+    // EVERYTHING BELOW THIS AND ABOVE NEXT LARGE COMMENT NEEDS CHANGING FOR INCEPTION
+    public void getHint(){
+        //only one hint per player per turn!
+
+        // show what the computer would do with a green H
+        int hintMove[] = mGame.computerMove();
+        mButtons[hintMove[0]][hintMove[1]].setText("H");
+        mButtons[hintMove[0]][hintMove[1]].setTextColor(Color.GREEN);
+        mHintable = false;
+    }
+    public void undoHint(){
+        // reset any button that displays a hint
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                if (mButtons[i][j].getText() == "H"){
+                    mButtons[i][j].setText(R.string.emptyString);
+                    mGame.getBoard().getBoard()[i][j].setState(mGame.getEmptyChar());
+                }
+            }
+        }
+        mHintable = true;
+    }
+    public void undoSingleMove(int row, int col){
+        //reset a selected move button
+        mGame.getBoard().getBoard()[row][col].setState(mGame.getEmptyChar());
+        mButtons[row][col].setEnabled(true);
+        mButtons[row][col].setText(R.string.emptyString);
+    }
+    public void undoMove(){
+        //only one undo per player per turn!
+
+        //make sure no hint is displayed
+        undoHint();
+        int rowUndo, colUndo;
+        //single player undo resets the last player and computer moves
+        if(mSinglePlayer){
+            rowUndo = mPlayerTwoLastMove[0];
+            colUndo = mPlayerTwoLastMove[1];
+            undoSingleMove(rowUndo, colUndo);
+            rowUndo = mPlayerOneLastMove[0];
+            colUndo = mPlayerOneLastMove[1];
+            undoSingleMove(rowUndo, colUndo);
+            mMoveCounter = mMoveCounter - 2;
+            mUndoable = false;
+
+            //two player undo resets only last player move
+        } else {
+            if (mPlayerOneTurn) {
+                rowUndo = mPlayerTwoLastMove[0];
+                colUndo = mPlayerTwoLastMove[1];
+                undoSingleMove(rowUndo, colUndo);
+                mPlayerOneTurn = false;
+                mTurnInfo.setText(R.string.player_two_turn);
+            } else {
+                rowUndo = mPlayerOneLastMove[0];
+                colUndo = mPlayerOneLastMove[1];
+                undoSingleMove(rowUndo, colUndo);
+                mPlayerOneTurn = true;
+                mTurnInfo.setText(R.string.player_one_turn);
+            }
+            mUndoable = false;
+            mMoveCounter--;
+        }
+    }
+    private void singlePlayerMove(int frame, int tile){
+        //set player move, record move, and check for winner
+        setMove(frame, tile, mGame.getHumanChar());
+        mPlayerOneLastMove[0] = frame;
+        mPlayerOneLastMove[1] = tile;
+        int win = mGame.checkForWinner(mMoveCounter);
+
+        //no outcome yet (no win nor tie) so make computer move, record move and check win again
+        if (win == 0) {
+            int move[] = mGame.computerMove();
+            mTurnInfo.setText(R.string.comp_turn);
+            setMove(move[0], move[1], mGame.getCompChar());
+            mPlayerTwoLastMove = move;
+            win = mGame.checkForWinner(mMoveCounter);
+        }
+
+        //if still no outcome, set turn text to human turn
+        //else display the outcome and increment counters
+        if (win == 0) {
+            mTurnInfo.setText(R.string.human_turn);
+        } else if (win == 1) { // tie outcome
+            mTurnInfo.setText(R.string.outcome_tie);
+            mTieIncrement++;
+            mTieCount.setText(Integer.toString(mTieIncrement));
+            mGameOver = true;
+        } else if (win == 2) { // human win outcome
+            mTurnInfo.setText(R.string.outcome_human);
+            mPlayerOneIncrement++;
+            mPlayerOneCount.setText(Integer.toString(mPlayerOneIncrement));
+            mGameOver = true;
+        } else if (win == 3) { // computer win outcome
+            mTurnInfo.setText(R.string.outcome_computer);
+            mPlayerTwoIncrement++;
+            mPlayerTwoCount.setText(Integer.toString(mPlayerTwoIncrement));
+            mGameOver = true;
+        }
+    }
+    private void multiPlayerMove(int frame, int tile){
+        //check for whose turn, make and record move and check for win
+        if (mPlayerOneTurn){
+            setMove(frame, tile, mGame.getPlayerOneChar());
+            mPlayerOneLastMove[0] = frame;
+            mPlayerOneLastMove[1] = tile;
+
+        } else {
+            setMove(frame, tile, mGame.getPlayerTwoChar());
+            mPlayerTwoLastMove[0] = frame;
+            mPlayerTwoLastMove[1] = tile;
+        }
+        int win = mGame.checkForWinner(mMoveCounter);
+
+        //outcome logic, similar to singlePlayerMove logic
+        if (win == 0) {
+            if (mPlayerOneTurn){
+                mTurnInfo.setText(R.string.player_two_turn);
+                mPlayerOneTurn = false;
+            } else {
+                mTurnInfo.setText(R.string.player_one_turn);
+                mPlayerOneTurn = true;
+
+            }
+        } else if (win == 1) {
+            mTurnInfo.setText(R.string.outcome_tie);
+            mTieIncrement++;
+            mTieCount.setText(Integer.toString(mTieIncrement));
+            mGameOver = true;
+        } else if (win == 2) {
+            mTurnInfo.setText(R.string.outcome_player_one);
+            mPlayerOneIncrement++;
+            mPlayerOneCount.setText(Integer.toString(mPlayerOneIncrement));
+            mGameOver = true;
+        } else if (win == 3) {
+            mTurnInfo.setText(R.string.outcome_player_two);
+            mPlayerTwoIncrement++;
+            mPlayerTwoCount.setText(Integer.toString(mPlayerTwoIncrement));
+            mGameOver = true;
+        }
+    }
+    private void setMove(int frame, int tile, char player){
+        mMoveCounter++;
+        mGame.makeMove(frame, tile, player);
+        if (player == mGame.getEmptyChar()){
+            mButtons[frame][tile].setEnabled(true);
+        } else{ mButtons[frame][tile].setEnabled(false);}
+
+        // set move and color
+        mButtons[frame][tile].setText(String.valueOf(player));
+        if (player == mGame.getCompChar()){
+            mButtons[frame][tile].setTextColor(Color.BLUE);
+            mUndoable = true;
+        } else if (player == mGame.getHumanChar()){
+            mButtons[frame][tile].setTextColor(Color.RED);
+            mUndoable = true;
+        }
+    }
+    //UNTIL THIS LARGE COMMENT LOL
 
 
 

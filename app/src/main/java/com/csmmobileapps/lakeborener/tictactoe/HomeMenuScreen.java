@@ -22,7 +22,7 @@ public class HomeMenuScreen  extends Activity{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.home_layout);
-        inceptionGame = getIntent().getExtras().getBoolean("inception");
+        inceptionGame = getIntent().getExtras().getBoolean("inceptionGame");
 
         ((Button) findViewById(R.id.onePlayerButton)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,7 +30,7 @@ public class HomeMenuScreen  extends Activity{
                 Intent intent = new Intent(HomeMenuScreen.this,DifficultyChoiceScreen.class);
                 if(inceptionGame){
                     intent.putExtra("inceptionGame",true);
-                }else{ intent.putExtra("inceptionGame",true);}
+                }else{ intent.putExtra("inceptionGame",false);}
                 intent.putExtra("singlePlayer", true);
                 startActivityForResult(intent, 0);
             }
@@ -39,7 +39,7 @@ public class HomeMenuScreen  extends Activity{
         ((Button) findViewById(R.id.twoPlayerButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getIntent().getExtras().getBoolean("inceptionGame")){
+                if (inceptionGame){
                     Intent intent = new Intent(HomeMenuScreen.this, InceptionGameActivity.class);
                     intent.putExtra("inceptionGame",true);
                     intent.putExtra("singlePlayer", false);
