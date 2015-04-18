@@ -10,7 +10,7 @@
         android:layout_height="fill_parent"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="180dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/boardArea">
 
@@ -132,7 +132,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:id="@+id/scoreArea">
+        android:id="@+id/scoreArea"
+        android:layout_marginTop="15dp">
 
         <TableRow
             android:layout_width="fill_parent"
@@ -216,7 +217,7 @@
         android:layout_toEndOf="@+id/scoreArea"
         android:id="@+id/undoHintButtons"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="15dp">
 
         <Button
             android:layout_width="wrap_content"

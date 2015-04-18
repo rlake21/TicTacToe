@@ -31,7 +31,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:text="Inception"
+            android:text="@string/inceptionOption"
             android:id="@+id/inceptionGameButton"
             android:layout_column="15"
             android:layout_marginTop="75dp"
@@ -47,7 +47,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:text="NORMAL"
+            android:text="@string/normalOption"
             android:id="@+id/normalGameButton"
             android:layout_column="15"
             android:layout_marginTop="25dp"
@@ -63,7 +63,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:text="Exit Game"
+            android:text="@string/exitGame"
             android:id="@+id/choiceExitGame"
             android:layout_column="15"
             android:layout_marginTop="25dp"

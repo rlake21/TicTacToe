@@ -35,8 +35,11 @@
     <string name = "noHint">Hint not allowed!</string>
     <string name = "newGame">New Game</string>
     <string name = "exitGame">Exit Game</string>
+    <string name = "backOption">Back</string>
     <string name = "chooseDifficulty">Choose Difficulty</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
+    <string name="inceptionOption">INCEPTION</string>
+    <string name="normalOption">NORMAL</string>
+    <string name = "onePlayer">One Player</string>
+    <string name = "twoPlayer">Two Player</string>
 
 </resources>

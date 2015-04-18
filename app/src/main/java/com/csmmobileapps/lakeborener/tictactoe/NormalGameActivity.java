@@ -7,7 +7,7 @@ package com.csmmobileapps.lakeborener.tictactoe;
 
 
 import android.graphics.Color;
-import android.app.Activity;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.view.Window;
 import android.widget.TextView;
 
-public class NormalGameActivity extends Activity {
+public class NormalGameActivity extends ActionBarActivity {
 
     private Game mGame;
     private Button mButtons[][];

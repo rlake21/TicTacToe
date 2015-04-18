@@ -15,17 +15,22 @@ public class HomeMenuScreen  extends Activity{
     private Button mOnePlayerButton;
     private Button mTwoPlayerButton;
     private Button mExitButton;
+    private boolean inceptionGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.home_layout);
+        inceptionGame = getIntent().getExtras().getBoolean("inception");
 
         ((Button) findViewById(R.id.onePlayerButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeMenuScreen.this,DifficultyChoiceScreen.class);
+                if(inceptionGame){
+                    intent.putExtra("inceptionGame",true);
+                }else{ intent.putExtra("inceptionGame",true);}
                 intent.putExtra("singlePlayer", true);
                 startActivityForResult(intent, 0);
             }
@@ -36,11 +41,13 @@ public class HomeMenuScreen  extends Activity{
             public void onClick(View v) {
                 if (getIntent().getExtras().getBoolean("inceptionGame")){
                     Intent intent = new Intent(HomeMenuScreen.this, InceptionGameActivity.class);
+                    intent.putExtra("inceptionGame",true);
                     intent.putExtra("singlePlayer", false);
                     intent.putExtra("chosenDifficulty", 1);// <--------------change to 2 later
                     startActivityForResult(intent, 0);
                 } else {
                     Intent intent = new Intent(HomeMenuScreen.this, NormalGameActivity.class);
+                    intent.putExtra("inceptionGame",false);
                     intent.putExtra("singlePlayer", false);
                     intent.putExtra("chosenDifficulty", 1);// <--------------change to 2 later
                     startActivityForResult(intent, 0);
