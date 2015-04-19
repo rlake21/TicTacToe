@@ -8,7 +8,7 @@ import java.util.Random;
 
 
 
-//so yea, just a dummy class for now, do what you can in here, once its done i think everything
+//so yea, just a dummy class for now, do what you want in here, once its done i think everything
     //should work...might have to change some stuff for the hint and undo options
 public class InceptionGame {
 

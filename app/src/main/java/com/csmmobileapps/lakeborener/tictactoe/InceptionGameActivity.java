@@ -49,7 +49,6 @@ public class InceptionGameActivity extends ActionBarActivity{
     private int mNextFrame;
     private int mPrevFrame;
     private int mSecondPrevFrame;
-    private int mThridPrevFrame;
 
 
     @Override
@@ -74,11 +73,11 @@ public class InceptionGameActivity extends ActionBarActivity{
 
         //Initialize game
         mGame = new InceptionGame(mDifficulty);
-        startNewInceptionGame(mSinglePlayer);
+        startNewInceptionGame();
 
     }
 
-    private void startNewInceptionGame(boolean isOnePlayerGame){
+    private void startNewInceptionGame(){
         mGame.clearBoard();
         mFrameMoveCounter = new int[9];
         mMoveCounter = 0;
@@ -535,7 +534,7 @@ public class InceptionGameActivity extends ActionBarActivity{
         //set newGame and exitGame option buttons
         switch(id){
             case R.id.newGame:
-                startNewInceptionGame(mSinglePlayer);
+                startNewInceptionGame();
                 break;
             case R.id.exitGame:
                 InceptionGameActivity.this.finish();
