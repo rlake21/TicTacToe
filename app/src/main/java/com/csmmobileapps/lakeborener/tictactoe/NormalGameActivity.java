@@ -137,9 +137,11 @@ public class NormalGameActivity extends ActionBarActivity {
             mPlayerTwoText.setText(R.string.player_two);
 
             if (mPlayerOneGoesFirst){
+                mPlayerOneTurn = true;
                 mTurnInfo.setText(R.string.player_one_turn);
                 mPlayerOneGoesFirst = false;
             } else{
+                mPlayerOneTurn = false;
                 mTurnInfo.setText(R.string.player_two_turn);
                 mPlayerOneGoesFirst = true;
             }
