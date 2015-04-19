@@ -458,8 +458,22 @@ public class InceptionGameActivity extends ActionBarActivity{
 
         //highlight next valid move and dehighlight previous valid move
         setFrameState(frame);
-        mFrames[mNextFrame].setBackgroundColor(Color.YELLOW);
-
+        //ensure next frame  is not full (would stop game due to no available valid moves)
+        if (fullFrame(mNextFrame)){
+            mIsFirstMove = true; // to allow move anywhere
+            mTurnInfo.setText(R.string.anyMove);
+        } else{
+            mFrames[mNextFrame].setBackgroundColor(Color.YELLOW);
+        }
+    }
+    
+    private boolean fullFrame(int frame){
+        for (int i = 0; i < 9; i++){
+            if (mButtons[frame][i].isEnabled()){
+                return false;
+            }
+        }
+        return true;
     }
 
     private void setFrameState(int frame){
