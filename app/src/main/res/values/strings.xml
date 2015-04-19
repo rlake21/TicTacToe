@@ -33,6 +33,7 @@
     <string name = "undo">UNDO</string>
     <string name = "noUndo">Can\'t undo!</string>
     <string name = "noHint">Hint not allowed!</string>
+    <string name = "noValid">Not a valid move!</string>
     <string name = "newGame">New Game</string>
     <string name = "exitGame">Exit Game</string>
     <string name = "backOption">Back</string>
