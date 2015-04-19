@@ -30,22 +30,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/oneOne" />
+                        android:text="X"
+                        android:id="@+id/oneOne"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/oneTwo" />
+                        android:text="X"
+                        android:id="@+id/oneTwo"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/oneThree" />
+                        android:text="X"
+                        android:id="@+id/oneThree"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -57,22 +63,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/oneFour" />
+                        android:text="X"
+                        android:id="@+id/oneFour"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/oneFive" />
+                        android:text="X"
+                        android:id="@+id/oneFive"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/oneSix" />
+                        android:text="X"
+                        android:id="@+id/oneSix"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -84,22 +96,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/oneSeven" />
+                        android:text="X"
+                        android:id="@+id/oneSeven"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/oneEight" />
+                        android:text="X"
+                        android:id="@+id/oneEight"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/oneNine" />
+                        android:text="X"
+                        android:id="@+id/oneNine"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
             </FrameLayout>
@@ -119,22 +137,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/twoOne" />
+                        android:text="X"
+                        android:id="@+id/twoOne"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/twoTwo" />
+                        android:text="X"
+                        android:id="@+id/twoTwo"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/twoThree" />
+                        android:text="X"
+                        android:id="@+id/twoThree"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -146,22 +170,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/twoFour" />
+                        android:text="X"
+                        android:id="@+id/twoFour"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/twoFive" />
+                        android:text="X"
+                        android:id="@+id/twoFive"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/twoSix" />
+                        android:text="X"
+                        android:id="@+id/twoSix"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -173,22 +203,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/twoSeven" />
+                        android:text="X"
+                        android:id="@+id/twoSeven"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/twoEight" />
+                        android:text="X"
+                        android:id="@+id/twoEight"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/twoNine" />
+                        android:text="X"
+                        android:id="@+id/twoNine"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
             </FrameLayout>
 
@@ -205,22 +241,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/threeOne" />
+                        android:text="X"
+                        android:id="@+id/threeOne"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/threeTwo" />
+                        android:text="X"
+                        android:id="@+id/threeTwo"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/threeThree" />
+                        android:text="X"
+                        android:id="@+id/threeThree"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -232,22 +274,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/threeFour" />
+                        android:text="X"
+                        android:id="@+id/threeFour"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/threeFive" />
+                        android:text="X"
+                        android:id="@+id/threeFive"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/threeSix" />
+                        android:text="X"
+                        android:id="@+id/threeSix"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -259,22 +307,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/threeSeven" />
+                        android:text="X"
+                        android:id="@+id/threeSeven"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/threeEight" />
+                        android:text="X"
+                        android:id="@+id/threeEight"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/threeNine" />
+                        android:text="X"
+                        android:id="@+id/threeNine"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
             </FrameLayout>
         </TableRow>
@@ -299,22 +353,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fourOne" />
+                        android:text="X"
+                        android:id="@+id/fourOne"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fourTwo" />
+                        android:text="X"
+                        android:id="@+id/fourTwo"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fourThree" />
+                        android:text="X"
+                        android:id="@+id/fourThree"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -326,22 +386,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fourFour" />
+                        android:text="X"
+                        android:id="@+id/fourFour"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fourFive" />
+                        android:text="X"
+                        android:id="@+id/fourFive"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fourSix" />
+                        android:text="X"
+                        android:id="@+id/fourSix"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -353,22 +419,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fourSeven" />
+                        android:text="X"
+                        android:id="@+id/fourSeven"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fourEight" />
+                        android:text="X"
+                        android:id="@+id/fourEight"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fourNine" />
+                        android:text="X"
+                        android:id="@+id/fourNine"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
             </FrameLayout>
 
@@ -387,22 +459,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fiveOne" />
+                        android:text="X"
+                        android:id="@+id/fiveOne"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fiveTwo" />
+                        android:text="X"
+                        android:id="@+id/fiveTwo"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fiveThree" />
+                        android:text="X"
+                        android:id="@+id/fiveThree"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -414,22 +492,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fiveFour" />
+                        android:text="X"
+                        android:id="@+id/fiveFour"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fiveFive" />
+                        android:text="X"
+                        android:id="@+id/fiveFive"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fiveSix" />
+                        android:text="X"
+                        android:id="@+id/fiveSix"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -441,22 +525,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fiveSeven" />
+                        android:text="X"
+                        android:id="@+id/fiveSeven"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fiveEight" />
+                        android:text="X"
+                        android:id="@+id/fiveEight"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/fiveNine" />
+                        android:text="X"
+                        android:id="@+id/fiveNine"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
             </FrameLayout>
 
@@ -473,22 +563,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sixOne" />
+                        android:text="X"
+                        android:id="@+id/sixOne"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sixTwo" />
+                        android:text="X"
+                        android:id="@+id/sixTwo"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sixThree" />
+                        android:text="X"
+                        android:id="@+id/sixThree"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -500,22 +596,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sixFour" />
+                        android:text="X"
+                        android:id="@+id/sixFour"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sixFive" />
+                        android:text="X"
+                        android:id="@+id/sixFive"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sixSix" />
+                        android:text="X"
+                        android:id="@+id/sixSix"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -527,22 +629,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sixSeven" />
+                        android:text="X"
+                        android:id="@+id/sixSeven"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sixEight" />
+                        android:text="X"
+                        android:id="@+id/sixEight"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sixNine" />
+                        android:text="X"
+                        android:id="@+id/sixNine"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
             </FrameLayout>
         </TableRow>
@@ -565,22 +673,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sevenOne" />
+                        android:text="X"
+                        android:id="@+id/sevenOne"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sevenTwo" />
+                        android:text="X"
+                        android:id="@+id/sevenTwo"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sevenThree" />
+                        android:text="X"
+                        android:id="@+id/sevenThree"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -592,22 +706,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sevenFour" />
+                        android:text="X"
+                        android:id="@+id/sevenFour"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sevenFive" />
+                        android:text="X"
+                        android:id="@+id/sevenFive"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sevenSix" />
+                        android:text="X"
+                        android:id="@+id/sevenSix"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -619,22 +739,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sevenSeven" />
+                        android:text="X"
+                        android:id="@+id/sevenSeven"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sevenEight" />
+                        android:text="X"
+                        android:id="@+id/sevenEight"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/sevenNine" />
+                        android:text="X"
+                        android:id="@+id/sevenNine"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
             </FrameLayout>
 
@@ -653,22 +779,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/eightOne" />
+                        android:text="X"
+                        android:id="@+id/eightOne"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/eightTwo" />
+                        android:text="X"
+                        android:id="@+id/eightTwo"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/eightThree" />
+                        android:text="X"
+                        android:id="@+id/eightThree"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -680,22 +812,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/eightFour" />
+                        android:text="X"
+                        android:id="@+id/eightFour"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/eightFive" />
+                        android:text="X"
+                        android:id="@+id/eightFive"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/eightSix" />
+                        android:text="X"
+                        android:id="@+id/eightSix"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -707,22 +845,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/eightSeven" />
+                        android:text="X"
+                        android:id="@+id/eightSeven"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/eightEight" />
+                        android:text="X"
+                        android:id="@+id/eightEight"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/eightNine" />
+                        android:text="X"
+                        android:id="@+id/eightNine"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
             </FrameLayout>
 
@@ -739,22 +883,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/nineOne" />
+                        android:text="X"
+                        android:id="@+id/nineOne"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/nineTwo" />
+                        android:text="X"
+                        android:id="@+id/nineTwo"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/nineThree" />
+                        android:text="X"
+                        android:id="@+id/nineThree"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -766,22 +916,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/nineFour" />
+                        android:text="X"
+                        android:id="@+id/nineFour"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/nineFive" />
+                        android:text="X"
+                        android:id="@+id/nineFive"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/nineSix" />
+                        android:text="X"
+                        android:id="@+id/nineSix"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
 
                 <TableRow
@@ -793,22 +949,28 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/nineSeven" />
+                        android:text="X"
+                        android:id="@+id/nineSeven"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/nineEight" />
+                        android:text="X"
+                        android:id="@+id/nineEight"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:text="New Button"
-                        android:id="@+id/nineNine" />
+                        android:text="X"
+                        android:id="@+id/nineNine"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </TableRow>
             </FrameLayout>
         </TableRow>

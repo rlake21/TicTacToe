@@ -29,6 +29,7 @@ public class InceptionGameActivity extends ActionBarActivity{
     private TextView mPlayerOneText;
     private TextView mPlayerTwoText;
     private FrameLayout[] mFrames;
+    private Board mOutterBoard;
 
     private int mPlayerTwoLastMove[];
     private int mPlayerOneLastMove[];
@@ -79,6 +80,8 @@ public class InceptionGameActivity extends ActionBarActivity{
 
     private void startNewInceptionGame(){
         mGame.clearBoard();
+        mOutterBoard = new Board();
+        clearOutterBoard();
         mFrameMoveCounter = new int[9];
         mMoveCounter = 0;
         mGameOver = false;
@@ -346,7 +349,7 @@ public class InceptionGameActivity extends ActionBarActivity{
         mPlayerOneLastMove[1] = tile;
 
         //make sure game is not finished, if it is,
-        int gameWin = mGame.checkForWinner(mMoveCounter);
+        int gameWin = mGame.checkForWinner(mOutterBoard, mMoveCounter);
 
         //no outcome yet (no win nor tie) so make computer move, record move and check win again
         if (gameWin == 0) {
@@ -354,7 +357,7 @@ public class InceptionGameActivity extends ActionBarActivity{
             mTurnInfo.setText(R.string.comp_turn);
             setMove(move[0], move[1], mGame.getCompChar());
             mPlayerTwoLastMove = move;
-            gameWin = mGame.checkForWinner(mMoveCounter);
+            gameWin = mGame.checkForWinner(mOutterBoard, mMoveCounter);
         }
 
         //if still no outcome, set turn text to human turn and frame colors
@@ -363,16 +366,19 @@ public class InceptionGameActivity extends ActionBarActivity{
             mTurnInfo.setText(R.string.human_turn);
             mNextFrame = mPlayerTwoLastMove[1];
         } else if (gameWin == 1) { // tie outcome
+            setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_tie);
             mTieIncrement++;
             mTieCount.setText(Integer.toString(mTieIncrement));
             mGameOver = true;
         } else if (gameWin == 2) { // human win outcome
+            setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_human);
             mPlayerOneIncrement++;
             mPlayerOneCount.setText(Integer.toString(mPlayerOneIncrement));
             mGameOver = true;
         } else if (gameWin == 3) { // computer win outcome
+            setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_computer);
             mPlayerTwoIncrement++;
             mPlayerTwoCount.setText(Integer.toString(mPlayerTwoIncrement));
@@ -392,7 +398,7 @@ public class InceptionGameActivity extends ActionBarActivity{
             mPlayerTwoLastMove[0] = frame;
             mPlayerTwoLastMove[1] = tile;
         }
-        int win = mGame.checkForWinner(mMoveCounter);
+        int win = mGame.checkForWinner(mOutterBoard, mMoveCounter);
 
         //outcome logic, similar to singlePlayerMove logic
         if (win == 0) {
@@ -405,16 +411,19 @@ public class InceptionGameActivity extends ActionBarActivity{
 
             }
         } else if (win == 1) {
+            setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_tie);
             mTieIncrement++;
             mTieCount.setText(Integer.toString(mTieIncrement));
             mGameOver = true;
         } else if (win == 2) {
+            setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_player_one);
             mPlayerOneIncrement++;
             mPlayerOneCount.setText(Integer.toString(mPlayerOneIncrement));
             mGameOver = true;
         } else if (win == 3) {
+            setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_player_two);
             mPlayerTwoIncrement++;
             mPlayerTwoCount.setText(Integer.toString(mPlayerTwoIncrement));
@@ -449,24 +458,44 @@ public class InceptionGameActivity extends ActionBarActivity{
         mFrames[mNextFrame].setBackgroundColor(Color.YELLOW);
 
     }
-    // UNTIL THIS LARGE COMMENT LOL
 
     private void setFrameState(int frame){
         int frameWin = mGame.checkForFrameWinner(frame, mFrameMoveCounter[frame]);
+        int[] frameCell = frameToCell(frame);
 
         switch (frameWin){
             case 0://no win or tie in frame
                 mFrames[frame].setBackgroundColor(Color.BLACK);
+                mOutterBoard.setCell(frameCell[0],frameCell[1],mGame.getEmptyChar());
                 break;
             case 1://frame tie
                 mFrames[frame].setBackgroundColor(Color.BLACK);
+                mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getEmptyChar());
                 break;
             case 2://human/p1 frame win
                 mFrames[frame].setBackgroundColor(Color.RED);
+                mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getHumanChar());
                 break;
             case 3://comp/p2 frame win
                 mFrames[frame].setBackgroundColor(Color.BLUE);
+                mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getCompChar());
                 break;
+        }
+    }
+
+    private int[] frameToCell(int frame){
+        int[] toReturn = new int[2];
+        toReturn[0] = frame/3;
+        toReturn[1] = frame%3;
+
+        return toReturn;
+    }
+
+    private void clearOutterBoard(){
+        for (int i = 0; i < 3; i++){
+            for (int j  = 0; j < 3; j++){
+                mOutterBoard.setCell(i,j,mGame.getEmptyChar());
+            }
         }
     }
 

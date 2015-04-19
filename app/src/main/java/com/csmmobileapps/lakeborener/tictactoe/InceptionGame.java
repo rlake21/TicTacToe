@@ -1,6 +1,7 @@
 package com.csmmobileapps.lakeborener.tictactoe;
 
 import java.util.Random;
+import android.util.Log;
 
 /**
  * Created by ryanlake21 on 4/18/15.
@@ -18,7 +19,7 @@ public class InceptionGame {
     private Random rand;
 
     public InceptionGame(int difficulty){
-        inceptionBoard = new Board[3][3];
+        clearBoard();
         cpuDifficulty = difficulty;
         rand = new Random();
     }
@@ -41,6 +42,8 @@ public class InceptionGame {
 
     public boolean makeMove(int frame, int tile, char state){
         int[] cellToTry = tileToCellTuple(tile);
+        String decidedMove = Integer.toString(cellToTry[0])+" "+Integer.toString(cellToTry[1]);
+        Log.e("makeMoveDebug",decidedMove);
         if( frameToBoard(frame).getCell(cellToTry[0], cellToTry[1]) == EMPTY ) { //valid move
             frameToBoard(frame).setCell(cellToTry[0], cellToTry[1], state);
             return true;
@@ -49,7 +52,16 @@ public class InceptionGame {
             return false;
         }
     }
-    public void clearBoard(){}
+    public void clearBoard(){
+        inceptionBoard = new Board[3][3];
+        inceptionOuterGame = new Board();
+
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j< 3; j++){
+                inceptionBoard[i][j] = new Board();
+            }
+        }
+    }
     public int[] computerMove(int validFrame){
         int[] move = new int[2];
         move[0] = validFrame;
@@ -149,6 +161,29 @@ public class InceptionGame {
 
     public Board frameToBoard(int frame){
         switch( frame ) {
+            case 0:
+                return inceptionBoard[0][0];
+            case 1:
+                return inceptionBoard[0][1];
+            case 2:
+                return inceptionBoard[0][2];
+            case 3:
+                return inceptionBoard[1][0];
+            case 4:
+                return inceptionBoard[1][1];
+            case 5:
+                return inceptionBoard[1][2];
+            case 6:
+                return inceptionBoard[2][0];
+            case 7:
+                return inceptionBoard[2][1];
+            case 8:
+                return inceptionBoard[2][2];
+            case 10:
+                return inceptionOuterGame;
+            default:
+                return null;
+            /*
             case 1:
                 return inceptionBoard[0][0];
             case 2:
@@ -170,7 +205,7 @@ public class InceptionGame {
             case 10:
                 return inceptionOuterGame;
             default:
-                return null;
+                return null;*/
         }
     }
 
@@ -181,6 +216,45 @@ public class InceptionGame {
     public int[] tileToCellTuple(int tile) {
         int[] cellTuple = new int[2];
         switch( tile ) {
+            case 0:
+                cellTuple[0] = 0;
+                cellTuple[1] = 0;
+                break;
+            case 1:
+                cellTuple[0] = 0;
+                cellTuple[1] = 1;
+                break;
+            case 2:
+                cellTuple[0] = 0;
+                cellTuple[1] = 2;
+                break;
+            case 3:
+                cellTuple[0] = 1;
+                cellTuple[1] = 0;
+                break;
+            case 4:
+                cellTuple[0] = 1;
+                cellTuple[1] = 1;
+                break;
+            case 5:
+                cellTuple[0] = 1;
+                cellTuple[1] = 2;
+                break;
+            case 6:
+                cellTuple[0] = 2;
+                cellTuple[1] = 0;
+                break;
+            case 7:
+                cellTuple[0] = 2;
+                cellTuple[1] = 1;
+                break;
+            case 8:
+                cellTuple[0] = 2;
+                cellTuple[1] = 2;
+                break;
+            default:
+                return null;
+        /*
             case 1:
                 cellTuple[0] = 0;
                 cellTuple[1] = 0;
@@ -218,7 +292,7 @@ public class InceptionGame {
                 cellTuple[1] = 2;
                 break;
             default:
-                return null;
+                return null;*/
         }
         return cellTuple;
     }
