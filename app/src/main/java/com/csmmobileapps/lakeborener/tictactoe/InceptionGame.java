@@ -40,8 +40,14 @@ public class InceptionGame {
     }
 
     public boolean makeMove(int frame, int tile, char state){
-        //return true if valid move
-        return false;
+        int[] cellToTry = tileToCellTuple(tile);
+        if( frameToBoard(frame).getCell(cellToTry[0], cellToTry[1]) == EMPTY ) { //valid move
+            frameToBoard(frame).setCell(cellToTry[0], cellToTry[1], state);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     public void clearBoard(){}
     public int[] computerMove(int validFrame){
@@ -60,8 +66,8 @@ public class InceptionGame {
         return checkForFrameWinner(10, turnNumber);
     }
 
-    public int checkForFrameWinner(int frame, int frameTurnCount){ //for each frame, just like normal game... when called with
-                                                                  // checkFrameWinner(10, int totalTurnCount) finds winner of total game.
+    public int checkForFrameWinner(int frame, int frameTurnCount){ //for each frame, when called with
+                                                                  // checkFrameWinner(10, int totalTurnCount) it finds winner of the total game.
         char winnerChar = EMPTY;
         Board checkingFrame = frameToBoard(frame);
         if (checkingFrame.getCell(1, 1) != EMPTY) {
@@ -109,7 +115,7 @@ public class InceptionGame {
         return 0 if no win and no tie (still empty space on un-won board)
         return 1 if tie
         return 2 if human win
-        return 3 if computer win
+        return 3 if computer/P2 win
         */
         if( winnerChar == PLAYER_ONE) {
             return 2;
@@ -119,11 +125,11 @@ public class InceptionGame {
             return 3;
         }
 
-        else if( frame < 10 && winnerChar == EMPTY && frameTurnCount > 8 ) { //logic for individual frames of the game
+        else if( frame < 10 && winnerChar == EMPTY && frameTurnCount > 8 ) { //logic for individual frames of the game tie
             return 1;
         }
 
-        else if( frame == 10 && winnerChar == EMPTY && frameTurnCount > 80 ) { //logic for the "master" outer frame
+        else if( frame == 10 && winnerChar == EMPTY && frameTurnCount > 80 ) { //logic for the "master" outer frame tie
             return 1;
         }
 
@@ -164,8 +170,58 @@ public class InceptionGame {
         return row * 3 + col;
     }
 
+    public int[] tileToCellTuple(int tile) {
+        int[] cellTuple = new int[2];
+        switch( tile ) {
+            case 1:
+                cellTuple[0] = 0;
+                cellTuple[1] = 0;
+                break;
+            case 2:
+                cellTuple[0] = 0;
+                cellTuple[1] = 1;
+                break;
+            case 3:
+                cellTuple[0] = 0;
+                cellTuple[1] = 2;
+                break;
+            case 4:
+                cellTuple[0] = 1;
+                cellTuple[1] = 0;
+                break;
+            case 5:
+                cellTuple[0] = 1;
+                cellTuple[1] = 1;
+                break;
+            case 6:
+                cellTuple[0] = 1;
+                cellTuple[1] = 2;
+                break;
+            case 7:
+                cellTuple[0] = 2;
+                cellTuple[1] = 0;
+                break;
+            case 8:
+                cellTuple[0] = 2;
+                cellTuple[1] = 1;
+                break;
+            case 9:
+                cellTuple[0] = 2;
+                cellTuple[1] = 2;
+                break;
+            default:
+                return null;
+        }
+        return cellTuple;
+    }
+
+    public int cellTupleToTile(int[] cellTuple ) {
+        return cellTuple[0] * 3 + cellTuple[1];
+    }
+
     public void resetTile(int frame, int tile){
-        //set this tile's state to empty, for undo use
+        int[] cellTuple = tileToCellTuple(tile);
+        frameToBoard(frame).setCell(cellTuple[0], cellTuple[1], EMPTY);
     }
 
 }

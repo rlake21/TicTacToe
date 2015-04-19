@@ -70,7 +70,6 @@ public class Game {
 
         int markCount = 0;
 
-
         int[] decidedCell;
         if( cpuDifficulty == 0 ) { //make a random valid move
             int rowTry = Math.abs(rand.nextInt() % 3);
