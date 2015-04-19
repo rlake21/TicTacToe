@@ -334,26 +334,23 @@ public class InceptionGameActivity extends ActionBarActivity{
         mPlayerOneLastMove[0] = frame;
         mPlayerOneLastMove[1] = tile;
 
-
         //make sure game is not finished, if it is,
         int gameWin = mGame.checkForWinner(mMoveCounter);
 
         //no outcome yet (no win nor tie) so make computer move, record move and check win again
         if (gameWin == 0) {
-            int move[] = mGame.computerMove(mNextFrame);
+            int[] move = mGame.computerMove(mNextFrame);
             mTurnInfo.setText(R.string.comp_turn);
             setMove(move[0], move[1], mGame.getCompChar());
             mPlayerTwoLastMove = move;
             gameWin = mGame.checkForWinner(mMoveCounter);
-            mFrames[move[0]].setBackgroundColor(Color.BLACK);
-            mFrames[move[1]].setBackgroundColor(Color.YELLOW);
-            mNextFrame = move[1];
         }
 
-        //if still no outcome, set turn text to human turn
+        //if still no outcome, set turn text to human turn and frame colors
         //else display the outcome and increment counters
         if (gameWin == 0) {
             mTurnInfo.setText(R.string.human_turn);
+            mNextFrame = mPlayerTwoLastMove[1];
         } else if (gameWin == 1) { // tie outcome
             mTurnInfo.setText(R.string.outcome_tie);
             mTieIncrement++;
@@ -450,6 +447,9 @@ public class InceptionGameActivity extends ActionBarActivity{
                 mFrames[frame].setBackgroundColor(Color.BLUE);
                 break;
         }
+        //highlight next valid move and dehighlight previous valid move
+        mFrames[frame].setBackgroundColor(Color.BLACK);
+        mFrames[mNextFrame].setBackgroundColor(Color.YELLOW);
 
     }
     // UNTIL THIS LARGE COMMENT LOL
@@ -488,7 +488,6 @@ public class InceptionGameActivity extends ActionBarActivity{
                             if (!mHintable) { undoHint();}
                             if (mSinglePlayer) { singlePlayerMove(frame, tile);
                             } else { multiPlayerMove(frame, tile);}
-                            mFrames[tile].setBackgroundColor(Color.YELLOW);
                         } else { mTurnInfo.setText(R.string.noValid);}
                     }else if (buttonText == 'H') {
                         if (mHintable) { getHint();
