@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.FrameLayout;
+import java.util.Random;
 
 
 public class InceptionGameActivity extends ActionBarActivity{
@@ -50,6 +51,7 @@ public class InceptionGameActivity extends ActionBarActivity{
     private int mNextFrame;
     private int mPrevFrame;
     private int mSecondPrevFrame;
+    private Random rand;
 
 
     @Override
@@ -57,6 +59,7 @@ public class InceptionGameActivity extends ActionBarActivity{
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inception_layout);
+        rand = new Random();
 
         //Get gametype and/or difficulty
         mSinglePlayer = getIntent().getExtras().getBoolean("singlePlayer");
@@ -119,7 +122,7 @@ public class InceptionGameActivity extends ActionBarActivity{
                 mTurnInfo.setText(R.string.human_turn);
                 mPlayerOneGoesFirst = false;
             } else{
-                int[] move = mGame.computerMove(mNextFrame);
+                int[] move = mGame.computerMove(Math.abs(rand.nextInt()%9));
                 mTurnInfo.setText(R.string.comp_turn);
                 setMove(move[0], move[1], mGame.getCompChar());
                 mPlayerTwoLastMove = move;

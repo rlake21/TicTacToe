@@ -42,8 +42,6 @@ public class InceptionGame {
 
     public boolean makeMove(int frame, int tile, char state){
         int[] cellToTry = tileToCellTuple(tile);
-        String decidedMove = Integer.toString(cellToTry[0])+" "+Integer.toString(cellToTry[1]);
-        Log.e("makeMoveDebug",decidedMove);
         if( frameToBoard(frame).getCell(cellToTry[0], cellToTry[1]) == EMPTY ) { //valid move
             frameToBoard(frame).setCell(cellToTry[0], cellToTry[1], state);
             return true;
@@ -67,11 +65,11 @@ public class InceptionGame {
         move[0] = validFrame;
 
         //CPU difficulty 0 is default for now...TODO: make it super smart
-        int tile = rand.nextInt()%9;
+        int tile = Math.abs(rand.nextInt()%9);
         boolean firstTry = makeMove(validFrame, tile, PLAYER_TWO);
         if (!firstTry) {
             do {
-                tile = rand.nextInt()%9;
+                tile = Math.abs(rand.nextInt()%9);
                 firstTry = makeMove(validFrame, tile, PLAYER_TWO);
             } while (!firstTry);
         }
@@ -183,29 +181,6 @@ public class InceptionGame {
                 return inceptionOuterGame;
             default:
                 return null;
-            /*
-            case 1:
-                return inceptionBoard[0][0];
-            case 2:
-                return inceptionBoard[0][1];
-            case 3:
-                return inceptionBoard[0][2];
-            case 4:
-                return inceptionBoard[1][0];
-            case 5:
-                return inceptionBoard[1][1];
-            case 6:
-                return inceptionBoard[1][2];
-            case 7:
-                return inceptionBoard[2][0];
-            case 8:
-                return inceptionBoard[2][1];
-            case 9:
-                return inceptionBoard[2][2];
-            case 10:
-                return inceptionOuterGame;
-            default:
-                return null;*/
         }
     }
 
@@ -254,45 +229,6 @@ public class InceptionGame {
                 break;
             default:
                 return null;
-        /*
-            case 1:
-                cellTuple[0] = 0;
-                cellTuple[1] = 0;
-                break;
-            case 2:
-                cellTuple[0] = 0;
-                cellTuple[1] = 1;
-                break;
-            case 3:
-                cellTuple[0] = 0;
-                cellTuple[1] = 2;
-                break;
-            case 4:
-                cellTuple[0] = 1;
-                cellTuple[1] = 0;
-                break;
-            case 5:
-                cellTuple[0] = 1;
-                cellTuple[1] = 1;
-                break;
-            case 6:
-                cellTuple[0] = 1;
-                cellTuple[1] = 2;
-                break;
-            case 7:
-                cellTuple[0] = 2;
-                cellTuple[1] = 0;
-                break;
-            case 8:
-                cellTuple[0] = 2;
-                cellTuple[1] = 1;
-                break;
-            case 9:
-                cellTuple[0] = 2;
-                cellTuple[1] = 2;
-                break;
-            default:
-                return null;*/
         }
         return cellTuple;
     }
