@@ -51,15 +51,23 @@ public class InceptionGame {
     }
     public void clearBoard(){}
     public int[] computerMove(int validFrame){
-        int[] move = new int[2];     //use makemove to ensure that computer chooses valid move in frame
-
-        int tile = rand.nextInt()%9;
-
-
+        int[] move = new int[2];
         move[0] = validFrame;
+
+        //CPU difficulty 0 is default for now...TODO: make it super smart
+        int tile = rand.nextInt()%9;
+        boolean firstTry = makeMove(validFrame, tile, PLAYER_TWO);
+        if (!firstTry) {
+            do {
+                tile = rand.nextInt()%9;
+                firstTry = makeMove(validFrame, tile, PLAYER_TWO);
+            } while (!firstTry);
+        }
+
         move[1] = tile;
         return move;
     }
+
     public int checkForWinner(Board outerGame, int turnNumber){//for full game. Sets this class' inceptionOuterGame to
                                                               // the passed outer game value and calls checkForFrameWinner on it.
         inceptionOuterGame = outerGame;
