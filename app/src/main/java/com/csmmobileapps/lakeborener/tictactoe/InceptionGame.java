@@ -7,11 +7,10 @@ import java.util.Random;
  */
 
 
-
-
 public class InceptionGame {
 
     private Board[][] inceptionBoard;
+    private Board inceptionOuterGame;
     private int cpuDifficulty;
     public final static char PLAYER_ONE = 'X';
     public final static char PLAYER_TWO = 'O';
@@ -55,13 +54,14 @@ public class InceptionGame {
         move[1] = tile;
         return move;
     }
-    public int checkForWinner(int turnNumber){//for full game
-        //i was also thinking of passing a frameState array which holds the values (X, O or ' ')
-        //for each of the frames, it might make it easier to check for win this way, let me know
-        return 0;
+    public int checkForWinner(Board outerGame, int turnNumber){//for full game. Sets this class' inceptionOuterGame to
+                                                              // the passed outer game value and calls checkForFrameWinner on it.
+        inceptionOuterGame = outerGame;
+        return checkForFrameWinner(10, turnNumber);
     }
 
-    public int checkForFrameWinner(int frame, int frameTurnCount){ //for each frame, just like normal game
+    public int checkForFrameWinner(int frame, int frameTurnCount){ //for each frame, just like normal game... when called with
+                                                                  // checkFrameWinner(10, int totalTurnCount) finds winner of total game.
         char winnerChar = EMPTY;
         Board checkingFrame = frameToBoard(frame);
         if (checkingFrame.getCell(1, 1) != EMPTY) {
@@ -119,7 +119,11 @@ public class InceptionGame {
             return 3;
         }
 
-        else if( winnerChar == EMPTY && frameTurnCount > 8 ) {
+        else if( frame < 10 && winnerChar == EMPTY && frameTurnCount > 8 ) { //logic for individual frames of the game
+            return 1;
+        }
+
+        else if( frame == 10 && winnerChar == EMPTY && frameTurnCount > 80 ) { //logic for the "master" outer frame
             return 1;
         }
 
@@ -149,6 +153,8 @@ public class InceptionGame {
                 return inceptionBoard[2][1];
             case 9:
                 return inceptionBoard[2][2];
+            case 10:
+                return inceptionOuterGame;
             default:
                 return null;
         }
