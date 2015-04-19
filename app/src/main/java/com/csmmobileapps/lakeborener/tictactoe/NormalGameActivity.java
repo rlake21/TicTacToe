@@ -91,10 +91,10 @@ public class NormalGameActivity extends ActionBarActivity {
 
         //Initialize game
         mGame = new Game(mDifficulty);
-        startNewGame(mSinglePlayer);
+        startNewGame();
     }
 
-    private void startNewGame(boolean isOnePlayerGame){
+    private void startNewGame(){
         mGame.clearBoard();
         mMoveCounter = 0;
         mGameOver = false;
@@ -378,7 +378,7 @@ public class NormalGameActivity extends ActionBarActivity {
         //set newGame and exitGame option buttons
         switch(id){
             case R.id.newGame:
-                startNewGame(mSinglePlayer);
+                startNewGame();
                 break;
             case R.id.exitGame:
                 NormalGameActivity.this.finish();
