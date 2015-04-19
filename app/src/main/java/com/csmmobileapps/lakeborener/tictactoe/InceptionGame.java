@@ -61,7 +61,7 @@ public class InceptionGame {
     }
     public int checkForFrameWinner(int frame, int frameTurnCount){return 0;}//for each frame, just like normal game
     public void resetTile(int frame, int tile){
-        //somehow set this tile's state to empty
+        //set this tile's state to empty, for undo use
     }
 
 }

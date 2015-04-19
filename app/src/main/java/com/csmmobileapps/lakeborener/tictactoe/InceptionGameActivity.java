@@ -47,6 +47,9 @@ public class InceptionGameActivity extends ActionBarActivity{
     private boolean mIsFirstMove = true;
 
     private int mNextFrame;
+    private int mPrevFrame;
+    private int mSecondPrevFrame;
+    private int mThridPrevFrame;
 
 
     @Override
@@ -286,47 +289,56 @@ public class InceptionGameActivity extends ActionBarActivity{
         }
         mHintable = true;
     }
-    public void undoSingleMove(int frame, int tile){
-        //reset a selected move button
-        mGame.resetTile(frame, tile);
-        mButtons[frame][frame].setEnabled(true);
-        mButtons[frame][frame].setText(R.string.emptyString);
-    }
     public void undoMove(){
         //only one undo per player per turn!
 
         //make sure no hint is displayed
         undoHint();
-        int rowUndo, colUndo;
+        int frameUndo, tileUndo;
         //single player undo resets the last player and computer moves
         if(mSinglePlayer){
-            rowUndo = mPlayerTwoLastMove[0];
-            colUndo = mPlayerTwoLastMove[1];
-            undoSingleMove(rowUndo, colUndo);
-            rowUndo = mPlayerOneLastMove[0];
-            colUndo = mPlayerOneLastMove[1];
-            undoSingleMove(rowUndo, colUndo);
+            frameUndo = mPlayerTwoLastMove[0];
+            tileUndo = mPlayerTwoLastMove[1];
+            undoSingleMove(frameUndo, tileUndo);
+            frameUndo = mPlayerOneLastMove[0];
+            tileUndo = mPlayerOneLastMove[1];
+            undoSingleMove(frameUndo, tileUndo);
             mMoveCounter = mMoveCounter - 2;
             mUndoable = false;
+            mNextFrame = mPrevFrame;
+            mPrevFrame = mSecondPrevFrame;
 
             //two player undo resets only last player move
         } else {
             if (mPlayerOneTurn) {
-                rowUndo = mPlayerTwoLastMove[0];
-                colUndo = mPlayerTwoLastMove[1];
-                undoSingleMove(rowUndo, colUndo);
+                frameUndo = mPlayerTwoLastMove[0];
+                tileUndo = mPlayerTwoLastMove[1];
+                undoSingleMove(frameUndo, tileUndo);
                 mPlayerOneTurn = false;
                 mTurnInfo.setText(R.string.player_two_turn);
             } else {
-                rowUndo = mPlayerOneLastMove[0];
-                colUndo = mPlayerOneLastMove[1];
-                undoSingleMove(rowUndo, colUndo);
+                frameUndo = mPlayerOneLastMove[0];
+                tileUndo = mPlayerOneLastMove[1];
+                undoSingleMove(frameUndo, tileUndo);
                 mPlayerOneTurn = true;
                 mTurnInfo.setText(R.string.player_one_turn);
             }
+            mNextFrame = mPrevFrame;
             mUndoable = false;
             mMoveCounter--;
         }
+    }
+    public void undoSingleMove(int frame, int tile){
+        //reset a selected move button
+        mGame.resetTile(frame, tile);
+        mFrameMoveCounter[frame]--;
+        setFrameState(mNextFrame);
+        mPrevFrame = mSecondPrevFrame;
+        mNextFrame = mPrevFrame;
+
+        mFrames[mNextFrame].setBackgroundColor(Color.YELLOW);
+        mButtons[frame][tile].setEnabled(true);
+        mButtons[frame][tile].setText(R.string.emptyString);
     }
     private void singlePlayerMove(int frame, int tile){
         //set player move, record move, and check for winner
@@ -414,6 +426,8 @@ public class InceptionGameActivity extends ActionBarActivity{
     private void setMove(int frame, int tile, char player){
         mMoveCounter++;
         mFrameMoveCounter[frame]++;
+        mSecondPrevFrame = mPrevFrame;
+        mPrevFrame = mNextFrame;
         mNextFrame = tile;
         mGame.makeMove(frame, tile, player);
 
@@ -431,6 +445,14 @@ public class InceptionGameActivity extends ActionBarActivity{
             mUndoable = true;
         }
 
+        //highlight next valid move and dehighlight previous valid move
+        setFrameState(frame);
+        mFrames[mNextFrame].setBackgroundColor(Color.YELLOW);
+
+    }
+    // UNTIL THIS LARGE COMMENT LOL
+
+    private void setFrameState(int frame){
         int frameWin = mGame.checkForFrameWinner(frame, mFrameMoveCounter[frame]);
 
         switch (frameWin){
@@ -447,12 +469,7 @@ public class InceptionGameActivity extends ActionBarActivity{
                 mFrames[frame].setBackgroundColor(Color.BLUE);
                 break;
         }
-        //highlight next valid move and dehighlight previous valid move
-        mFrames[frame].setBackgroundColor(Color.BLACK);
-        mFrames[mNextFrame].setBackgroundColor(Color.YELLOW);
-
     }
-    // UNTIL THIS LARGE COMMENT LOL
 
     private class ButtonClickListener implements View.OnClickListener{
 
