@@ -1,7 +1,6 @@
 package com.csmmobileapps.lakeborener.tictactoe;
 
 import java.util.Random;
-import android.util.Log;
 
 /**
  * Created by ryanlake21 on 4/18/15.

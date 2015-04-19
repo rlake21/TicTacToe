@@ -1,8 +1,6 @@
 
 package com.csmmobileapps.lakeborener.tictactoe;
 
-import android.util.Log;
-
 import java.util.Random;
 
 public class Game {

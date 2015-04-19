@@ -466,7 +466,7 @@ public class InceptionGameActivity extends ActionBarActivity{
             mFrames[mNextFrame].setBackgroundColor(Color.YELLOW);
         }
     }
-    
+
     private boolean fullFrame(int frame){
         for (int i = 0; i < 9; i++){
             if (mButtons[frame][i].isEnabled()){
