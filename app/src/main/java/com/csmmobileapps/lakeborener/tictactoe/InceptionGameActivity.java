@@ -30,6 +30,7 @@ public class InceptionGameActivity extends ActionBarActivity{
     private TextView mPlayerOneText;
     private TextView mPlayerTwoText;
     private FrameLayout[] mFrames;
+    private char[] mFrameWins;
     private Board mOutterBoard;
 
     private int mPlayerTwoLastMove[];
@@ -87,6 +88,7 @@ public class InceptionGameActivity extends ActionBarActivity{
         mOutterBoard = new Board();
         clearOutterBoard();
         mFrameMoveCounter = new int[9];
+        mFrameWins = new char[9];
         mMoveCounter = 0;
         mGameOver = false;
         mIsFirstMove = true;
@@ -99,13 +101,13 @@ public class InceptionGameActivity extends ActionBarActivity{
                 mButtons[i][j].setText(R.string.emptyString);
                 mButtons[i][j].setOnClickListener(new ButtonClickListener(i,j,mGame.getEmptyChar()));
             }
-            mFrameMoveCounter[i] = 0;
         }
 
         //reset frames
         for (int i = 0; i < 9; i++){
             mFrameMoveCounter[i] = 0;
             mFrames[i].setBackgroundColor(Color.BLACK);
+            mFrameWins[i] = mGame.getEmptyChar();
         }
 
         mHintButton.setEnabled(true);
@@ -491,26 +493,35 @@ public class InceptionGameActivity extends ActionBarActivity{
     }
 
     private void setFrameState(int frame){
-        int frameWin = mGame.checkForFrameWinner(frame, mFrameMoveCounter[frame]);
-        int[] frameCell = frameToCell(frame);
+        // make sure frame hasnt been won
+        if(mFrameWins[frame] == mGame.getHumanChar()){
+            mFrames[frame].setBackgroundColor(Color.RED);
+        } else if (mFrameWins[frame] == mGame.getCompChar()){
+            mFrames[frame].setBackgroundColor(Color.BLUE);
+        } else { //no frame win yet, check for win
+            int frameWin = mGame.checkForFrameWinner(frame, mFrameMoveCounter[frame]);
+            int[] frameCell = frameToCell(frame);
 
-        switch (frameWin){
-            case 0://no win or tie in frame
-                mFrames[frame].setBackgroundColor(Color.BLACK);
-                mOutterBoard.setCell(frameCell[0],frameCell[1],mGame.getEmptyChar());
-                break;
-            case 1://frame tie
-                mFrames[frame].setBackgroundColor(Color.BLACK);
-                mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getEmptyChar());
-                break;
-            case 2://human/p1 frame win
-                mFrames[frame].setBackgroundColor(Color.RED);
-                mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getHumanChar());
-                break;
-            case 3://comp/p2 frame win
-                mFrames[frame].setBackgroundColor(Color.BLUE);
-                mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getCompChar());
-                break;
+            switch (frameWin) {
+                case 0://no win or tie in frame
+                    mFrames[frame].setBackgroundColor(Color.BLACK);
+                    mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getEmptyChar());
+                    break;
+                case 1://frame tie
+                    mFrames[frame].setBackgroundColor(Color.BLACK);
+                    mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getEmptyChar());
+                    break;
+                case 2://human/p1 frame win
+                    mFrames[frame].setBackgroundColor(Color.RED);
+                    mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getHumanChar());
+                    mFrameWins[frame] = mGame.getHumanChar();
+                    break;
+                case 3://comp/p2 frame win
+                    mFrames[frame].setBackgroundColor(Color.BLUE);
+                    mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getCompChar());
+                    mFrameWins[frame] = mGame.getCompChar();
+                    break;
+            }
         }
     }
 
