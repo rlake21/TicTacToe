@@ -296,19 +296,45 @@ public class Game {
                 return workBoard.getCellTuple(2, 2);
             }
 
-            //play an empty corner
-            if( makeMove(0, 0, PLAYER_TWO) ) {
-                return workBoard.getCellTuple(0, 0);
+            //play an empty corner. Picks one randomly for a more human feeling CPU
+            Cell [] corners = new Cell[4];
+            boolean corner0 = false;
+            boolean corner1 = false;
+            boolean corner2 = false;
+            boolean corner3 = false;
+            corners[0] = workBoard.getBoard()[0][0];
+            corners[1] = workBoard.getBoard()[0][2];
+            corners[2] = workBoard.getBoard()[2][0];
+            corners[3] = workBoard.getBoard()[2][2];
+
+            while( !corner0 || !corner1 || !corner2 || !corner3 ) {
+                int tempRand = rand.nextInt() % 4;
+                if( tempRand == 0 ) {
+                    corner0 = true;
+                    if( makeMove(0, 0, PLAYER_TWO) ) {
+                        return workBoard.getCellTuple(0, 0);
+                    }
+                }
+                else if( tempRand == 1 ) {
+                    corner1 = true;
+                    if( makeMove(0, 2, PLAYER_TWO) ) {
+                        return workBoard.getCellTuple(0, 2);
+                    }
+                }
+                else if( tempRand == 2 ) {
+                    corner2 = true;
+                    if( makeMove(2, 0, PLAYER_TWO) ) {
+                        return workBoard.getCellTuple(2, 0);
+                    }
+                }
+                else if( tempRand == 3 ) {
+                    corner3 = true;
+                    if( makeMove(2, 2, PLAYER_TWO) ) {
+                        return workBoard.getCellTuple(2, 2);
+                    }
+                }
             }
-            if( makeMove(0, 2, PLAYER_TWO) ) {
-                return workBoard.getCellTuple(0, 2);
-            }
-            if( makeMove(2, 0, PLAYER_TWO) ) {
-                return workBoard.getCellTuple(2, 0);
-            }
-            if( makeMove(2, 2, PLAYER_TWO) ) {
-                return workBoard.getCellTuple(2, 2);
-            }
+
             //play an empty side
             if( makeMove(0, 1, PLAYER_TWO) ) {
                 return workBoard.getCellTuple(0, 1);
