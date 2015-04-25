@@ -71,7 +71,7 @@ public class DifficultyChoiceScreen extends Activity {
                     startActivityForResult(intent, 0);
                 } else {
                     Intent intent = new Intent(DifficultyChoiceScreen.this, NormalGameActivity.class);
-                    intent.putExtra("chosenDifficulty", 1);//!!!!!!!!!!!!!todo:change back to 2!!!!
+                    intent.putExtra("chosenDifficulty", 2);
                     intent.putExtra("singlePlayer", true);
                     startActivityForResult(intent, 0);
                 }

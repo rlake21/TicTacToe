@@ -1,6 +1,8 @@
 
 package com.csmmobileapps.lakeborener.tictactoe;
 
+import android.util.Log;
+
 import java.util.Random;
 import java.util.Stack;
 
@@ -73,6 +75,7 @@ public class Game {
 
         int[] decidedCell;
         if( cpuDifficulty == 0 ) { //make a random valid move
+            Log.d("Test", "In CPU0");
             int rowTry = Math.abs(rand.nextInt() % 3);
             int colTry = Math.abs(rand.nextInt() % 3);
             boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
@@ -89,6 +92,7 @@ public class Game {
         }
 
         else if( cpuDifficulty == 1 ) { //cpu mid difficulty attempts to block anything it can but can be outsmarted by a fork
+            Log.d("Test", "In CPU1");
             //check horizontal risks
             if( (topLeft == PLAYER_ONE && topRight == PLAYER_ONE && topCenter == EMPTY) ||
                 (topCenter == PLAYER_ONE && topRight == PLAYER_ONE && topLeft == EMPTY) ||
@@ -225,7 +229,8 @@ public class Game {
         }
 
         else if( cpuDifficulty == 2) {
-            Stack possMoves = new Stack();
+            Log.d("Test", "In CPU2");
+            Stack<Integer> possMoves = new Stack<Integer>();
             int movesToTry;
             int turnNumber = 1;
             //find possible moves
@@ -242,10 +247,10 @@ public class Game {
                 turnNumber = 9;
             }
             //try moves for win
-            Stack winMoves = possMoves;
+            Stack<Integer> winMoves = (Stack<Integer>)possMoves.clone();
             for( int i = 0; i < movesToTry; i++ ) {
-                int tempRow = (Integer) winMoves.pop();
-                int tempCol = (Integer) winMoves.pop();
+                int tempRow = ((Integer) winMoves.pop()).intValue();
+                int tempCol = ((Integer) winMoves.pop()).intValue();
                 workBoard.setCell(tempRow, tempCol, PLAYER_TWO);
                 if( checkForWinner(turnNumber) == 3 ) { //this move will cause a win, make it
                     return workBoard.getCellTuple( tempRow, tempCol );
@@ -255,12 +260,13 @@ public class Game {
                 }
             }
             //try moves for simple block
-            Stack blockMoves = possMoves;
+            Stack<Integer> blockMoves = (Stack<Integer>)possMoves.clone();
             for( int i = 0; i < movesToTry; i++ ) {
                 int tempRow = (Integer) blockMoves.pop();
                 int tempCol = (Integer) blockMoves.pop();
                 workBoard.setCell(tempRow, tempCol, PLAYER_ONE);
                 if( checkForWinner(turnNumber) == 2 ) { //this move will cause a win for the human, make it
+                    workBoard.setCell(tempRow, tempCol, PLAYER_TWO); //need to set cell back to player_two
                     return workBoard.getCellTuple( tempRow, tempCol );
                 }
                 else { //reset the cell for next try
