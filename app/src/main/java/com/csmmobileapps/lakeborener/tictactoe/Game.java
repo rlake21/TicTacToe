@@ -2,6 +2,7 @@
 package com.csmmobileapps.lakeborener.tictactoe;
 
 import java.util.Random;
+import java.util.Stack;
 
 public class Game {
 
@@ -53,6 +54,8 @@ public class Game {
     }
 
     public int[] computerMove(){
+        Board workBoard = daBoard;
+
         char topLeft = daBoard.getCell(0,0);
         char topCenter = daBoard.getCell(0,1);
         char topRight = daBoard.getCell(0,2);
@@ -85,8 +88,7 @@ public class Game {
             return decidedCell;
         }
 
-        else if( cpuDifficulty == 1 ) { //cpu mid difficulty attempts to block anything it can but can be outsmarted by starting with a corner
-
+        else if( cpuDifficulty == 1 ) { //cpu mid difficulty attempts to block anything it can but can be outsmarted by a fork
             //check horizontal risks
             if( (topLeft == PLAYER_ONE && topRight == PLAYER_ONE && topCenter == EMPTY) ||
                 (topCenter == PLAYER_ONE && topRight == PLAYER_ONE && topLeft == EMPTY) ||
@@ -141,7 +143,7 @@ public class Game {
             //process information gained
             boolean valid = false;
             int rowTry = Math.abs(rand.nextInt() % 3);
-            int colTry = Math.abs(rand.nextInt() % 3);;
+            int colTry = Math.abs(rand.nextInt() % 3);
             if( markCount > 1 ) { //pick one randomly
                 while( !valid ) {
                     int firstRand = Math.abs(rand.nextInt() % 8);
@@ -220,6 +222,90 @@ public class Game {
 
                 return decidedCell;
             }
+        }
+
+        else if( cpuDifficulty == 2) {
+            Stack possMoves = new Stack();
+            int movesToTry;
+            int turnNumber = 1;
+            //find possible moves
+            for( int i = 0; i < 3; i++ ) {
+                for( int k = 0; k < 3; k++ ) {
+                    if( workBoard.getCell(i, k) == EMPTY ) {
+                        possMoves.push(new Integer(k));
+                        possMoves.push(new Integer(i));
+                    }
+                }
+            }
+            movesToTry = possMoves.size() / 2;
+            if( movesToTry == 1 ) {
+                turnNumber = 9;
+            }
+            //try moves for win
+            Stack winMoves = possMoves;
+            for( int i = 0; i < movesToTry; i++ ) {
+                int tempRow = (Integer) winMoves.pop();
+                int tempCol = (Integer) winMoves.pop();
+                workBoard.setCell(tempRow, tempCol, PLAYER_TWO);
+                if( checkForWinner(turnNumber) == 3 ) { //this move will cause a win, make it
+                    return workBoard.getCellTuple( tempRow, tempCol );
+                }
+                else { //reset the cell for next try
+                    workBoard.setCell(tempRow, tempCol, EMPTY);
+                }
+            }
+            //try moves for simple block
+            Stack blockMoves = possMoves;
+            for( int i = 0; i < movesToTry; i++ ) {
+                int tempRow = (Integer) blockMoves.pop();
+                int tempCol = (Integer) blockMoves.pop();
+                workBoard.setCell(tempRow, tempCol, PLAYER_ONE);
+                if( checkForWinner(turnNumber) == 2 ) { //this move will cause a win for the human, make it
+                    return workBoard.getCellTuple( tempRow, tempCol );
+                }
+                else { //reset the cell for next try
+                    workBoard.setCell(tempRow, tempCol, EMPTY);
+                }
+            }
+
+            //try to fork TODO
+            //detect and block human fork TODO
+
+            //play the center if possible
+            if( makeMove(1, 1, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(1, 1);
+            }
+
+            //play an opposite corner
+
+            //play an empty corner
+            if( makeMove(0, 0, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(0, 0);
+            }
+            if( makeMove(0, 2, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(0, 2);
+            }
+            if( makeMove(2, 0, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(2, 0);
+            }
+            if( makeMove(2, 2, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(2, 2);
+            }
+            //play an empty side
+            if( makeMove(0, 1, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(0, 1);
+            }
+            if( makeMove(1, 0, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(1, 0);
+            }
+            if( makeMove(1, 2, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(1, 2);
+            }
+            if( makeMove(2, 1, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(2, 1);
+            }
+
+
         }
 
         return null;
