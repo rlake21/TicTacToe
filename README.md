@@ -1,7 +1,28 @@
-# TicTacToe
+# Inception Tic-Tac-Toe
 Android app by Ryan Lake and Jess Boerner
 
 Developed on android studio
+
+Additions from Tic-Tac-Toe:
+
+Choice to play regular Tic-Tac-Toe or Inception variant
+
+CPU player has a third brain that will always win or draw. Middle CPU brain made a little better and less buggy. Bottom CPU brain still picks randomly.
+
+Various GUI improvements to help player understand inception logic.
+
+
+
+
+
+
+
+
+
+README for Tic-Tac-Toe below
+
+# TicTacToe
+
 
 Additions:
 
@@ -22,7 +43,5 @@ Difficulty screen activity and layout for 0, 1 and future 2 (disabled) cpu diffi
 New Game and Exit Game menu options in game
 
 Changed app launcher icon to tic-tac-toe board
-
-
 
 Since for the 3rd project we plan to expand this into an inception tic-tac-toe game, we will probably create a 3rd CPU brain that is very difficult to beat.
