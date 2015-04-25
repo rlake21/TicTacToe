@@ -1109,7 +1109,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"
-        android:visibility="invisible">
+        android:id="@+id/gameOverFrame">
 
         <FrameLayout
             android:layout_width="wrap_content"
