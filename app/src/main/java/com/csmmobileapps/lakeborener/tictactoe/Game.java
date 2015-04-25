@@ -283,6 +283,18 @@ public class Game {
             }
 
             //play an opposite corner
+            if( workBoard.getCell(2, 2) == PLAYER_ONE && makeMove(0, 0, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(0, 0);
+            }
+            if( workBoard.getCell(2, 0) == PLAYER_ONE && makeMove(0, 2, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(0, 2);
+            }
+            if( workBoard.getCell(0, 2) == PLAYER_ONE && makeMove(2, 0, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(2, 0);
+            }
+            if( workBoard.getCell(0, 0) == PLAYER_ONE && makeMove(2, 2, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(2, 2);
+            }
 
             //play an empty corner
             if( makeMove(0, 0, PLAYER_TWO) ) {
