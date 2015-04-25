@@ -58,24 +58,27 @@ public class Game {
     public int[] computerMove(){
         Board workBoard = daBoard;
 
-        char topLeft = daBoard.getCell(0,0);
-        char topCenter = daBoard.getCell(0,1);
-        char topRight = daBoard.getCell(0,2);
-        char midLeft = daBoard.getCell(1,0);
-        char midCenter = daBoard.getCell(1,1);
-        char midRight = daBoard.getCell(1,2);
-        char bottomLeft = daBoard.getCell(2,0);
-        char bottomCenter = daBoard.getCell(2,1);
-        char bottomRight = daBoard.getCell(2,2);
-
-        boolean markBook[] = new boolean[8];
-        for( boolean thing : markBook ) thing = false;
-
-        int markCount = 0;
+        Stack<Integer> possMoves = new Stack<Integer>();
+        Stack<Integer> winMoves;
+        Stack<Integer> blockMoves;
+        int movesToTry;
+        int turnNumber = 1;
+        //find possible moves
+        for( int i = 0; i < 3; i++ ) {
+            for( int k = 0; k < 3; k++ ) {
+                if( workBoard.getCell(i, k) == EMPTY ) {
+                    possMoves.push(new Integer(k));
+                    possMoves.push(new Integer(i));
+                }
+            }
+        }
+        movesToTry = possMoves.size() / 2;
+        if( movesToTry == 1 ) { //last move, need turn number to be 9
+            turnNumber = 9;
+        }
 
         int[] decidedCell;
         if( cpuDifficulty == 0 ) { //make a random valid move
-            Log.d("Test", "In CPU0");
             int rowTry = Math.abs(rand.nextInt() % 3);
             int colTry = Math.abs(rand.nextInt() % 3);
             boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
@@ -91,163 +94,9 @@ public class Game {
             return decidedCell;
         }
 
-        else if( cpuDifficulty == 1 ) { //cpu mid difficulty attempts to block anything it can but can be outsmarted by a fork
-            Log.d("Test", "In CPU1");
-            //check horizontal risks
-            if( (topLeft == PLAYER_ONE && topRight == PLAYER_ONE && topCenter == EMPTY) ||
-                (topCenter == PLAYER_ONE && topRight == PLAYER_ONE && topLeft == EMPTY) ||
-                (topLeft == PLAYER_ONE && topCenter == PLAYER_ONE && topRight == EMPTY)   ) {
-                markBook[0] = true;
-                markCount++;
-            }
-            if( (midLeft == PLAYER_ONE && midRight == PLAYER_ONE && midCenter == EMPTY) ||
-                (midCenter == PLAYER_ONE && midRight == PLAYER_ONE && midLeft == EMPTY) ||
-                (midLeft == PLAYER_ONE && midCenter == PLAYER_ONE && midRight == EMPTY)   ) {
-                markBook[1] = true;
-                markCount++;
-            }
-            if( (bottomLeft == PLAYER_ONE && bottomRight == PLAYER_ONE && bottomCenter == EMPTY) ||
-                (bottomCenter == PLAYER_ONE && bottomRight == PLAYER_ONE && bottomLeft == EMPTY) ||
-                (bottomLeft == PLAYER_ONE && bottomCenter == PLAYER_ONE && bottomRight == EMPTY)   ) {
-                markBook[2] = true;
-                markCount++;
-            }
-            //check vertical risks
-            if( (topLeft == PLAYER_ONE && bottomLeft == PLAYER_ONE && midLeft == EMPTY) ||
-                (topLeft == PLAYER_ONE && midLeft == PLAYER_ONE && bottomLeft == EMPTY) ||
-                (bottomLeft == PLAYER_ONE && midLeft == PLAYER_ONE && topLeft == EMPTY)   ) {
-                markBook[3] = true;
-                markCount++;
-            }
-            if( (topCenter == PLAYER_ONE && bottomCenter == PLAYER_ONE && midCenter == EMPTY) ||
-                (topCenter == PLAYER_ONE && midCenter == PLAYER_ONE && bottomCenter == EMPTY) ||
-                (bottomCenter == PLAYER_ONE && midCenter == PLAYER_ONE && topCenter == EMPTY)   ) {
-                markBook[4] = true;
-                markCount++;
-            }
-            if( (topRight == PLAYER_ONE && bottomRight == PLAYER_ONE && midRight == EMPTY) ||
-                (topRight == PLAYER_ONE && midRight == PLAYER_ONE && bottomRight == EMPTY) ||
-                (bottomRight == PLAYER_ONE && midRight == PLAYER_ONE && topRight == EMPTY)   ) {
-                markBook[5] = true;
-                markCount++;
-            }
-            //check diagonal risks
-            if( (topLeft == PLAYER_ONE && bottomRight == PLAYER_ONE && midCenter == EMPTY) ||
-                (topLeft == PLAYER_ONE && midCenter == PLAYER_ONE && bottomRight == EMPTY) ||
-                (bottomRight == PLAYER_ONE && midCenter == PLAYER_ONE && topLeft == EMPTY)   ) {
-                markBook[6] = true;
-                markCount++;
-            }
-            if( (topRight == PLAYER_ONE && bottomLeft == PLAYER_ONE && midCenter == EMPTY) ||
-                (topRight == PLAYER_ONE && midCenter == PLAYER_ONE && bottomLeft == EMPTY) ||
-                (bottomLeft == PLAYER_ONE && midCenter == PLAYER_ONE && topRight == EMPTY)   ) {
-                markBook[7] = true;
-                markCount++;
-            }
-            //process information gained
-            boolean valid = false;
-            int rowTry = Math.abs(rand.nextInt() % 3);
-            int colTry = Math.abs(rand.nextInt() % 3);
-            if( markCount > 1 ) { //pick one randomly
-                while( !valid ) {
-                    int firstRand = Math.abs(rand.nextInt() % 8);
-                    if (markBook[firstRand]) {
-                        rowTry = Math.abs(rand.nextInt() % 3);
-                        colTry = Math.abs(rand.nextInt() % 3);
-                        boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
-                        if (!firstTry) {
-                            do {
-                                rowTry = Math.abs(rand.nextInt() % 3);
-                                colTry = Math.abs(rand.nextInt() % 3);
-                                firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
-                            } while (!firstTry);
-                        }
-                        valid = true;
-                    }
-                }
-                return daBoard.getCellTuple(rowTry, colTry);
-            }
-
-            else if( markCount == 1 ) { //find the one best move
-                int count = 0;
-                for( boolean theAnswer : markBook ) {
-                    if( theAnswer ) {
-                        switch (count) {
-                            case 0:
-                                if( makeMove(0, 0, PLAYER_TWO) ) return daBoard.getCellTuple(0, 0);
-                                if( makeMove(0, 1, PLAYER_TWO) ) return daBoard.getCellTuple(0, 1);
-                                if( makeMove(0, 2, PLAYER_TWO) ) return daBoard.getCellTuple(0, 2);
-                            case 1:
-                                if( makeMove(1, 0, PLAYER_TWO) ) return daBoard.getCellTuple(1, 0);
-                                if( makeMove(1, 1, PLAYER_TWO) ) return daBoard.getCellTuple(1, 1);
-                                if( makeMove(1, 2, PLAYER_TWO) ) return daBoard.getCellTuple(1, 2);
-                            case 2:
-                                if( makeMove(2, 0, PLAYER_TWO) ) return daBoard.getCellTuple(2, 0);
-                                if( makeMove(2, 1, PLAYER_TWO) ) return daBoard.getCellTuple(2, 1);
-                                if( makeMove(2, 2, PLAYER_TWO) ) return daBoard.getCellTuple(2, 2);
-                            case 3:
-                                if( makeMove(0, 0, PLAYER_TWO) ) return daBoard.getCellTuple(0, 0);
-                                if( makeMove(1, 0, PLAYER_TWO) ) return daBoard.getCellTuple(1, 0);
-                                if( makeMove(2, 0, PLAYER_TWO) ) return daBoard.getCellTuple(2, 0);
-                            case 4:
-                                if( makeMove(0, 1, PLAYER_TWO) ) return daBoard.getCellTuple(0, 1);
-                                if( makeMove(1, 1, PLAYER_TWO) ) return daBoard.getCellTuple(1, 1);
-                                if( makeMove(2, 1, PLAYER_TWO) ) return daBoard.getCellTuple(2, 1);
-                            case 5:
-                                if( makeMove(0, 2, PLAYER_TWO) ) return daBoard.getCellTuple(0, 2);
-                                if( makeMove(1, 2, PLAYER_TWO) ) return daBoard.getCellTuple(1, 2);
-                                if( makeMove(2, 2, PLAYER_TWO) ) return daBoard.getCellTuple(2, 2);
-                            case 6:
-                                if( makeMove(0, 0, PLAYER_TWO) ) return daBoard.getCellTuple(0, 0);
-                                if( makeMove(1, 1, PLAYER_TWO) ) return daBoard.getCellTuple(1, 1);
-                                if( makeMove(2, 2, PLAYER_TWO) ) return daBoard.getCellTuple(2, 2);
-                            case 7:
-                                if( makeMove(0, 2, PLAYER_TWO) ) return daBoard.getCellTuple(0, 2);
-                                if( makeMove(1, 1, PLAYER_TWO) ) return daBoard.getCellTuple(1, 1);
-                                if( makeMove(2, 0, PLAYER_TWO) ) return daBoard.getCellTuple(2, 0);
-                        }
-                    }
-                    count++;
-                }
-            }
-
-            else if( markCount == 0 ) { //pick random
-                rowTry = Math.abs(rand.nextInt() % 3);
-                colTry = Math.abs(rand.nextInt() % 3);
-                boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
-                if (!firstTry) {
-                    do {
-                        rowTry = Math.abs(rand.nextInt() % 3);
-                        colTry = Math.abs(rand.nextInt() % 3);
-                        firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
-                    } while (!firstTry);
-                }
-                decidedCell = daBoard.getCellTuple(rowTry, colTry);
-
-                return decidedCell;
-            }
-        }
-
-        else if( cpuDifficulty == 2) {
-            Log.d("Test", "In CPU2");
-            Stack<Integer> possMoves = new Stack<Integer>();
-            int movesToTry;
-            int turnNumber = 1;
-            //find possible moves
-            for( int i = 0; i < 3; i++ ) {
-                for( int k = 0; k < 3; k++ ) {
-                    if( workBoard.getCell(i, k) == EMPTY ) {
-                        possMoves.push(new Integer(k));
-                        possMoves.push(new Integer(i));
-                    }
-                }
-            }
-            movesToTry = possMoves.size() / 2;
-            if( movesToTry == 1 ) {
-                turnNumber = 9;
-            }
+        else if( cpuDifficulty == 1 ) { //cpu mid difficulty attempts to win, then block anything it can.
             //try moves for win
-            Stack<Integer> winMoves = (Stack<Integer>)possMoves.clone();
+            winMoves = (Stack<Integer>)possMoves.clone();
             for( int i = 0; i < movesToTry; i++ ) {
                 int tempRow = ((Integer) winMoves.pop()).intValue();
                 int tempCol = ((Integer) winMoves.pop()).intValue();
@@ -260,7 +109,59 @@ public class Game {
                 }
             }
             //try moves for simple block
-            Stack<Integer> blockMoves = (Stack<Integer>)possMoves.clone();
+            blockMoves = (Stack<Integer>)possMoves.clone();
+            for( int i = 0; i < movesToTry; i++ ) {
+                int tempRow = (Integer) blockMoves.pop();
+                int tempCol = (Integer) blockMoves.pop();
+                workBoard.setCell(tempRow, tempCol, PLAYER_ONE);
+                if( checkForWinner(turnNumber) == 2 ) { //this move will cause a win for the human, make it
+                    workBoard.setCell(tempRow, tempCol, PLAYER_TWO); //need to set cell back to player_two
+                    return workBoard.getCellTuple( tempRow, tempCol );
+                }
+                else { //reset the cell for next try
+                    workBoard.setCell(tempRow, tempCol, EMPTY);
+                }
+            }
+            //no block or win... pick random
+            int rowTry = Math.abs(rand.nextInt() % 3);
+            int colTry = Math.abs(rand.nextInt() % 3);
+            boolean firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
+            if (!firstTry) {
+                do {
+                    rowTry = Math.abs(rand.nextInt() % 3);
+                    colTry = Math.abs(rand.nextInt() % 3);
+                    firstTry = makeMove(rowTry, colTry, PLAYER_TWO);
+                } while (!firstTry);
+            }
+            decidedCell = daBoard.getCellTuple(rowTry, colTry);
+
+            return decidedCell;
+
+        }
+
+        else if( cpuDifficulty == 2) {
+            if( movesToTry == 6 ) { //need to block fork if one is starting
+                if( (workBoard.getCell(0, 0) == PLAYER_ONE && workBoard.getCell(2, 2) == PLAYER_ONE)
+                 || (workBoard.getCell(0, 2) == PLAYER_ONE && workBoard.getCell(2, 0) == PLAYER_ONE) ) {
+                    turnNumber = 4;
+                }
+            }
+
+            //try moves for win
+            winMoves = (Stack<Integer>)possMoves.clone();
+            for( int i = 0; i < movesToTry; i++ ) {
+                int tempRow = ((Integer) winMoves.pop()).intValue();
+                int tempCol = ((Integer) winMoves.pop()).intValue();
+                workBoard.setCell(tempRow, tempCol, PLAYER_TWO);
+                if( checkForWinner(turnNumber) == 3 ) { //this move will cause a win, make it
+                    return workBoard.getCellTuple( tempRow, tempCol );
+                }
+                else { //reset the cell for next try
+                    workBoard.setCell(tempRow, tempCol, EMPTY);
+                }
+            }
+            //try moves for simple block
+            blockMoves = (Stack<Integer>)possMoves.clone();
             for( int i = 0; i < movesToTry; i++ ) {
                 int tempRow = (Integer) blockMoves.pop();
                 int tempCol = (Integer) blockMoves.pop();
@@ -274,11 +175,9 @@ public class Game {
                 }
             }
 
-            //try to fork TODO
-            //detect and block human fork TODO
-
-            //play the center if possible
-            if( makeMove(1, 1, PLAYER_TWO) ) {
+            //play the center if possible... skip if making the first move since a first move in the corner maximizes human player error
+            if( movesToTry < 9 && workBoard.getCell(1, 1) == EMPTY ) {
+                makeMove(1, 1, PLAYER_TWO);
                 return workBoard.getCellTuple(1, 1);
             }
 
@@ -307,7 +206,7 @@ public class Game {
             corners[2] = workBoard.getBoard()[2][0];
             corners[3] = workBoard.getBoard()[2][2];
 
-            while( !corner0 || !corner1 || !corner2 || !corner3 ) {
+            while( (!corner0 || !corner1 || !corner2 || !corner3) && turnNumber != 4 ) {
                 int tempRand = rand.nextInt() % 4;
                 if( tempRand == 0 ) {
                     corner0 = true;
@@ -335,21 +234,19 @@ public class Game {
                 }
             }
 
-            //play an empty side
-            if( makeMove(0, 1, PLAYER_TWO) ) {
-                return workBoard.getCellTuple(0, 1);
-            }
+            //play an empty side... prioritize  east and west over north and south
             if( makeMove(1, 0, PLAYER_TWO) ) {
                 return workBoard.getCellTuple(1, 0);
             }
             if( makeMove(1, 2, PLAYER_TWO) ) {
                 return workBoard.getCellTuple(1, 2);
             }
+            if( makeMove(0, 1, PLAYER_TWO) ) {
+                return workBoard.getCellTuple(0, 1);
+            }
             if( makeMove(2, 1, PLAYER_TWO) ) {
                 return workBoard.getCellTuple(2, 1);
             }
-
-
         }
 
         return null;
