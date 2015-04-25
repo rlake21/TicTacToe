@@ -521,7 +521,9 @@ public class InceptionGameActivity extends ActionBarActivity{
         if (fullFrame(mNextFrame)){
             mIsFirstMove = true; // to allow move anywhere
             mTurnInfo.setText(R.string.anyMove);
+            highlightAvailableFrames(true);
         } else{
+            highlightAvailableFrames(false);
             mFrames[mNextFrame].setBackgroundColor(YELLOW_BACKGROUND);
         }
     }
@@ -542,6 +544,20 @@ public class InceptionGameActivity extends ActionBarActivity{
             }
         }
         return true;
+    }
+
+    private void highlightAvailableFrames(boolean enabled){
+        if (enabled) {//highlight
+            for (int i = 0; i < 9; i++) {
+                if (!fullFrame(i)) {
+                    mFrames[i].setBackgroundColor(YELLOW_BACKGROUND);
+                }
+            }
+        } else { //dehighlight
+            for (int i = 0; i < 9; i++) {
+                setFrameState(i);
+            }
+        }
     }
 
     private void setFrameState(int frame){
@@ -682,9 +698,6 @@ public class InceptionGameActivity extends ActionBarActivity{
                 }
             }
         }
-    }
-    public void testingtesting(){
-        InceptionGameActivity.this.finish();
     }
 
     @Override

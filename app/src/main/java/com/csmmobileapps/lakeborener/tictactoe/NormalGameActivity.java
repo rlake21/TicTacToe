@@ -285,14 +285,6 @@ public class NormalGameActivity extends ActionBarActivity {
         }
     }
 
-    private void moveFlash(int frame, int tile){
-        final Animation animation = new AlphaAnimation(1,0);
-        animation.setDuration(500); // duration - half a second
-        animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
-        animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
-        animation.setRepeatMode(Animation.REVERSE);
-        mButtons[frame][tile].startAnimation(animation);
-    }
 
     public void multiPlayerMove(int row, int col){
         //check for whose turn, make and record move and check for win
@@ -338,6 +330,15 @@ public class NormalGameActivity extends ActionBarActivity {
             mPlayerTwoCount.setText(Integer.toString(mPlayerTwoIncrement));
             mGameOver = true;
         }
+    }
+
+    private void moveFlash(int frame, int tile){
+        final Animation animation = new AlphaAnimation(1,0);
+        animation.setDuration(500); // duration - half a second
+        animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+        animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
+        animation.setRepeatMode(Animation.REVERSE);
+        mButtons[frame][tile].startAnimation(animation);
     }
 
     public void undoSingleMove(int row, int col){
