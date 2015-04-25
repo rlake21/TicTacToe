@@ -233,8 +233,7 @@
             <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:id="@+id/frameThree"
-                android:background="#fff5ff84">
+                android:id="@+id/frameThree">
 
                 <TableRow
                     android:layout_width="fill_parent"
@@ -1105,5 +1104,56 @@
                 android:textStyle="bold" />
         </TableRow>
     </TableLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:visibility="invisible">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="125dp"
+            android:background="#ffffffff"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/newGameQuestion"
+                android:id="@+id/textView2"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:textColor="#ff000000"
+                android:textSize="25dp"
+                android:layout_margin="15dp" />
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_horizontal|bottom">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yesResponse"
+                    android:id="@+id/yesButton"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/noResponse"
+                    android:id="@+id/noButton"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp" />
+            </TableRow>
+        </FrameLayout>
+
+    </FrameLayout>
 
 </RelativeLayout>
