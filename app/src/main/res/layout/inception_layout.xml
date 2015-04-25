@@ -20,7 +20,8 @@
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="7dp"
                 android:id="@+id/frameOne"
-                android:focusable="false">
+                android:focusable="false"
+                android:alpha="100">
 
                 <TableRow
                     android:layout_width="fill_parent"
@@ -127,7 +128,8 @@
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:id="@+id/frameTwo">
+                android:id="@+id/frameTwo"
+                android:alpha="100">
 
                 <TableRow
                     android:layout_width="fill_parent"
@@ -231,7 +233,8 @@
             <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:id="@+id/frameThree">
+                android:id="@+id/frameThree"
+                android:background="#fff5ff84">
 
                 <TableRow
                     android:layout_width="fill_parent"
