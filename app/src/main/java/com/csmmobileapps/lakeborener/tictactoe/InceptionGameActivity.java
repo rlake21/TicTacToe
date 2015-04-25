@@ -110,6 +110,7 @@ public class InceptionGameActivity extends ActionBarActivity{
         mGameOver = false;
         mIsFirstMove = true;
         mUndoable = false;
+        mHintable = true;
 
         //Start button logic and frame backgrounds
         for (int i = 0; i < 9; i++){
@@ -673,7 +674,9 @@ public class InceptionGameActivity extends ActionBarActivity{
                     if (enabled) {
                         gameOverMenu(true, false);
                     } else {
-                        mGameOver = false;
+                        if (mGame.checkForWinner(mOutterBoard, mMoveCounter) == 0) {
+                            mGameOver = false;
+                        }
                         gameOverMenu(false,false);
                     }
                 }
