@@ -6,7 +6,6 @@ package com.csmmobileapps.lakeborener.tictactoe;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -113,6 +112,7 @@ public class InceptionGameActivity extends ActionBarActivity{
             for (int j = 0; j < 9; j++){
                 mButtons[i][j].setEnabled(true);
                 mButtons[i][j].setText(R.string.emptyString);
+                mButtons[i][j].clearAnimation();
                 mButtons[i][j].setOnClickListener(new ButtonClickListener(i,j,mGame.getEmptyChar()));
             }
         }
@@ -143,6 +143,7 @@ public class InceptionGameActivity extends ActionBarActivity{
                 int[] move = mGame.computerMove(Math.abs(rand.nextInt()%9)); //first comp move in random frame
                 mTurnInfo.setText(R.string.comp_turn);
                 setMove(move[0], move[1], mGame.getCompChar());
+                moveFlash(move[0], move[1]);
                 mPlayerTwoLastMove = move;
                 mPlayerOneGoesFirst = true;
                 mTurnInfo.setText(R.string.human_turn);
@@ -373,6 +374,7 @@ public class InceptionGameActivity extends ActionBarActivity{
         //reset button
         mButtons[frame][tile].setEnabled(true);
         mButtons[frame][tile].setText(R.string.emptyString);
+        mButtons[frame][tile].clearAnimation();
     }
     private void singlePlayerMove(int frame, int tile){
         //stop computer animation
@@ -390,7 +392,7 @@ public class InceptionGameActivity extends ActionBarActivity{
             int[] move = mGame.computerMove(mNextFrame);
             mTurnInfo.setText(R.string.comp_turn);
             setMove(move[0], move[1], mGame.getCompChar());
-            compMoveFlash(move[0], move[1]);
+            moveFlash(move[0], move[1]);
             mPlayerTwoLastMove = move;
             gameWin = mGame.checkForWinner(mOutterBoard, mMoveCounter);
         }
@@ -420,7 +422,7 @@ public class InceptionGameActivity extends ActionBarActivity{
             mGameOver = true;
         }
     }
-    private void compMoveFlash(int frame, int tile){
+    private void moveFlash(int frame, int tile){
         final Animation animation = new AlphaAnimation(1,0);
         animation.setDuration(500); // duration - half a second
         animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
@@ -432,13 +434,17 @@ public class InceptionGameActivity extends ActionBarActivity{
     private void multiPlayerMove(int frame, int tile){
         //check for whose turn, make and record move and check for win
         if (mPlayerOneTurn){
+            mButtons[mPlayerTwoLastMove[0]][mPlayerTwoLastMove[1]].clearAnimation();
             setMove(frame, tile, mGame.getPlayerOneChar());
             mPlayerOneLastMove[0] = frame;
             mPlayerOneLastMove[1] = tile;
+            moveFlash(frame, tile);
         } else {
+            mButtons[mPlayerOneLastMove[0]][mPlayerOneLastMove[1]].clearAnimation();
             setMove(frame, tile, mGame.getPlayerTwoChar());
             mPlayerTwoLastMove[0] = frame;
             mPlayerTwoLastMove[1] = tile;
+            moveFlash(frame, tile);
         }
         //check for win
         int win = mGame.checkForWinner(mOutterBoard, mMoveCounter);

@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.view.Window;
 import android.widget.TextView;
@@ -104,6 +107,7 @@ public class NormalGameActivity extends ActionBarActivity {
             for (int j = 0; j < 3; j++){
                 mButtons[i][j].setEnabled(true);
                 mButtons[i][j].setText(R.string.emptyString);
+                mButtons[i][j].clearAnimation();
                 mButtons[i][j].setOnClickListener(new ButtonClickListener(i,j,mGame.getEmptyChar()));
             }
         }
@@ -126,6 +130,7 @@ public class NormalGameActivity extends ActionBarActivity {
                 int[] move = mGame.computerMove();
                 mTurnInfo.setText(R.string.comp_turn);
                 setMove(move[0], move[1], mGame.getCompChar());
+                moveFlash(move[0], move[1]);
                 mPlayerTwoLastMove = move;
                 mPlayerOneGoesFirst = true;
                 mTurnInfo.setText(R.string.human_turn);
@@ -240,6 +245,8 @@ public class NormalGameActivity extends ActionBarActivity {
     }
 
     public void singlePlayerMove(int row, int col){
+        //stop computer animation
+        mButtons[mPlayerTwoLastMove[0]][mPlayerTwoLastMove[1]].clearAnimation();
         //set player move, record move, and check for winner
         setMove(row, col, mGame.getHumanChar());
         mPlayerOneLastMove[0] = row;
@@ -251,6 +258,7 @@ public class NormalGameActivity extends ActionBarActivity {
             int move[] = mGame.computerMove();
             mTurnInfo.setText(R.string.comp_turn);
             setMove(move[0], move[1], mGame.getCompChar());
+            moveFlash(move[0], move[1]);
             mPlayerTwoLastMove = move;
             win = mGame.checkForWinner(mMoveCounter);
         }
@@ -277,17 +285,30 @@ public class NormalGameActivity extends ActionBarActivity {
         }
     }
 
+    private void moveFlash(int frame, int tile){
+        final Animation animation = new AlphaAnimation(1,0);
+        animation.setDuration(500); // duration - half a second
+        animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+        animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
+        animation.setRepeatMode(Animation.REVERSE);
+        mButtons[frame][tile].startAnimation(animation);
+    }
+
     public void multiPlayerMove(int row, int col){
         //check for whose turn, make and record move and check for win
         if (mPlayerOneTurn){
+            mButtons[mPlayerTwoLastMove[0]][mPlayerTwoLastMove[1]].clearAnimation();
             setMove(row, col, mGame.getPlayerOneChar());
             mPlayerOneLastMove[0] = row;
             mPlayerOneLastMove[1] = col;
+            moveFlash(row, col);
 
         } else {
+            mButtons[mPlayerOneLastMove[0]][mPlayerOneLastMove[1]].clearAnimation();
             setMove(row, col, mGame.getPlayerTwoChar());
             mPlayerTwoLastMove[0] = row;
             mPlayerTwoLastMove[1] = col;
+            moveFlash(row, col);
         }
         int win = mGame.checkForWinner(mMoveCounter);
 
@@ -324,6 +345,7 @@ public class NormalGameActivity extends ActionBarActivity {
         mGame.getBoard().getBoard()[row][col].setState(mGame.getEmptyChar());
         mButtons[row][col].setEnabled(true);
         mButtons[row][col].setText(R.string.emptyString);
+        mButtons[row][col].clearAnimation();
     }
 
     public void undoMove(){
