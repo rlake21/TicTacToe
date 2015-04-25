@@ -80,7 +80,7 @@ public class InceptionGameActivity extends ActionBarActivity{
 
         //Get gametype and/or difficulty
         mSinglePlayer = getIntent().getExtras().getBoolean("singlePlayer");
-        if (!mSinglePlayer){mDifficulty = 1;} //hint difficulty for multiplayer, TODO:change to 2
+        if (!mSinglePlayer){mDifficulty = 2;} //hint difficulty for multiplayer,
         else{ mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");}
 
         //Initialize Buttons, Text Fields and Frames
@@ -110,6 +110,7 @@ public class InceptionGameActivity extends ActionBarActivity{
         mGameOver = false;
         mIsFirstMove = true;
         mUndoable = false;
+        mHintable = true;
 
         //Start button logic and frame backgrounds
         for (int i = 0; i < 9; i++){
@@ -421,21 +422,21 @@ public class InceptionGameActivity extends ActionBarActivity{
             mTieIncrement++;
             mTieCount.setText(Integer.toString(mTieIncrement));
             mGameOver = true;
-            gameOverMenu(true);
+            gameOverMenu(true,true);
         } else if (gameWin == 2) { // human win outcome
             setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_human);
             mPlayerOneIncrement++;
             mPlayerOneCount.setText(Integer.toString(mPlayerOneIncrement));
             mGameOver = true;
-            gameOverMenu(true);
+            gameOverMenu(true,true);
         } else if (gameWin == 3) { // computer win outcome
             setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_computer);
             mPlayerTwoIncrement++;
             mPlayerTwoCount.setText(Integer.toString(mPlayerTwoIncrement));
             mGameOver = true;
-            gameOverMenu(true);
+            gameOverMenu(true,true);
         }
     }
 
@@ -472,18 +473,21 @@ public class InceptionGameActivity extends ActionBarActivity{
             mTieIncrement++;
             mTieCount.setText(Integer.toString(mTieIncrement));
             mGameOver = true;
+            gameOverMenu(true,true);
         } else if (win == 2) {
             setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_player_one);
             mPlayerOneIncrement++;
             mPlayerOneCount.setText(Integer.toString(mPlayerOneIncrement));
             mGameOver = true;
+            gameOverMenu(true,true);
         } else if (win == 3) {
             setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_player_two);
             mPlayerTwoIncrement++;
             mPlayerTwoCount.setText(Integer.toString(mPlayerTwoIncrement));
             mGameOver = true;
+            gameOverMenu(true,true);
         }
     }
 
@@ -590,13 +594,19 @@ public class InceptionGameActivity extends ActionBarActivity{
         }
     }
 
-    private void gameOverMenu(boolean enabled){
+    private void gameOverMenu(boolean enabled, boolean newGame){
+        TextView title = (TextView) findViewById(R.id.gameOverText);
+        if (newGame) {
+            title.setText(R.string.newGameQuestion);
+        } else{
+            title.setText(R.string.exitGameQuestion);
+        }
         if (enabled){
             mGameOverFrame.setVisibility(View.VISIBLE);
             mYesButton.setEnabled(true);
-            mYesButton.setOnClickListener(new ButtonClickListener('Y', mYesButton.isEnabled()));
+            mYesButton.setOnClickListener(new ButtonClickListener('Y', newGame));
             mNoButton.setEnabled(true);
-            mNoButton.setOnClickListener(new ButtonClickListener('N', mNoButton.isEnabled()));
+            mNoButton.setOnClickListener(new ButtonClickListener('N', newGame));
         }else {
             mGameOverFrame.setVisibility(View.INVISIBLE);
             mYesButton.setEnabled(false);
@@ -653,13 +663,28 @@ public class InceptionGameActivity extends ActionBarActivity{
                 }
             } else{//game over logic
                 if (buttonText == 'Y'){
-                    gameOverMenu(false);
-                    startNewInceptionGame();
+                    if(enabled) { //new game
+                        startNewInceptionGame();
+                        gameOverMenu(false,false);
+                    } else { //quit game
+                        InceptionGameActivity.this.finish();
+                        gameOverMenu(false, false);
+                    }
                 } else if(buttonText == 'N'){
-                    gameOverMenu(false);
+                    if (enabled) {
+                        gameOverMenu(true, false);
+                    } else {
+                        if (mGame.checkForWinner(mOutterBoard, mMoveCounter) == 0) {
+                            mGameOver = false;
+                        }
+                        gameOverMenu(false,false);
+                    }
                 }
             }
         }
+    }
+    public void testingtesting(){
+        InceptionGameActivity.this.finish();
     }
 
     @Override
@@ -682,7 +707,8 @@ public class InceptionGameActivity extends ActionBarActivity{
                 startNewInceptionGame();
                 break;
             case R.id.exitGame:
-                InceptionGameActivity.this.finish();
+                mGameOver = true;
+                gameOverMenu(true,false);
                 break;
 
         }
