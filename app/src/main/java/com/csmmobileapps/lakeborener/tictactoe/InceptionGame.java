@@ -97,6 +97,7 @@ public class InceptionGame {
                 } while (!firstTry);
             }
             move[1] = tile;
+            return move;
         }
 
         else if( cpuDifficulty == 1 ) {
@@ -145,14 +146,130 @@ public class InceptionGame {
 
 
         else if( cpuDifficulty == 2 ) {
+            if( movesToTry == 6 ) { //need to block fork if one is starting
+                if( (indivFrameCheck.getCell(0, 0) == PLAYER_ONE && indivFrameCheck.getCell(2, 2) == PLAYER_ONE)
+                 || (indivFrameCheck.getCell(0, 2) == PLAYER_ONE && indivFrameCheck.getCell(2, 0) == PLAYER_ONE) ) {
+                    turnNumber = 4;
+                }
+            }
 
+            //try moves for win
+            winMoves = (Stack<Integer>)possMoves.clone();
+            for( int i = 0; i < movesToTry; i++ ) {
+                int tempRow = ((Integer) winMoves.pop()).intValue();
+                int tempCol = ((Integer) winMoves.pop()).intValue();
+                indivFrameCheck.setCell(tempRow, tempCol, PLAYER_TWO);
+                if( checkForFrameWinner(9, turnNumber) == 3 ) { //this move will cause a win, make it
+                    move[1] = boardToFrame(tempRow, tempCol);
+                    return move;
+                }
+                else { //reset the cell for next try
+                    indivFrameCheck.setCell(tempRow, tempCol, EMPTY);
+                }
+            }
+            //try moves for simple block
+            blockMoves = (Stack<Integer>)possMoves.clone();
+            for( int i = 0; i < movesToTry; i++ ) {
+                int tempRow = (Integer) blockMoves.pop();
+                int tempCol = (Integer) blockMoves.pop();
+                indivFrameCheck.setCell(tempRow, tempCol, PLAYER_ONE);
+                if( checkForFrameWinner(9, turnNumber) == 2 ) { //this move will cause a win for the human, make it
+                    indivFrameCheck.setCell(tempRow, tempCol, PLAYER_TWO); //need to set cell back to player_two
+                    move[1] = boardToFrame(tempRow, tempCol);
+                    return move;
+                }
+                else { //reset the cell for next try
+                    indivFrameCheck.setCell(tempRow, tempCol, EMPTY);
+                }
+            }
+
+            //play the center if possible... skip if making the first move since a first move in the corner maximizes human player error
+            if( movesToTry < 9 && indivFrameCheck.getCell(1, 1) == EMPTY ) {
+                makeMove(validFrame, 4, PLAYER_TWO);
+                move[1] = 4;
+                return move;
+            }
+
+            //play an opposite corner
+            if( indivFrameCheck.getCell(2, 2) == PLAYER_ONE && makeMove(validFrame, 0, PLAYER_TWO) ) {
+                move[1] = 0;
+                return move;
+            }
+            if( indivFrameCheck.getCell(2, 0) == PLAYER_ONE && makeMove(validFrame, 2, PLAYER_TWO) ) {
+                move[1] = 2;
+                return move;
+            }
+            if( indivFrameCheck.getCell(0, 2) == PLAYER_ONE && makeMove(validFrame, 6, PLAYER_TWO) ) {
+                move[1] = 6;
+                return move;
+            }
+            if( indivFrameCheck.getCell(0, 0) == PLAYER_ONE && makeMove(validFrame, 8, PLAYER_TWO) ) {
+                move[1] = 8;
+                return move;
+            }
+
+            //play an empty corner. Picks one randomly for a more human feeling CPU
+            Cell [] corners = new Cell[4];
+            boolean corner0 = false;
+            boolean corner1 = false;
+            boolean corner2 = false;
+            boolean corner3 = false;
+            corners[0] = indivFrameCheck.getBoard()[0][0];
+            corners[1] = indivFrameCheck.getBoard()[0][2];
+            corners[2] = indivFrameCheck.getBoard()[2][0];
+            corners[3] = indivFrameCheck.getBoard()[2][2];
+
+            while( (!corner0 || !corner1 || !corner2 || !corner3) && turnNumber != 4 ) {
+                int tempRand = rand.nextInt() % 4;
+                if( tempRand == 0 ) {
+                    corner0 = true;
+                    if( makeMove(validFrame, 0, PLAYER_TWO) ) {
+                        move[1] = 0;
+                        return move;
+                    }
+                }
+                else if( tempRand == 1 ) {
+                    corner1 = true;
+                    if( makeMove(validFrame, 2, PLAYER_TWO) ) {
+                        move[1] = 2;
+                        return move;
+                    }
+                }
+                else if( tempRand == 2 ) {
+                    corner2 = true;
+                    if( makeMove(validFrame, 6, PLAYER_TWO) ) {
+                        move[1] = 6;
+                        return move;
+                    }
+                }
+                else if( tempRand == 3 ) {
+                    corner3 = true;
+                    if( makeMove(validFrame, 8, PLAYER_TWO) ) {
+                        move[1] = 8;
+                        return move;
+                    }
+                }
+            }
+
+            //play an empty side... prioritize  east and west over north and south
+            if( makeMove(validFrame, 1, PLAYER_TWO) ) {
+                move[1] = 1;
+                return move;
+            }
+            if( makeMove(validFrame, 3, PLAYER_TWO) ) {
+                move[1] = 3;
+                return move;
+            }
+            if( makeMove(validFrame, 5, PLAYER_TWO) ) {
+                move[1] = 5;
+                return move;
+            }
+            if( makeMove(validFrame, 7, PLAYER_TWO) ) {
+                move[1] = 7;
+                return move;
+            }
         }
-
-
-
-
-
-        return move;
+        return null;
     }
 
     public int checkForWinner(Board outerGame, int turnNumber){//for full game. Sets this class' inceptionOuterGame to
