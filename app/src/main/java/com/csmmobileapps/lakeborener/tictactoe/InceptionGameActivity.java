@@ -23,11 +23,11 @@ public class InceptionGameActivity extends ActionBarActivity{
     private static int BLUE_BACKGROUND = Color.argb(100,0,0,255);
     private static int YELLOW_BACKGROUND = Color.argb(150,255,255,0);
     private static int BLACK_BACKGROUND = Color.argb(255,0,0,0);
-    private static int RED_MOVE = Color.argb(255,255,0,0);
-    private static int BLUE_MOVE = Color.argb(255,0,0,255);
-    private static int GREEN_MOVE = Color.argb(255,0,255,0);
+    private static int RED_CHAR = Color.argb(255,255,0,0);
+    private static int BLUE_CHAR = Color.argb(255,0,0,255);
+    private static int GREEN_CHAR = Color.argb(255,0,255,0);
 
-    private InceptionGame mGame;
+    //GUI members
     private Button mButtons[][];
     private Button mUndoButton;
     private Button mHintButton;
@@ -38,14 +38,18 @@ public class InceptionGameActivity extends ActionBarActivity{
     private TextView mPlayerOneText;
     private TextView mPlayerTwoText;
     private FrameLayout[] mFrames;
-    private char[] mFrameWins;
     private Board mOutterBoard;
 
+    //board logic
+    private InceptionGame mGame;
     private int mPlayerTwoLastMove[];
     private int mPlayerOneLastMove[];
+    private int mNextFrame;
+    private int mPrevFrame;
+    private int mSecondPrevFrame;
+    private int[] mFrameMoveCounter;
     private int mDifficulty;
     private int mMoveCounter = 0;
-    private int[] mFrameMoveCounter;
     private int mPlayerOneIncrement = 0;
     private int mPlayerTwoIncrement = 0;
     private int mTieIncrement = 0;
@@ -57,10 +61,7 @@ public class InceptionGameActivity extends ActionBarActivity{
     private boolean mPlayerOneTurn = true;
     private boolean mIsFirstMove = true;
     private boolean mWasFirstMove = false;
-
-    private int mNextFrame;
-    private int mPrevFrame;
-    private int mSecondPrevFrame;
+    private char[] mFrameWins;
     private Random rand;
 
 
@@ -73,7 +74,7 @@ public class InceptionGameActivity extends ActionBarActivity{
 
         //Get gametype and/or difficulty
         mSinglePlayer = getIntent().getExtras().getBoolean("singlePlayer");
-        if (!mSinglePlayer){mDifficulty = 1;} //hint difficulty for multiplayer
+        if (!mSinglePlayer){mDifficulty = 1;} //hint difficulty for multiplayer, TODO:change to 2
         else{ mDifficulty = getIntent().getExtras().getInt("chosenDifficulty");}
 
         //Initialize Buttons, Text Fields and Frames
@@ -92,6 +93,7 @@ public class InceptionGameActivity extends ActionBarActivity{
     }
 
     private void startNewInceptionGame(){
+        //initialize board and logic
         mGame.clearBoard();
         mOutterBoard = new Board();
         clearOutterBoard();
@@ -125,7 +127,7 @@ public class InceptionGameActivity extends ActionBarActivity{
 
 
         //Start turn and score logic
-        if (mSinglePlayer){
+        if (mSinglePlayer){ //single player
 
             mPlayerOneText.setText(R.string.human);
             mPlayerTwoText.setText(R.string.computer);
@@ -134,7 +136,7 @@ public class InceptionGameActivity extends ActionBarActivity{
                 mTurnInfo.setText(R.string.human_turn);
                 mPlayerOneGoesFirst = false;
             } else{
-                int[] move = mGame.computerMove(Math.abs(rand.nextInt()%9)); //first move in random frame
+                int[] move = mGame.computerMove(Math.abs(rand.nextInt()%9)); //first comp move in random frame
                 mTurnInfo.setText(R.string.comp_turn);
                 setMove(move[0], move[1], mGame.getCompChar());
                 mPlayerTwoLastMove = move;
@@ -143,8 +145,7 @@ public class InceptionGameActivity extends ActionBarActivity{
                 mUndoable = false;
                 mIsFirstMove = false;
             }
-
-        } else {
+        } else { //multiplayer
 
             mPlayerOneText.setText(R.string.player_one);
             mPlayerTwoText.setText(R.string.player_two);
@@ -288,14 +289,13 @@ public class InceptionGameActivity extends ActionBarActivity{
         mFrames[8] = (FrameLayout) findViewById(R.id.frameNine);
     }
 
-    // EVERYTHING BELOW THIS AND ABOVE NEXT LARGE COMMENT NEEDS CHANGING FOR INCEPTION
+
     public void getHint(){
         //only one hint per player per turn!
-
         // show what the computer would do with a green H
         int hintMove[] = mGame.computerMove(mNextFrame);
         mButtons[hintMove[0]][hintMove[1]].setText("H");
-        mButtons[hintMove[0]][hintMove[1]].setTextColor(GREEN_MOVE);
+        mButtons[hintMove[0]][hintMove[1]].setTextColor(GREEN_CHAR);
         mHintable = false;
     }
     public void undoHint(){
@@ -360,12 +360,13 @@ public class InceptionGameActivity extends ActionBarActivity{
         } else{
             mNextFrame = mPrevFrame;
         }
+        //If was first move, allow anywhere, else force move frame location
         if (mWasFirstMove) {
             mIsFirstMove = true;
-            //mWasFirstMove = false;
         } else {
             mFrames[mNextFrame].setBackgroundColor(YELLOW_BACKGROUND);
         }
+        //reset button
         mButtons[frame][tile].setEnabled(true);
         mButtons[frame][tile].setText(R.string.emptyString);
     }
@@ -419,12 +420,12 @@ public class InceptionGameActivity extends ActionBarActivity{
             setMove(frame, tile, mGame.getPlayerOneChar());
             mPlayerOneLastMove[0] = frame;
             mPlayerOneLastMove[1] = tile;
-
         } else {
             setMove(frame, tile, mGame.getPlayerTwoChar());
             mPlayerTwoLastMove[0] = frame;
             mPlayerTwoLastMove[1] = tile;
         }
+        //check for win
         int win = mGame.checkForWinner(mOutterBoard, mMoveCounter);
 
         //outcome logic, similar to singlePlayerMove logic
@@ -435,7 +436,6 @@ public class InceptionGameActivity extends ActionBarActivity{
             } else {
                 mTurnInfo.setText(R.string.player_one_turn);
                 mPlayerOneTurn = true;
-
             }
         } else if (win == 1) {
             setFrameState(mNextFrame);
@@ -459,6 +459,7 @@ public class InceptionGameActivity extends ActionBarActivity{
     }
 
     private void setMove(int frame, int tile, char player){
+        //set game logic and make move
         mMoveCounter++;
         mFrameMoveCounter[frame]++;
         mSecondPrevFrame = mPrevFrame;
@@ -466,17 +467,18 @@ public class InceptionGameActivity extends ActionBarActivity{
         mNextFrame = tile;
         mGame.makeMove(frame, tile, player);
 
+        //set button
         if (player == mGame.getEmptyChar()){
             mButtons[frame][tile].setEnabled(true);
         } else{ mButtons[frame][tile].setEnabled(false);}
 
-        // set move and color
+        // set GUI move and text color
         mButtons[frame][tile].setText(String.valueOf(player));
         if (player == mGame.getCompChar()){
-            mButtons[frame][tile].setTextColor(BLUE_MOVE);
+            mButtons[frame][tile].setTextColor(BLUE_CHAR);
             mUndoable = true;
         } else if (player == mGame.getHumanChar()){
-            mButtons[frame][tile].setTextColor(RED_MOVE);
+            mButtons[frame][tile].setTextColor(RED_CHAR);
             mUndoable = true;
         }
 
