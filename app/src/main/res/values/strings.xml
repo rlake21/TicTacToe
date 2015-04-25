@@ -44,6 +44,7 @@
     <string name = "onePlayer">One Player</string>
     <string name = "twoPlayer">Two Player</string>
     <string name = "newGameQuestion">START NEW GAME?</string>
+    <string name="exitGameQuestion">EXIT GAME?</string>
     <string name="yesResponse">YES</string>
     <string name="noResponse">NO</string>
 

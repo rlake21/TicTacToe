@@ -34,6 +34,8 @@ public class InceptionGameActivity extends ActionBarActivity{
     private Button mButtons[][];
     private Button mUndoButton;
     private Button mHintButton;
+    private Button mYesButton;
+    private Button mNoButton;
     private TextView mTurnInfo;
     private TextView mPlayerOneCount;
     private TextView mPlayerTwoCount;
@@ -41,6 +43,7 @@ public class InceptionGameActivity extends ActionBarActivity{
     private TextView mPlayerOneText;
     private TextView mPlayerTwoText;
     private FrameLayout[] mFrames;
+    private FrameLayout mGameOverFrame;
     private Board mOutterBoard;
 
     //board logic
@@ -97,9 +100,10 @@ public class InceptionGameActivity extends ActionBarActivity{
 
     private void startNewInceptionGame(){
         //initialize board and logic
+        mGameOverFrame.setVisibility(View.INVISIBLE);
         mGame.clearBoard();
         mOutterBoard = new Board();
-        clearOutterBoard();
+        clearOuterBoard();
         mFrameMoveCounter = new int[9];
         mFrameWins = new char[9];
         mMoveCounter = 0;
@@ -265,6 +269,10 @@ public class InceptionGameActivity extends ActionBarActivity{
         mButtons[8][6] = (Button) findViewById(R.id.nineSeven);
         mButtons[8][7] = (Button) findViewById(R.id.nineEight);
         mButtons[8][8] = (Button) findViewById(R.id.nineNine);
+
+        mYesButton = (Button) findViewById(R.id.yesButton);
+        mNoButton = (Button) findViewById(R.id.noButton);
+
     }
     private void initializeTextFields(){
 
@@ -292,6 +300,8 @@ public class InceptionGameActivity extends ActionBarActivity{
         mFrames[6] = (FrameLayout) findViewById(R.id.frameSeven);
         mFrames[7] = (FrameLayout) findViewById(R.id.frameEight);
         mFrames[8] = (FrameLayout) findViewById(R.id.frameNine);
+
+        mGameOverFrame = (FrameLayout) findViewById(R.id.gameOverFrame);
     }
 
 
@@ -389,6 +399,9 @@ public class InceptionGameActivity extends ActionBarActivity{
 
         //no outcome yet (no win nor tie) so make computer move, record move and check win again
         if (gameWin == 0) {
+            while (fullFrame(mNextFrame)){
+                mNextFrame = Math.abs(rand.nextInt()%9);
+            }
             int[] move = mGame.computerMove(mNextFrame);
             mTurnInfo.setText(R.string.comp_turn);
             setMove(move[0], move[1], mGame.getCompChar());
@@ -408,27 +421,22 @@ public class InceptionGameActivity extends ActionBarActivity{
             mTieIncrement++;
             mTieCount.setText(Integer.toString(mTieIncrement));
             mGameOver = true;
+            gameOverMenu(true);
         } else if (gameWin == 2) { // human win outcome
             setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_human);
             mPlayerOneIncrement++;
             mPlayerOneCount.setText(Integer.toString(mPlayerOneIncrement));
             mGameOver = true;
+            gameOverMenu(true);
         } else if (gameWin == 3) { // computer win outcome
             setFrameState(mNextFrame);
             mTurnInfo.setText(R.string.outcome_computer);
             mPlayerTwoIncrement++;
             mPlayerTwoCount.setText(Integer.toString(mPlayerTwoIncrement));
             mGameOver = true;
+            gameOverMenu(true);
         }
-    }
-    private void moveFlash(int frame, int tile){
-        final Animation animation = new AlphaAnimation(1,0);
-        animation.setDuration(500); // duration - half a second
-        animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
-        animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
-        animation.setRepeatMode(Animation.REVERSE);
-        mButtons[frame][tile].startAnimation(animation);
     }
 
     private void multiPlayerMove(int frame, int tile){
@@ -514,6 +522,15 @@ public class InceptionGameActivity extends ActionBarActivity{
         }
     }
 
+    private void moveFlash(int frame, int tile){
+        final Animation animation = new AlphaAnimation(1,0);
+        animation.setDuration(500); // duration - half a second
+        animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+        animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
+        animation.setRepeatMode(Animation.REVERSE);
+        mButtons[frame][tile].startAnimation(animation);
+    }
+
     private boolean fullFrame(int frame){
         for (int i = 0; i < 9; i++){
             if (mButtons[frame][i].isEnabled()){
@@ -565,11 +582,25 @@ public class InceptionGameActivity extends ActionBarActivity{
         return toReturn;
     }
 
-    private void clearOutterBoard(){
+    private void clearOuterBoard(){
         for (int i = 0; i < 3; i++){
             for (int j  = 0; j < 3; j++){
                 mOutterBoard.setCell(i,j,mGame.getEmptyChar());
             }
+        }
+    }
+
+    private void gameOverMenu(boolean enabled){
+        if (enabled){
+            mGameOverFrame.setVisibility(View.VISIBLE);
+            mYesButton.setEnabled(true);
+            mYesButton.setOnClickListener(new ButtonClickListener('Y', mYesButton.isEnabled()));
+            mNoButton.setEnabled(true);
+            mNoButton.setOnClickListener(new ButtonClickListener('N', mNoButton.isEnabled()));
+        }else {
+            mGameOverFrame.setVisibility(View.INVISIBLE);
+            mYesButton.setEnabled(false);
+            mNoButton.setEnabled(false);
         }
     }
 
@@ -578,6 +609,7 @@ public class InceptionGameActivity extends ActionBarActivity{
         int frame, tile;
         char buttonText;
         boolean enabled;
+        boolean startGame;//true for start new game, false for exit
 
         //initialization for move buttons
         public ButtonClickListener(int r, int c, char text){
@@ -591,8 +623,8 @@ public class InceptionGameActivity extends ActionBarActivity{
         public ButtonClickListener(char text, boolean checkEnabled){
             this.buttonText = text;
             this.enabled = checkEnabled;
-
         }
+
 
         // when clicked, check if: game over, enabled button (for valid move), which button
         public void onClick(View view){
@@ -618,6 +650,13 @@ public class InceptionGameActivity extends ActionBarActivity{
                         if (mUndoable) { undoMove();
                         } else mTurnInfo.setText(R.string.noUndo);
                     }
+                }
+            } else{//game over logic
+                if (buttonText == 'Y'){
+                    gameOverMenu(false);
+                    startNewInceptionGame();
+                } else if(buttonText == 'N'){
+                    gameOverMenu(false);
                 }
             }
         }
