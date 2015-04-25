@@ -18,6 +18,14 @@ import java.util.Random;
 
 
 public class InceptionGameActivity extends ActionBarActivity{
+    //colors
+    private static int RED_BACKGROUND = Color.argb(100,255,0,0);
+    private static int BLUE_BACKGROUND = Color.argb(100,0,0,255);
+    private static int YELLOW_BACKGROUND = Color.argb(150,255,255,0);
+    private static int BLACK_BACKGROUND = Color.argb(255,0,0,0);
+    private static int RED_MOVE = Color.argb(255,255,0,0);
+    private static int BLUE_MOVE = Color.argb(255,0,0,255);
+    private static int GREEN_MOVE = Color.argb(255,0,255,0);
 
     private InceptionGame mGame;
     private Button mButtons[][];
@@ -106,7 +114,7 @@ public class InceptionGameActivity extends ActionBarActivity{
         //reset frames
         for (int i = 0; i < 9; i++){
             mFrameMoveCounter[i] = 0;
-            mFrames[i].setBackgroundColor(Color.BLACK);
+            mFrames[i].setBackgroundColor(BLACK_BACKGROUND);
             mFrameWins[i] = mGame.getEmptyChar();
         }
 
@@ -287,7 +295,7 @@ public class InceptionGameActivity extends ActionBarActivity{
         // show what the computer would do with a green H
         int hintMove[] = mGame.computerMove(mNextFrame);
         mButtons[hintMove[0]][hintMove[1]].setText("H");
-        mButtons[hintMove[0]][hintMove[1]].setTextColor(Color.GREEN);
+        mButtons[hintMove[0]][hintMove[1]].setTextColor(GREEN_MOVE);
         mHintable = false;
     }
     public void undoHint(){
@@ -356,7 +364,7 @@ public class InceptionGameActivity extends ActionBarActivity{
             mIsFirstMove = true;
             //mWasFirstMove = false;
         } else {
-            mFrames[mNextFrame].setBackgroundColor(Color.YELLOW);
+            mFrames[mNextFrame].setBackgroundColor(YELLOW_BACKGROUND);
         }
         mButtons[frame][tile].setEnabled(true);
         mButtons[frame][tile].setText(R.string.emptyString);
@@ -465,10 +473,10 @@ public class InceptionGameActivity extends ActionBarActivity{
         // set move and color
         mButtons[frame][tile].setText(String.valueOf(player));
         if (player == mGame.getCompChar()){
-            mButtons[frame][tile].setTextColor(Color.BLUE);
+            mButtons[frame][tile].setTextColor(BLUE_MOVE);
             mUndoable = true;
         } else if (player == mGame.getHumanChar()){
-            mButtons[frame][tile].setTextColor(Color.RED);
+            mButtons[frame][tile].setTextColor(RED_MOVE);
             mUndoable = true;
         }
 
@@ -479,7 +487,7 @@ public class InceptionGameActivity extends ActionBarActivity{
             mIsFirstMove = true; // to allow move anywhere
             mTurnInfo.setText(R.string.anyMove);
         } else{
-            mFrames[mNextFrame].setBackgroundColor(Color.YELLOW);
+            mFrames[mNextFrame].setBackgroundColor(YELLOW_BACKGROUND);
         }
     }
 
@@ -495,29 +503,30 @@ public class InceptionGameActivity extends ActionBarActivity{
     private void setFrameState(int frame){
         // make sure frame hasnt been won
         if(mFrameWins[frame] == mGame.getHumanChar()){
-            mFrames[frame].setBackgroundColor(Color.RED);
+            mFrames[frame].setBackgroundColor(RED_BACKGROUND);//RED
         } else if (mFrameWins[frame] == mGame.getCompChar()){
-            mFrames[frame].setBackgroundColor(Color.BLUE);
+            mFrames[frame].setBackgroundColor(BLUE_BACKGROUND);//BLUE
         } else { //no frame win yet, check for win
             int frameWin = mGame.checkForFrameWinner(frame, mFrameMoveCounter[frame]);
             int[] frameCell = frameToCell(frame);
 
             switch (frameWin) {
                 case 0://no win or tie in frame
-                    mFrames[frame].setBackgroundColor(Color.BLACK);
+                    mFrames[frame].setBackgroundColor(BLACK_BACKGROUND);
                     mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getEmptyChar());
                     break;
                 case 1://frame tie
-                    mFrames[frame].setBackgroundColor(Color.BLACK);
+                    mFrames[frame].setBackgroundColor(BLACK_BACKGROUND);
                     mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getEmptyChar());
                     break;
                 case 2://human/p1 frame win
-                    mFrames[frame].setBackgroundColor(Color.RED);
+                    mFrames[frame].setBackgroundColor(RED_BACKGROUND);//RED
                     mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getHumanChar());
                     mFrameWins[frame] = mGame.getHumanChar();
                     break;
                 case 3://comp/p2 frame win
-                    mFrames[frame].setBackgroundColor(Color.BLUE);
+                    mFrames[frame].setBackgroundColor(BLUE_BACKGROUND);//BLUE
+                    //mFrames[frame].setAlpha(100);
                     mOutterBoard.setCell(frameCell[0], frameCell[1], mGame.getCompChar());
                     mFrameWins[frame] = mGame.getCompChar();
                     break;

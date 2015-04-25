@@ -61,8 +61,8 @@ public class DifficultyChoiceScreen extends Activity {
         ((Button) findViewById(R.id.twoDifficultyButton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //////remove this line to reenable the 2 difficulty setting (also set visibility in layout)
-                findViewById(R.id.twoDifficultyButton).setEnabled(false);
+
+
 
                 if (inceptionGame) {
                     Intent intent = new Intent(DifficultyChoiceScreen.this, InceptionGameActivity.class);

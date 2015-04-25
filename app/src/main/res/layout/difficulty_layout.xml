@@ -64,8 +64,7 @@
             android:id="@+id/twoDifficultyButton"
             android:textSize="55dp"
             android:textStyle="bold"
-            android:background="#ffff0906"
-            android:visibility="invisible" />
+            android:background="#ffff0906" />
     </TableRow>
 
     <TableRow
