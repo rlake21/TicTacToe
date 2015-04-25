@@ -6,11 +6,15 @@ package com.csmmobileapps.lakeborener.tictactoe;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.FrameLayout;
@@ -371,6 +375,8 @@ public class InceptionGameActivity extends ActionBarActivity{
         mButtons[frame][tile].setText(R.string.emptyString);
     }
     private void singlePlayerMove(int frame, int tile){
+        //stop computer animation
+        mButtons[mPlayerTwoLastMove[0]][mPlayerTwoLastMove[1]].clearAnimation();
         //set player move, record move, and check for winner
         setMove(frame, tile, mGame.getHumanChar());
         mPlayerOneLastMove[0] = frame;
@@ -384,6 +390,7 @@ public class InceptionGameActivity extends ActionBarActivity{
             int[] move = mGame.computerMove(mNextFrame);
             mTurnInfo.setText(R.string.comp_turn);
             setMove(move[0], move[1], mGame.getCompChar());
+            compMoveFlash(move[0], move[1]);
             mPlayerTwoLastMove = move;
             gameWin = mGame.checkForWinner(mOutterBoard, mMoveCounter);
         }
@@ -412,6 +419,14 @@ public class InceptionGameActivity extends ActionBarActivity{
             mPlayerTwoCount.setText(Integer.toString(mPlayerTwoIncrement));
             mGameOver = true;
         }
+    }
+    private void compMoveFlash(int frame, int tile){
+        final Animation animation = new AlphaAnimation(1,0);
+        animation.setDuration(500); // duration - half a second
+        animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+        animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
+        animation.setRepeatMode(Animation.REVERSE);
+        mButtons[frame][tile].startAnimation(animation);
     }
 
     private void multiPlayerMove(int frame, int tile){
