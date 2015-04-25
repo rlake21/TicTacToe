@@ -1,6 +1,7 @@
 package com.csmmobileapps.lakeborener.tictactoe;
 
 import java.util.Random;
+import java.util.Stack;
 
 /**
  * Created by ryanlake21 on 4/18/15.
@@ -11,6 +12,7 @@ public class InceptionGame {
 
     private Board[][] inceptionBoard;
     private Board inceptionOuterGame;
+    private Board indivFrameCheck;
     private int cpuDifficulty;
     public final static char PLAYER_ONE = 'X';
     public final static char PLAYER_TWO = 'O';
@@ -62,18 +64,94 @@ public class InceptionGame {
     public int[] computerMove(int validFrame){
         int[] move = new int[2];
         move[0] = validFrame;
+        //get valid moves from the frame
+        indivFrameCheck = frameToBoard(validFrame);
 
-        //CPU difficulty 0 is default for now...TODO: make it super smart
-        int tile = Math.abs(rand.nextInt()%9);
-        boolean firstTry = makeMove(validFrame, tile, PLAYER_TWO);
-        if (!firstTry) {
-            do {
-                tile = Math.abs(rand.nextInt()%9);
-                firstTry = makeMove(validFrame, tile, PLAYER_TWO);
-            } while (!firstTry);
+        Stack<Integer> possMoves = new Stack<Integer>();
+        Stack<Integer> winMoves;
+        Stack<Integer> blockMoves;
+        int movesToTry;
+        int turnNumber = 1;
+        //find possible moves
+        for( int i = 0; i < 3; i++ ) {
+            for( int k = 0; k < 3; k++ ) {
+                if( indivFrameCheck.getCell(i, k) == EMPTY ) {
+                    possMoves.push(new Integer(k));
+                    possMoves.push(new Integer(i));
+                }
+            }
+        }
+        movesToTry = possMoves.size() / 2;
+        if( movesToTry == 1 ) { //last move, need turn number to be 9
+            turnNumber = 9;
         }
 
-        move[1] = tile;
+
+        if( cpuDifficulty == 0 ) {
+            int tile = Math.abs(rand.nextInt() % 9);
+            boolean firstTry = makeMove(validFrame, tile, PLAYER_TWO);
+            if (!firstTry) {
+                do {
+                    tile = Math.abs(rand.nextInt() % 9);
+                    firstTry = makeMove(validFrame, tile, PLAYER_TWO);
+                } while (!firstTry);
+            }
+            move[1] = tile;
+        }
+
+        else if( cpuDifficulty == 1 ) {
+            //try moves for win
+            winMoves = (Stack<Integer>)possMoves.clone();
+            for( int i = 0; i < movesToTry; i++ ) {
+                int tempRow = ((Integer) winMoves.pop()).intValue();
+                int tempCol = ((Integer) winMoves.pop()).intValue();
+                indivFrameCheck.setCell(tempRow, tempCol, PLAYER_TWO);
+                if( checkForFrameWinner(9, turnNumber) == 3 ) { //this move will cause a win, make it
+                    move[1] = boardToFrame(tempRow, tempCol);
+                    return move;
+                }
+                else { //reset the cell for next try
+                    indivFrameCheck.setCell(tempRow, tempCol, EMPTY);
+                }
+            }
+            //try moves for simple block
+            blockMoves = (Stack<Integer>)possMoves.clone();
+            for( int i = 0; i < movesToTry; i++ ) {
+                int tempRow = (Integer) blockMoves.pop();
+                int tempCol = (Integer) blockMoves.pop();
+                indivFrameCheck.setCell(tempRow, tempCol, PLAYER_ONE);
+                if( checkForFrameWinner(9, turnNumber) == 2 ) { //this move will cause a win for the human, make it
+                    indivFrameCheck.setCell(tempRow, tempCol, PLAYER_TWO); //need to set cell back to player_two
+                    move[1] = boardToFrame(tempRow, tempCol);
+                    return move;
+                }
+                else { //reset the cell for next try
+                    indivFrameCheck.setCell(tempRow, tempCol, EMPTY);
+                }
+            }
+
+            //pick rand otherwise
+            int tile = Math.abs(rand.nextInt() % 9);
+            boolean firstTry = makeMove(validFrame, tile, PLAYER_TWO);
+            if (!firstTry) {
+                do {
+                    tile = Math.abs(rand.nextInt() % 9);
+                    firstTry = makeMove(validFrame, tile, PLAYER_TWO);
+                } while (!firstTry);
+            }
+            move[1] = tile;
+            return move;
+        }
+
+
+        else if( cpuDifficulty == 2 ) {
+
+        }
+
+
+
+
+
         return move;
     }
 
@@ -176,6 +254,8 @@ public class InceptionGame {
                 return inceptionBoard[2][1];
             case 8:
                 return inceptionBoard[2][2];
+            case 9:
+                return indivFrameCheck;
             case 10:
                 return inceptionOuterGame;
             default:
