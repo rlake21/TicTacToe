@@ -252,16 +252,16 @@ public class InceptionGame {
             }
 
             //play an empty side... prioritize  east and west over north and south
-            if( makeMove(validFrame, 1, PLAYER_TWO) ) {
-                move[1] = 1;
-                return move;
-            }
             if( makeMove(validFrame, 3, PLAYER_TWO) ) {
                 move[1] = 3;
                 return move;
             }
             if( makeMove(validFrame, 5, PLAYER_TWO) ) {
                 move[1] = 5;
+                return move;
+            }
+            if( makeMove(validFrame, 1, PLAYER_TWO) ) {
+                move[1] = 1;
                 return move;
             }
             if( makeMove(validFrame, 7, PLAYER_TWO) ) {
