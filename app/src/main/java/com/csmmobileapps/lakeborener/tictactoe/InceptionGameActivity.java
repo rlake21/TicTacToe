@@ -308,7 +308,7 @@ public class InceptionGameActivity extends ActionBarActivity{
 
     public void getHint(){
         //only one hint per player per turn!
-        // show what the computer would do with a green H
+        // show what the computer would do with a green "H", kinda hard to see, change later
         int hintMove[] = mGame.computerMove(mNextFrame);
         mButtons[hintMove[0]][hintMove[1]].setText("H");
         mButtons[hintMove[0]][hintMove[1]].setTextColor(GREEN_CHAR);
